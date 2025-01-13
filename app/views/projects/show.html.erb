@@ -2,4 +2,18 @@
   <%= image_tag @project.cover_photo, class: "w-full h-44 object-cover" %>
   <h1 class="font-bold text-xl mt-6"><%= @project.name %></h1>
   <p><%= @project.description %></p>
+
+  <div>
+    <% @project.container_blocks.each do |container_block| %>
+      <div class="<%= container_block.class_list.join(" ") %>">
+        <% container_block.content_blocks.each do |content_block| %>
+          <div class="<%= content_block.class_list.join(" ") %>">
+            <% if content_block.text_block? %>
+              <%= content_block.text_block.text %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>

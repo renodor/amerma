@@ -1,0 +1,10 @@
+<div class="w-full m-6 bg-white p-4">
+  <%= form_with model: [:admin, @project], method: :put, class: "flex flex-col gap-4" do |form| %>
+    <%= form.file_field :cover_photo %>
+    <%= image_tag @project.cover_photo, class: "w-full h-44 object-cover" %>
+    <%= form.text_field :name, placeholder: :name, class: "w-full border p-3 font-bold text-xl" %>
+    <%= form.text_field :description, placeholder: :description, class: "w-full border p-3" %>
+    <%= form.rich_textarea :content %>
+    <%= form.submit "Save" %>
+<% end %>
+</div>

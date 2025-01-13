@@ -12,4 +12,8 @@ Rails.application.routes.draw do
   root "home#home"
 
   resources :projects, only: %i[index show]
+
+  namespace :admin do
+    resources :projects, only: %i[index new create edit update destroy]
+  end
 end
