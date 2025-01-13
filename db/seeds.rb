@@ -1,9 +1,32 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# db/seeds.rb
+
+puts "Deleting all records..."
+Project.delete_all
+ProjectCategory.delete_all
+
+puts "Creating project categories..."
+categories = [
+  { name: "Market studies", description: "Projects related to market studies" },
+  { name: "Industry Support", description: "Projects related to industry support" },
+  { name: "Low tech industries", description: "Projects related to low tech industries" }
+]
+
+categories.each do |category_attrs|
+  category = ProjectCategory.create!(category_attrs)
+  puts "Created project category: #{category.name}"
+
+  5.times do |i|
+    project_attrs = {
+      name: "Project #{i + 1} - #{category.name}",
+      description: "Description for project #{i + 1} in #{category.name}",
+      status: ["planned", "in_progress", "completed"].sample,
+      start_date: Date.today - rand(100).days,
+      end_date: Date.today + rand(100).days,
+      featured: [true, false].sample
+    }
+    project = category.projects.create!(project_attrs)
+    puts "  Created project: #{project.name}, Featured: #{project.featured}"
+  end
+end
+
+puts "Seeding completed."

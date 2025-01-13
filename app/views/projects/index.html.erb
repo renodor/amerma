@@ -1,0 +1,28 @@
+<div class="my-10">
+  <% @project_categories.each do |project_category| %>
+    <div>
+      <h2 class="font-bold text-xl"><%= project_category.name %></h2>
+      <p><%= project_category.description %></p>
+
+      <div class="flex flex-wrap gap-4 my-6">
+        <% project_category.projects.each do |project| %>
+          <%= link_to project_path(project), class: "border border-gray-300 p-4" do %>
+            <h3 class="font-bold mb-3"><%= project.name %></h3>
+            <p class="my-1"><%= project.description %></p>
+            <p class="my-1"><%= project.start_date.strftime("%d %b %Y") %> - <%= project.end_date.strftime("%d %b %Y") %></p>
+            <p class="my-1">
+              <% case project.status %>
+                <% when "planned" %>
+                  <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full">Planned</span>
+                <% when "in_progress" %>
+                  <span class="bg-blue-200 text-blue-800 px-2 py-1 rounded-full">In Progress</span>
+                <% when "completed" %>
+                  <span class="bg-green-200 text-green-800 px-2 py-1 rounded-full">Completed</span>
+              <% end %>
+            </p>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,12 @@
+<nav class="w-full bg-gray-800 p-4">
+  <div class="container mx-auto flex justify-between items-center">
+    <div class="text-white text-lg font-bold">
+      <%= link_to "Brand", root_path %>
+    </div>
+    <div class="flex gap-4">
+      <%= link_to t("who_are_we"), "#", class: "text-gray-300 hover:text-white" %>
+      <%= link_to t("projects"), projects_path, class: "text-gray-300 hover:text-white" %>
+      <%= link_to t("contact"), "#", class: "text-gray-300 hover:text-white" %>
+    </div>
+  </div>
+</nav>
