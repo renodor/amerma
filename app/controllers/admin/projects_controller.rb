@@ -17,6 +17,7 @@ class Admin::ProjectsController < ApplicationController
       flash.now[:success] = t("project_updated")
       render turbo_stream: turbo_stream.update("flash", partial: "shared/flash")
     else
+      # TODO
     end
   end
 
