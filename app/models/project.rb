@@ -1,7 +1,13 @@
 class Project < ApplicationRecord
   belongs_to :project_category
   has_many :container_blocks, as: :containerable, dependent: :destroy
-  has_one_attached :cover_photo
+  has_one_attached :cover_photo do |attachable|
+    attachable.variant :thumb, resize_to_limit: [200, 130]
+  end
+
+  accepts_nested_attributes_for :container_blocks, allow_destroy: true
+
+  scope :visible, -> { where(visible: true) }
 
   validates :name, presence: true
 

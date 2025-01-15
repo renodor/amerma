@@ -5,9 +5,11 @@
       <p><%= project_category.description %></p>
 
       <div class="flex flex-wrap gap-4 my-6">
-        <% project_category.projects.each do |project| %>
+        <% project_category.projects.visible.each do |project| %>
           <%= link_to project_path(project), class: "border border-gray-300" do %>
-            <%= image_tag project.cover_photo, class: "w-full h-20 object-cover" %>
+            <% if project.cover_photo.attached? %>
+              <%= image_tag project.cover_photo, class: "w-full h-20 object-cover" %>
+            <% end %>
             <div class="p-4">
               <h3 class="font-bold mb-3"><%= project.name %></h3>
               <p class="my-1"><%= project.description %></p>

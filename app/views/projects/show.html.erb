@@ -1,5 +1,7 @@
 <div class="w-full my-10">
-  <%= image_tag @project.cover_photo, class: "w-full h-44 object-cover" %>
+  <% if @project.cover_photo.attached? %>
+    <%= image_tag @project.cover_photo, class: "w-full h-44 object-cover" %>  
+  <% end %>
   <h1 class="font-bold text-xl mt-6"><%= @project.name %></h1>
   <p><%= @project.description %></p>
 

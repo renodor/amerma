@@ -21,8 +21,11 @@
 
   <body class="flex">
     <%= render "shared/admin_sidebar" %>
-    <main class="container mx-auto flex bg-slate-100">
+    <main class="min-h-full w-full p-8 bg-stone-100">
       <%= yield %>
     </main>
+    <%= turbo_frame_tag "flash" do %>
+      <%= render "shared/flash" %>
+    <% end %>
   </body>
 </html>

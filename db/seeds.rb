@@ -41,6 +41,7 @@ categories.each_with_index do |category_attrs, i|
       start_date: Date.today - rand(100).days,
       end_date: Date.today + rand(100).days,
       featured: [true, false].sample,
+      visible: [true, false].sample
     )
 
     project.cover_photo.attach(io: URI.parse(project_cover_photos[(i * 5) + j]).open, filename: "#{project.name} - cover photo", content_type: "image/jpg")

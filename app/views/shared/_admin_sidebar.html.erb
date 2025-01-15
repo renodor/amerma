@@ -1,6 +1,22 @@
-<aside class="w-60 min-h-screen bg-gray-800 p-4 flex flex-col">
-  <%= link_to "Brand", root_path, class: "text-white text-lg font-bold" %>
-  <%= link_to t("who_are_we"), "#", class: "text-gray-300 hover:text-white" %>
-  <%= link_to t("projects"), admin_projects_path, class: "text-gray-300 hover:text-white" %>
-  <%= link_to t("contact"), "#", class: "text-gray-300 hover:text-white" %>
+<aside class="w-60 px-6 py-8 min-h-screen bg-slate-950 flex flex-col gap-10">
+  <%= link_to root_path, class: "flex justify-center" do %>
+    <%= image_tag "logo.png", class: "w-24" %>
+  <% end %>
+  <%=
+    link_to root_path,
+    class: "flex items-start p-3 text-stone-300 border border-stone-500 rounded transition-colors hover:bg-slate-900 ",
+    target: :_blank do
+  %>
+    <div>
+      <span class="font-bold">Amerma</span>
+      <span class="text-sm"><%= root_url %></span>
+    </div>
+    <%= inline_svg_tag("icons/arrow-top-right-on-square.svg", class: "w-5 shrink-0") %>
+  <% end %>
+  <div class="flex flex-col gap-1">
+    <%= sidebar_link(t("projects"), admin_projects_path) %>
+    <%= sidebar_link(t("team_members"), admin_team_members_path) %>
+    <%= sidebar_link(t("who_we_are?"), "#") %>
+    <%= sidebar_link(t("contact"), "#") %>
+  </div>
 </aside>

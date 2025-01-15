@@ -15,5 +15,6 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :projects, only: %i[index new create edit update destroy]
+    resources :team_members, only: %i[index new create edit update destroy]
   end
 end

@@ -12,6 +12,14 @@ module.exports = {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
+      colors: {
+        "amerma-blue": "#1366B0",
+        "amerma-light-blue": "#BBCBCB",
+        "amerma-dark-blue": "#1C1D21",
+        "amerma-red": "#B0413E",
+        "amerma-green": "#BBCBCB",
+        "amerma-light-green": "#D1F5BE"
+      }
     },
   },
   plugins: [
