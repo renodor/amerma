@@ -1,0 +1,9 @@
+<%= form_with model: [:admin, project, container_block, content_block.text_block], class: "flex flex-col gap-4" do |form| %>
+  <%= hidden_field_tag "content_block[position]", content_block.position, class: dom_id(content_block, :position) %>
+  <%= hidden_field_tag "content_block[class_list][]", "flex" %>
+  <%= hidden_field_tag "content_block[class_list][]", "justify-center" %>
+  <%= hidden_field_tag "content_block[class_list][]", "items-center" %>
+
+  <%= form.rich_textarea :text, id: form.object.object_id %>
+  <%= form.submit class: "admin-btn-primary cursor-pointer", data: { action: "click->modal#closeModal" } %>
+<% end %>

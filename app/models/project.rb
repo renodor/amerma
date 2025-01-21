@@ -5,8 +5,6 @@ class Project < ApplicationRecord
     attachable.variant :thumb, resize_to_limit: [200, 130]
   end
 
-  accepts_nested_attributes_for :container_blocks, allow_destroy: true
-
   scope :visible, -> { where(visible: true) }
 
   validates :name, presence: true

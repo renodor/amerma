@@ -5,10 +5,7 @@ export default class extends Controller {
     "coverPhotoContainer",
     "imageInput",
     "imagePreview",
-    "removeCoverPhotoInput",
-    "newContainerModal",
-    "containerBlockClassListInput",
-    "containerPreview"
+    "removeCoverPhotoInput"
   ]
 
   imageUploaded({ currentTarget}) {
@@ -22,41 +19,9 @@ export default class extends Controller {
     }
   }
 
-  removeImage({ currentTarget }) {
-    const imageInput = this.imageInputTargets.find((imagePreview) => imagePreview.dataset.id == currentTarget.dataset.id)
-
-    if (imageInput) {
-      this.coverPhotoContainerTarget.dataset.hasCoverPhoto = false
-      this.removeCoverPhotoInputTarget.disabled = false
-      imageInput.value = ""
-    }
+  removeImage() {
+    this.coverPhotoContainerTarget.dataset.hasCoverPhoto = false
+    this.removeCoverPhotoInputTarget.disabled = false
+    this.imageInputTarget.value = ""
   }
-
-  showNewContainerModal() {
-    this.newContainerModalTarget.showModal()
-  }
-
-  updateContainerBlockClassList({ currentTarget }) {
-    this.containerBlockClassListInputTargets.forEach((input) => {
-      if (input.dataset.type == currentTarget.dataset.type) {
-        input.disabled = input.dataset.value !== currentTarget.dataset.value
-      }
-    })
-
-    this.containerPreviewTarget.dataset[currentTarget.dataset.type] = currentTarget.dataset.value
-  }
-
-//   const dialog = document.querySelector("dialog");
-// const showButton = document.querySelector("dialog + button");
-// const closeButton = document.querySelector("dialog button");
-
-// // "Show the dialog" button opens the dialog modally
-// showButton.addEventListener("click", () => {
-//   dialog.showModal();
-// });
-
-// // "Close" button closes the dialog
-// closeButton.addEventListener("click", () => {
-//   dialog.close();
-// });
 }

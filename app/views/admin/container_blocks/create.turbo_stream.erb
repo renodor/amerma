@@ -1,0 +1,9 @@
+<%= turbo_stream.append dom_id(@project, :container_blocks) do %>
+  <%= render @container_block, project: @project %>
+<% end %>
+
+<%= turbo_stream.replace dom_id(ContainerBlock.new, :position) do %>
+  <%= hidden_field_tag "container_block[position]", @container_block.position + 1, id: dom_id(ContainerBlock.new, :position) %>
+<% end %>
+
+<%= turbo_stream.update "flash", partial: "shared/flash" %>

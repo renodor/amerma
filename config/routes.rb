@@ -14,7 +14,16 @@ Rails.application.routes.draw do
   resources :projects, only: %i[index show]
 
   namespace :admin do
-    resources :projects, only: %i[index new create edit update destroy]
+    resources :projects, only: %i[index new create show edit update destroy] do
+      resources :container_blocks, only: %i[create update destroy] do
+        member do
+          get :update_position
+        end
+        resources :text_blocks, only: %i[create update]
+        resources :image_blocks, only: %i[create update]
+        resources :content_blocks, only: :destroy
+      end
+    end
     resources :team_members, only: %i[index new create edit update destroy]
   end
 end

@@ -1,6 +1,6 @@
 <% flash.each do |flash_type, message| %>
   <div class="fixed bottom-0 left-0 w-full" data-controller="flash">
-    <div class="flex justify-center items-center gap-4 bg-green-200 text-green-700 m-3 rounded text-white">
+    <div class="flex justify-center items-center gap-4 bg-green-200 text-green-700 m-3 rounded">
       <div class="grow flex justify-center items-center gap-2 p-5">
         <%= inline_svg_tag("icons/check-circle.svg", class: "text-green-700 w-6") %>
         <%= message %>

@@ -1,0 +1,5 @@
+<%= turbo_stream.update @project do %>
+  <%= render @project %>
+<% end %>
+
+<%= turbo_stream.update "flash", partial: "shared/flash" %>

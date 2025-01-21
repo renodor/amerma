@@ -5,3 +5,8 @@ fr:
   partnerships: "Partenariats"
   contact: "Contact"
   save: "Sauvegarder"
+  add_container: "Ajouter le container"
+  edit_container: "Modifier le container"
+  title_optional: "Titre (optionnel)"
+  subtitle_optional: "Sous-titre (optionnel)"
+  caption_optional: "Légende (optionnel)"

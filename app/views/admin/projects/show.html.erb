@@ -1,0 +1,47 @@
+<div class="flex justify-between items-center mb-6">
+  <h1 class="text-2xl font-bold mb-4"><%= t("edit") %> <%= @project.name %></h1>
+  <div class="flex gap-4">
+    <%= link_to t("view_project"), project_path(@project), class: "admin-btn-secondary" %>
+    <%= link_to t("delete_project"), admin_project_path(@project), method: :delete, class: "admin-btn-delete" %>
+  </div>
+</div>
+
+<div class="flex flex-col gap-4">
+  <%= turbo_frame_tag @project do %>
+    <%= render @project %>
+  <% end %>
+
+  <div id="<%= dom_id(@project, :container_blocks) %>" class="flex flex-col gap-4">
+    <%= render @project.container_blocks.ordered, project: @project %>
+  </div>
+
+  <div data-controller="modal">
+    <%=
+      button_tag type: :button,
+      class: "admin-btn-secondary",
+      data: { action: "click->modal#showModal" } do
+    %>
+      <%= inline_svg_tag("icons/plus.svg", class: "w-5") %>
+      <span><%= t("container") %></span>
+    <% end %>
+
+    <dialog class="backdrop:bg-black/60 p-4 rounded" data-modal-target="dialog">
+      <div class="flex flex-col gap-4">
+        <div class="flex items-center">
+          <h3 class="grow font-bold"><%= t("new_container") %></h3>
+          <button data-action="click->modal#closeModal">
+            <%= inline_svg_tag("icons/x-mark.svg", class: "w-6 text-black hover:opacity-70") %>
+          </button>
+        </div>
+        <%=
+          render "admin/container_blocks/form",
+          container_block: ContainerBlock.new(
+            class_list: ["grid", "grid-cols-auto", "gap-6"],
+            position: @project.container_blocks.ordered.last&.position.to_i + 1
+          ),
+          project: @project
+        %>
+      </div>
+    </dialog>
+  </div>
+</div>

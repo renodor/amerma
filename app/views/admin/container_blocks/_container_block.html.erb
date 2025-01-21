@@ -1,0 +1,124 @@
+<section id=<%= dom_id(container_block) %> class="bg-white flex flex-col gap-4 border rounded p-3">
+  <h1 class="text-bold"><%= container_block.position %></h1>
+  <div id=<%= dom_id(container_block, :content_blocks) %> class="<%= container_block.class_list.join(" ") %>">
+    <%=
+      render container_block.content_blocks,
+      container_block: container_block,
+      project: project
+    %>
+  </div>
+
+  <div class="flex justify-between gap-4">
+    <div class="flex gap-3">
+      <div data-controller="modal">
+        <%=
+          button_tag type: :button,
+          class: "admin-btn-secondary text-sm px-3 py-1",
+          data: { action: "click->modal#showModal" } do
+        %>
+          <%= inline_svg_tag("icons/plus.svg", class: "w-5") %>
+          <span><%= t("text") %></span>
+        <% end %>
+
+        <dialog class="backdrop:bg-black/60 p-4 w-[600px] rounded" data-modal-target="dialog">
+          <div class="flex flex-col gap-4">
+            <div class="flex items-center">
+              <h3 class="grow font-bold"><%= t("new_text") %></h3>
+              <button data-action="click->modal#closeModal">
+                <%= inline_svg_tag("icons/x-mark.svg", class: "w-6 text-black hover:opacity-70") %>
+              </button>
+            </div>
+            <%=
+              render "admin/text_blocks/form",
+              content_block: container_block.content_blocks.new(
+                position: container_block.content_blocks.ordered.last&.position.to_i + 1,
+                contentable: TextBlock.new
+              ),
+              container_block: container_block,
+              project: project
+            %>
+          </div>
+        </dialog>
+      </div>
+      <div data-controller="modal">
+        <%=
+          button_tag type: :button,
+          class: "admin-btn-secondary text-sm px-3 py-1",
+          data: { action: "click->modal#showModal" } do
+        %>
+          <%= inline_svg_tag("icons/plus.svg", class: "w-5") %>
+          <span><%= t("image") %></span>
+        <% end %>
+
+        <dialog class="backdrop:bg-black/60 p-4 rounded" data-modal-target="dialog">
+          <div class="flex flex-col gap-4">
+            <div class="flex items-center">
+              <h3 class="grow font-bold"><%= t("new_image") %></h3>
+              <button data-action="click->modal#closeModal">
+                <%= inline_svg_tag("icons/x-mark.svg", class: "w-6 text-black hover:opacity-70") %>
+              </button>
+            </div>
+            <%=
+              render "admin/image_blocks/form",
+              content_block: container_block.content_blocks.new(
+                position: container_block.content_blocks.ordered.last&.position.to_i + 1,
+                contentable: ImageBlock.new
+              ),
+              container_block: container_block,
+              project: project
+            %>
+          </div>
+        </dialog>
+      </div>
+    </div>
+
+    <div class="flex gap-3">
+      <%=
+        link_to inline_svg_tag("icons/chevron-up.svg", class: "w-5 rotate-180"),
+        update_position_admin_project_container_block_path(project, container_block, direction: "up"),
+        data: { turbo_stream: true },
+        class: "admin-btn-secondary text-sm px-2 py-1"
+      %>
+      <%=
+        link_to inline_svg_tag("icons/chevron-up.svg", class: "w-5"),
+        update_position_admin_project_container_block_path(project, container_block, direction: "down"),
+        data: { turbo_stream: true },
+        class: "admin-btn-secondary text-sm px-2 py-1"
+      %>
+      <div data-controller="modal">
+        <%=
+          button_tag type: :button,
+          class: "admin-btn-secondary text-sm px-3 py-1",
+          data: { action: "click->modal#showModal" } do
+        %>
+          <span><%= t("edit") %></span>
+        <% end %>
+
+        <dialog class="backdrop:bg-black/60 p-4 rounded" data-modal-target="dialog">
+          <div class="flex flex-col gap-4">
+            <div class="flex items-center">
+              <h3 class="grow font-bold"><%= t("edit_container") %></h3>
+              <button data-action="click->modal#closeModal">
+                <%= inline_svg_tag("icons/x-mark.svg", class: "w-6 text-black hover:opacity-70") %>
+              </button>
+            </div>
+            <%=
+              render "admin/container_blocks/form",
+              container_block: container_block,
+              project: project,
+              position: container_block.position
+            %>
+          </div>
+        </dialog>
+      </div>
+      <%=
+        button_to t("remove"),
+        admin_project_container_block_path(project, container_block),
+        method: :delete,
+        class: "admin-btn-delete text-sm px-3 py-1",
+        form: { data: { turbo_confirm: t("are_you_sure?") } }
+      %>
+    </div>
+  </div>
+</section>
+

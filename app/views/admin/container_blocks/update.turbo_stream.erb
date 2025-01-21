@@ -1,0 +1,5 @@
+<%= turbo_stream.replace dom_id(@container_block) do %>
+  <%= render @container_block, project: @project %>
+<% end %>
+
+<%= turbo_stream.update "flash", partial: "shared/flash" %>

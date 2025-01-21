@@ -1,0 +1,45 @@
+<%= form_with model: [:admin, project, container_block, content_block.image_block], class: "flex flex-col gap-4" do |form| %>
+  <%= hidden_field_tag "content_block[position]", content_block.position, class: dom_id(content_block, :position) %>
+  <%= hidden_field_tag "content_block[class_list][]", "flex" %>
+  <%= hidden_field_tag "content_block[class_list][]", "justify-center" %>
+  <%= hidden_field_tag "content_block[class_list][]", "items-center" %>
+
+  <%= form.text_field :title, placeholder: t("title_optional"), class: "border rounded p-3 text-lg font-bold" %>
+  <%= form.text_field :subtitle, placeholder: t("subtitle_optional"), class: "border rounded p-3" %>
+
+  <div
+    class="border rounded p-3 relative group"
+    data-controller="image-upload"
+    data-has-image="<%= content_block.image_block.image.attached? %>"
+  >
+    <%= form.hidden_field :remove_image, disabled: true, data: { "image-upload-target": "removeCoverPhotoInput" } %>
+
+    <%=
+      image_tag content_block.image_block.image.presence || "",
+      class: "w-full h-60 object-cover mb-3 group-[[data-has-image='false']]:hidden",
+      data: { "image-upload-target": "imagePreview" }
+    %>
+    <div class="flex gap-3 justify-end right-5">
+      <%=
+        label_tag dom_id(container_block, content_block.persisted? ? content_block.id : :new_content_block),
+        class: "px-3 py-1 rounded border border-slate-800 text-slate-800 text-sm cursor-pointer transition-colors hover:bg-slate-200" do
+      %>
+        <span class="group-[[data-has-image='true']]:hidden"><%= t("choose_image") %></span>
+        <span class="group-[[data-has-image='false']]:hidden"><%= t("change_image") %></span>
+        <%=
+          form.file_field :image,
+          class: "hidden",
+          id: dom_id(container_block, content_block.persisted? ? content_block.id : :new_content_block),
+          data: {
+            "image-upload-target": "imageInput",
+            action: "change->image-upload#imageUploaded"
+          }
+        %>
+      <% end %>
+    </div>
+  </div>
+
+  <%= form.text_field :caption, placeholder: t("caption_optional"), class: "border rounded p-3 text-sm text-gray-500" %>
+
+  <%= form.submit class: "admin-btn-primary cursor-pointer", data: { action: "click->modal#closeModal" } %>
+<% end %>

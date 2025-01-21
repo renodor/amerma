@@ -19,7 +19,10 @@ module.exports = {
         "amerma-red": "#B0413E",
         "amerma-green": "#BBCBCB",
         "amerma-light-green": "#D1F5BE"
-      }
+      },
+      gridTemplateColumns: {
+        "auto": "repeat(auto-fit, minmax(0, 1fr))",
+      },
     },
   },
   plugins: [
