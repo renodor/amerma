@@ -2,7 +2,7 @@ class Admin::ProjectsController < ApplicationController
   layout "admin"
 
   def index
-    @projects = Project.all
+    @projects = Project.all.order(created_at: :desc)
   end
 
   def show
@@ -25,9 +25,14 @@ class Admin::ProjectsController < ApplicationController
     end
   end
 
+  def destroy
+    Project.find(params[:id]).destroy
+    redirect_to admin_projects_path
+  end
+
   private
 
   def project_params
-    params.require(:project).permit(:name, :description, :start_date, :end_date, :status, :project_category_id, :visible, :cover_photo)
+    params.require(:project).permit(:name, :description, :start_date, :end_date, :status, :project_category_id, :visible, :featured, :cover_photo)
   end
 end

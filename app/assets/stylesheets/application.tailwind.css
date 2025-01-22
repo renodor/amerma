@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  ul {
+    @apply list-disc list-inside
+  }
+}
+
 @layer components {
   .admin-btn-primary {
     @apply flex justify-center items-center gap-1 bg-slate-700 text-white text-center px-4 py-2 rounded transition-colors hover:bg-slate-900;
@@ -22,7 +28,7 @@
   .btn-secondary {
     @apply px-4 py-1 border border-2 border-black hover:shadow-flat
   }
-  
+
   .btn-old-school {
     @apply underline text-[blue] hover:no-underline
   }

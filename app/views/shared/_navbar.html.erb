@@ -1,13 +1,29 @@
-<nav class="w-full bg-black fixed top-0">
-  <div class="container p-4 mx-auto flex justify-between items-center xl:max-w-[1280px]">
+<nav class="w-full bg-black fixed top-0 z-10">
+  <div class="container px-24 py-4 mx-auto flex justify-between items-center xl:max-w-[1280px]">
     <div class="text-white text-lg font-bold">
       <%= link_to "Brand", root_path %>
     </div>
-    <div class="flex gap-4">
-      <%= link_to "[#{t("who_are_we")}]", "#", class: "text-white hover:underline" %>
-      <%= link_to "[#{t("projects")}]", projects_path, class: "text-white hover:underline" %>
-      <%= link_to "[#{t("partnerships")}]", "#", class: "text-white hover:underline" %>
-      <%= link_to "[#{t("contact")}]", "#", class: "text-white hover:underline" %>
+    <div class="flex gap-3">
+      <%= link_to "#", class: "text-white flex gap-1 group" do %>
+        <span class="group-hover:-translate-x-1">[</span>
+        <span class="group-hover:underline"><%= t("who_are_we") %></span>
+        <span class="group-hover:translate-x-1">]</span>
+      <% end %>
+      <%= link_to projects_path, class: "text-white flex gap-1 group" do %>
+        <span class="group-hover:-translate-x-1">[</span>
+        <span class="group-hover:underline"><%= t("projects") %></span>
+        <span class="group-hover:translate-x-1">]</span>
+      <% end %>
+      <%= link_to "#", class: "text-white flex gap-1 group" do %>
+        <span class="group-hover:-translate-x-1">[</span>
+        <span class="group-hover:underline"><%= t("partnership") %></span>
+        <span class="group-hover:translate-x-1">]</span>
+      <% end %>
+      <%= link_to "#", class: "text-white flex gap-1 group" do %>
+        <span class="group-hover:-translate-x-1">[</span>
+        <span class="group-hover:underline"><%= t("contact") %></span>
+        <span class="group-hover:translate-x-1">]</span>
+      <% end %>
     </div>
   </div>
 </nav>

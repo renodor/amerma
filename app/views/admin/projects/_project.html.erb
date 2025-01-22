@@ -10,6 +10,15 @@
         <%= inline_svg_tag("icons/eye-slash.svg", class: "w-4") %>
       <% end %>
     </div>
+    <div class="flex flex-col items-center px-4 py-1 rounded border bg-slate-100 text-slate-800">
+      <% if project.featured? %>
+        <%= t("featured") %>
+        <%= inline_svg_tag("icons/star-filled.svg", class: "w-4") %>
+      <% else %>
+        <%= t("not_featured") %>
+        <%= inline_svg_tag("icons/star.svg", class: "w-4") %>
+      <% end %>
+    </div>
   </div>
 
   <% if project.cover_photo.attached? %>

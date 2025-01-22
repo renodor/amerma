@@ -10,3 +10,6 @@ fr:
   title_optional: "Titre (optionnel)"
   subtitle_optional: "Sous-titre (optionnel)"
   caption_optional: "Légende (optionnel)"
+  completed: "completé"
+  in_progress: "en cours"
+  planned: "planifié"

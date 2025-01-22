@@ -1,5 +1,4 @@
 <section id=<%= dom_id(container_block) %> class="bg-white flex flex-col gap-4 border rounded p-3">
-  <h1 class="text-bold"><%= container_block.position %></h1>
   <div id=<%= dom_id(container_block, :content_blocks) %> class="<%= container_block.class_list.join(" ") %>">
     <%=
       render container_block.content_blocks.ordered,

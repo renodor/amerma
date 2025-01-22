@@ -20,7 +20,7 @@
 
   <section>
     <div class="text-center mb-6">
-      <p>l’association développe une offre s’articulant autour de</p>
+      <p>L’association développe une offre s’articulant autour de</p>
       <p class="text-xl font-bold">TROIS SERVICES:</p>
     </div>
     <div class="grid grid-cols-3 gap-14">
@@ -52,9 +52,21 @@
   </section>
 
   <section>
-    <h2>Nos derniers projets:</h2>
-    <%= @projects.each do |project| %>
-      <%= project.name %>
-    <% end %>
+    <h2 class="underline mb-3">Nos derniers projets:</h2>
+    <div class="flex flex-col gap-6">
+      <% @projects.each do |project| %>
+        <%= link_to project_path(project), class: "flex justify-between items-center gap-3 border border-black p-4 cursor-pointer hover:shadow-flat hover:-translate-y-1 hover:-translate-x-1" do %>
+          <div>
+            <h3 class="font-bold"><%= project.name %></h3>
+            <ul class="leading-7">
+              <li><%= project.description.truncate(100) %></li>
+              <li><%= t("timeline") %>: <%= project.start_date.strftime("%d %b %Y") %> / <%= project.end_date.strftime("%d %b %Y") %></li>
+              <li><%= project_status(project.status) %></li>
+            </ul>
+          </div>
+          <%= image_tag project.cover_photo.variant(:thumb), class: "w-24 h-24 object-cover grayscale" %>
+        <% end %>
+      <% end %>
+    </div>
   </section>
 </div>
