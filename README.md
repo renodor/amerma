@@ -1,24 +1,12 @@
-# README
+# AMERMA WEBSITE
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Built with
+* [Ruby on Rails](https://rubyonrails.org/) (Ruby 3.4.1 / Rails 8.0.1)
+* [PostgreSQL](https://www.postgresql.org/)
+* [Hotwire](https://hotwired.dev/)
+* [TailwindCSS](https://tailwindcss.com/)
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### Setup
+* `bundle install` to install gems
+* `bin/rails db:setup` to create DB, play migrations and populate it with seeds
+* `bin/dev` to launch dev server
