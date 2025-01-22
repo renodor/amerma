@@ -1,12 +1,13 @@
-<nav class="w-full bg-gray-800 p-4">
-  <div class="container mx-auto flex justify-between items-center">
+<nav class="w-full bg-black fixed top-0">
+  <div class="container p-4 mx-auto flex justify-between items-center xl:max-w-[1280px]">
     <div class="text-white text-lg font-bold">
       <%= link_to "Brand", root_path %>
     </div>
     <div class="flex gap-4">
-      <%= link_to t("who_are_we"), "#", class: "text-gray-300 hover:text-white" %>
-      <%= link_to t("projects"), projects_path, class: "text-gray-300 hover:text-white" %>
-      <%= link_to t("contact"), "#", class: "text-gray-300 hover:text-white" %>
+      <%= link_to "[#{t("who_are_we")}]", "#", class: "text-white hover:underline" %>
+      <%= link_to "[#{t("projects")}]", projects_path, class: "text-white hover:underline" %>
+      <%= link_to "[#{t("partnerships")}]", "#", class: "text-white hover:underline" %>
+      <%= link_to "[#{t("contact")}]", "#", class: "text-white hover:underline" %>
     </div>
   </div>
 </nav>

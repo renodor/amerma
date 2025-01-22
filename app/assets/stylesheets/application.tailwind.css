@@ -14,6 +14,18 @@
   .admin-btn-delete {
     @apply flex justify-center items-center gap-1 text-red-500 text-center border border-red-500 px-4 py-2 rounded transition-colors hover:bg-red-100;
   }
+
+  .btn-primary {
+    @apply px-4 py-1 border border-2 border-black bg-black text-white hover:underline
+  }
+
+  .btn-secondary {
+    @apply px-4 py-1 border border-2 border-black hover:shadow-flat
+  }
+  
+  .btn-old-school {
+    @apply underline text-[blue] hover:no-underline
+  }
 }
 
 .trix-button-group--file-tools,

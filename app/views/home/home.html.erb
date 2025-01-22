@@ -1,3 +1,60 @@
-<div class="my-10">
-  <p>TODO</p>
+<div class="flex flex-col gap-28">
+  <section class="mt-3">
+    <%= image_tag "banniere.png", class: "h-52 w-full object-cover" %>
+    <div class="flex justify-center">
+      <p class="w-1/2 -mt-16 p-7 border border-2 border-black border-dashed bg-white">
+        <span class="text-4xl font-bold">AMERMA</span> est une association pour l'étude, la promotion, l'accompagnement, l'expérimentation et la mise en place de <strong>nouvelles approches industrielles</strong>, locales, raisonnées, accessibles et à <strong>moindre impact écologique.</strong>
+      </p>
+    </div>
+  </section>
+
+  <section class="flex items-center gap-4">
+    <div class="w-1/2">
+      <p>Dans cette optique, AMERMA défend le concept de techno-discernement associé à la démarche low-tech, utilisée à des échelles industrielles, notamment à travers son application aux moyens de production des biens et services essentiels au fonctionnement de notre société.</p>
+      <%= link_to "En savoir plus", "#", class: "btn-primary inline-block mt-2" %>
+    </div>
+    <div class="w-1/2 flex justify-center">
+      <%= image_tag "home-image1.png", class: "w-56 h-56 object-cover" %>
+    </div>
+  </section>
+
+  <section>
+    <div class="text-center mb-6">
+      <p>l’association développe une offre s’articulant autour de</p>
+      <p class="text-xl font-bold">TROIS SERVICES:</p>
+    </div>
+    <div class="grid grid-cols-3 gap-14">
+      <div class="flex flex-col gap-3 border border-2 border-black p-6 shadow-flat">
+        <div class="flex items-center gap-2">
+          <h2 class="font-bold grow">Etudes</h2>
+          <%= inline_svg_tag("icons/book-pixel.svg", class: "w-10") %>
+        </div>
+        <p class="grow">Visant à développer les connaissances autour des nouvelles approches industrielles.</p>
+        <%= link_to "Voir les projets", "#", class: "btn-old-school" %>
+      </div>
+      <div class="flex flex-col gap-3  border border-2 border-black p-6 shadow-flat">
+        <div class="flex items-center gap-2">
+          <h2 class="font-bold">Accompagnement de la structuration de filières industrielles</h2>
+          <%= inline_svg_tag("icons/computer-pixel.svg", class: "w-10 shrink-0") %>
+        </div>
+        <p class="grow">Afin de produire localement et de façon durable des biens et services essentiels au territoire.</p>
+        <%= link_to "Voir les projets", "#", class: "btn-old-school" %>
+      </div>
+      <div class="flex flex-col gap-3  border border-2 border-black p-6 shadow-flat">
+        <div class="flex items-center gap-2">
+          <h2 class="font-bold grow">Actions ponctuelles</h2>
+          <%= inline_svg_tag("icons/heart-pixel.svg", class: "w-10") %>
+        </div>
+        <p class="grow">Nous sommes une référence sur les sujets de l’industrie low-tech en PACA.</p>
+        <%= link_to "Voir les projets", "#", class: "btn-old-school" %>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Nos derniers projets:</h2>
+    <%= @projects.each do |project| %>
+      <%= project.name %>
+    <% end %>
+  </section>
 </div>

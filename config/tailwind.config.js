@@ -10,7 +10,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        sans: ['ui-monospace', 'monospace',...defaultTheme.fontFamily.sans],
       },
       colors: {
         "amerma-blue": "#1366B0",
@@ -22,6 +22,9 @@ module.exports = {
       },
       gridTemplateColumns: {
         "auto": "repeat(auto-fit, minmax(0, 1fr))",
+      },
+      boxShadow: {
+        "flat": "3px 3px 0 black",
       },
     },
   },

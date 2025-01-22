@@ -6,6 +6,7 @@ class Project < ApplicationRecord
   end
 
   scope :visible, -> { where(visible: true) }
+  scope :featured, -> { where(featured: true) }
 
   validates :name, presence: true
 

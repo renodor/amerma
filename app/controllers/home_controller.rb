@@ -1,3 +1,5 @@
 class HomeController < ApplicationController
-  def Home; end
+  def home
+    @projects = Project.visible.featured.order(created_at: :desc).limit(3)
+  end
 end
