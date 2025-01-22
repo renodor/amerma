@@ -2,18 +2,18 @@
   <section class="mt-3">
     <%= image_tag "banniere.png", class: "h-52 w-full object-cover" %>
     <div class="flex justify-center">
-      <p class="w-1/2 -mt-16 p-7 border border-2 border-black border-dashed bg-white">
+      <p class="w-11/12 -mt-16 p-7 border border-2 border-black border-dashed bg-white sm:w-2/3 lg:w-1/2">
         <span class="text-4xl font-bold">AMERMA</span> est une association pour l'étude, la promotion, l'accompagnement, l'expérimentation et la mise en place de <strong>nouvelles approches industrielles</strong>, locales, raisonnées, accessibles et à <strong>moindre impact écologique.</strong>
       </p>
     </div>
   </section>
 
-  <section class="flex items-center gap-4">
-    <div class="w-1/2">
+  <section class="flex flex-col items-center gap-4 sm:flex-row">
+    <div class="sm:w-1/2">
       <p>Dans cette optique, AMERMA défend le concept de techno-discernement associé à la démarche low-tech, utilisée à des échelles industrielles, notamment à travers son application aux moyens de production des biens et services essentiels au fonctionnement de notre société.</p>
       <%= link_to "En savoir plus", "#", class: "btn-primary inline-block mt-2" %>
     </div>
-    <div class="w-1/2 flex justify-center">
+    <div class="sm:w-1/2 flex justify-center">
       <%= image_tag "home-image1.png", class: "w-56 h-56 object-cover" %>
     </div>
   </section>
@@ -23,7 +23,7 @@
       <p>L’association développe une offre s’articulant autour de</p>
       <p class="text-xl font-bold">TROIS SERVICES:</p>
     </div>
-    <div class="grid grid-cols-3 gap-14">
+    <div class="grid grid-cols-1 gap-y-10 gap-x-14 lg:grid-cols-3">
       <div class="flex flex-col gap-3 border border-2 border-black p-6 shadow-flat">
         <div class="flex items-center gap-2">
           <h2 class="font-bold grow">Etudes</h2>
@@ -55,7 +55,7 @@
     <h2 class="underline mb-3">Nos derniers projets:</h2>
     <div class="flex flex-col gap-6">
       <% @projects.each do |project| %>
-        <%= link_to project_path(project), class: "flex justify-between items-center gap-3 border border-black p-4 cursor-pointer hover:shadow-flat hover:-translate-y-1 hover:-translate-x-1" do %>
+        <%= link_to project_path(project), class: "flex flex-col-reverse items-start justify-between gap-3 border border-black p-4 cursor-pointer hover:shadow-flat hover:-translate-y-1 hover:-translate-x-1 sm:flex-row sm:items-center" do %>
           <div>
             <h3 class="font-bold"><%= project.name %></h3>
             <ul class="leading-7">
