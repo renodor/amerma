@@ -1,5 +1,5 @@
 <%= form_with model: [:admin, project, container_block, content_block.image_block], class: "flex flex-col gap-4" do |form| %>
-  <%= hidden_field_tag "content_block[position]", content_block.position, class: dom_id(content_block, :position) %>
+  <%= hidden_field_tag "content_block[position]", content_block.position, class: dom_id(container_block, :content_block_position) %>
   <%= hidden_field_tag "content_block[class_list][]", "flex" %>
   <%= hidden_field_tag "content_block[class_list][]", "justify-center" %>
   <%= hidden_field_tag "content_block[class_list][]", "items-center" %>

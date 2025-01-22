@@ -6,8 +6,8 @@
   %>
 <% end %>
 
-<%= turbo_stream.replace_all dom_id(ContentBlock.new, :position) do %>
-  <%= hidden_field_tag "content_block[class_list][]", @content_block.position + 1, class: dom_id(@content_block, :position) %>
+<%= turbo_stream.replace_all ".#{dom_id(@container_block, :content_block_position)}" do %>
+  <%= hidden_field_tag "content_block[position]", @content_block.position + 1, class: dom_id(@container_block, :content_block_position) %>
 <% end %>
 
 <%= turbo_stream.update "flash", partial: "shared/flash" %>

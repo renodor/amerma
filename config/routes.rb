@@ -21,7 +21,11 @@ Rails.application.routes.draw do
         end
         resources :text_blocks, only: %i[create update]
         resources :image_blocks, only: %i[create update]
-        resources :content_blocks, only: :destroy
+        resources :content_blocks, only: :destroy do
+          member do
+            get :update_position
+          end
+        end
       end
     end
     resources :team_members, only: %i[index new create edit update destroy]

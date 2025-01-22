@@ -30,15 +30,15 @@ class Admin::ContainerBlocksController < ApplicationController
     container_block = @project.container_blocks.ordered.find(params[:id])
 
     if params[:direction] == "up"
-      next_container_block = next_container_block = @project.container_blocks.where("position > ?", container_block.position).ordered.first
+      other_container_block = @project.container_blocks.where("position > ?", container_block.position).ordered.first
     else
-      next_container_block = @project.container_blocks.where("position < ?", container_block.position).ordered.last
+      other_container_block = @project.container_blocks.where("position < ?", container_block.position).ordered.last
     end
 
-    if next_container_block
+    if other_container_block
       saved_position = container_block.position
-      container_block.update(position: next_container_block.position)
-      next_container_block.update(position: saved_position)
+      container_block.update(position: other_container_block.position)
+      other_container_block.update(position: saved_position)
     end
   end
 

@@ -2,7 +2,7 @@
   <h1 class="text-bold"><%= container_block.position %></h1>
   <div id=<%= dom_id(container_block, :content_blocks) %> class="<%= container_block.class_list.join(" ") %>">
     <%=
-      render container_block.content_blocks,
+      render container_block.content_blocks.ordered,
       container_block: container_block,
       project: project
     %>
@@ -74,14 +74,14 @@
 
     <div class="flex gap-3">
       <%=
-        link_to inline_svg_tag("icons/chevron-up.svg", class: "w-5 rotate-180"),
-        update_position_admin_project_container_block_path(project, container_block, direction: "up"),
+        link_to inline_svg_tag("icons/chevron-up.svg", class: "w-5"),
+        update_position_admin_project_container_block_path(project, container_block, direction: "down"),
         data: { turbo_stream: true },
         class: "admin-btn-secondary text-sm px-2 py-1"
       %>
       <%=
-        link_to inline_svg_tag("icons/chevron-up.svg", class: "w-5"),
-        update_position_admin_project_container_block_path(project, container_block, direction: "down"),
+        link_to inline_svg_tag("icons/chevron-up.svg", class: "w-5 rotate-180"),
+        update_position_admin_project_container_block_path(project, container_block, direction: "up"),
         data: { turbo_stream: true },
         class: "admin-btn-secondary text-sm px-2 py-1"
       %>
