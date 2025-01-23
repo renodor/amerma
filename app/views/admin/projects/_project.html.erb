@@ -4,7 +4,7 @@
     <div class="flex flex-col items-center px-4 py-1 rounded border bg-slate-100 text-slate-800">
       <% if project.visible? %>
         <%= t("visible") %>
-        <%= inline_svg_tag("icons/eye.svg", class: "w-4") %>
+        <%= inline_svg_tag("icons/eye-solid.svg", class: "w-4") %>
       <% else %>
         <%= t("hidden") %>
         <%= inline_svg_tag("icons/eye-slash.svg", class: "w-4") %>
@@ -29,6 +29,9 @@
   <% end %>
   <p class="font-bold text-xl"><%= project.name %></p>
   <p><%= project.description %></p>
+  <div>
+    <%= project_status(project.status) %>
+  </div>
 
   <div class="flex justify-end">
     <%= link_to t("edit"), edit_admin_project_path(project), class: "admin-btn-secondary text-sm px-3 py-1" %>

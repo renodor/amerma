@@ -14,7 +14,7 @@
           <%= form.label :visible_true, class: "flex flex-col items-center text-gray-400 px-4 py-1 border cursor-pointer rounded has-[:checked]:bg-slate-100 has-[:checked]:text-slate-800" do %>
             <%= form.radio_button :visible, true, class: "hidden" %>
             <%= t("visible") %>
-            <%= inline_svg_tag("icons/eye.svg", class: "w-4") %>
+            <%= inline_svg_tag("icons/eye-solid.svg", class: "w-4") %>
           <% end %>
         </div>
         <div>
@@ -96,6 +96,26 @@
         placeholder: :description,
         class: "w-full border rounded p-3"
       %>
+      <div class="flex gap-4">
+        <div>
+          <%= form.label :status_completed, class: "flex flex-col items-center text-gray-400 px-4 py-1 border cursor-pointer rounded has-[:checked]:bg-slate-100 has-[:checked]:text-slate-800" do %>
+            <%= form.radio_button :status, "completed", class: "hidden" %>
+            <%= t("completed") %>
+          <% end %>
+        </div>
+        <div>
+          <%= form.label :status_in_progress, class: "flex flex-col items-center text-gray-400 px-4 py-1 border cursor-pointer rounded has-[:checked]:bg-slate-100 has-[:checked]:text-slate-800" do %>
+            <%= form.radio_button :status, "in_progress", class: "hidden" %>
+            <%= t("in_progress") %>
+          <% end %>
+        </div>
+        <div>
+          <%= form.label :status_planned, class: "flex flex-col items-center text-gray-400 px-4 py-1 border cursor-pointer rounded has-[:checked]:bg-slate-100 has-[:checked]:text-slate-800" do %>
+            <%= form.radio_button :status, "planned", class: "hidden" %>
+            <%= t("planned") %>
+          <% end %>
+        </div>
+      </div>
     </div>
 
     <%= form.submit class: "admin-btn-primary cursor-pointer" %>
