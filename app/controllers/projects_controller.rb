@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   def index
-    @project_categories = ProjectCategory.all.includes(:projects)
+    @project_categories = ProjectCategory.ordered.includes(:projects)
   end
 
   def show

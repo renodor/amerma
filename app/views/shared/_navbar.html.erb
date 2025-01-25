@@ -1,33 +1,40 @@
 <nav class="w-full bg-black fixed top-0 z-10 group" data-controller="navbar" data-open="false">
-  <div class="container px-6 py-4 mx-auto flex flex-wrap justify-between items-center sm:px-10 md:flex-nowrap lg:px-24 xl:max-w-[1280px]">
+  <div class="container px-6 py-2 mx-auto flex flex-wrap justify-between items-center sm:px-10 md:flex-nowrap lg:px-24 xl:max-w-[1280px]">
     <div class="text-white text-lg font-bold">
       <%= link_to "Brand", root_path %>
     </div>
-    <div class="flex flex-col gap-1 md:hidden group-[[data-open='true']]:hidden" data-action="click->navbar#openMobileNav">
+    <div class="flex flex-col p-4 gap-1 md:hidden group-[[data-open='true']]:hidden" data-action="click->navbar#openMobileNav">
       <span class="block w-6 h-0.5 bg-white"></span>
       <span class="block w-6 h-0.5 bg-white"></span>
     </div>
-    <div class="relative md:hidden group-[[data-open='false']]:hidden" data-action="click->navbar#closeMobileNav">
+    <div class="relative flex p-4 h-[40px] md:hidden group-[[data-open='false']]:hidden" data-action="click->navbar#closeMobileNav">
       <span class="block w-6 h-0.5 bg-white rotate-45"></span>
-      <span class="block w-6 h-0.5 bg-white absolute top-0 -rotate-45"></span>
+      <span class="block w-6 h-0.5 bg-white absolute -rotate-45"></span>
     </div>
-    <div class="w-full bg-black py-4 flex-col gap-1 hidden md:flex md:flex-row md:gap-3 md:justify-end md:p-0 group-[[data-open='true']]:flex" data-navbar-target="menu">
-      <%= link_to "#", class: "text-white flex justify-end gap-1 group/item" do %>
+    <div class="w-full bg-black py-4 flex-col hidden text-white md:flex md:flex-row md:justify-end md:p-0 group-[[data-open='true']]:flex" data-navbar-target="menu">
+      <%= link_to "#", class: "flex justify-end gap-1 px-1 py-2 group/item" do %>
         <span class="group-hover/item:-translate-x-1">[</span>
         <span class="group-hover/item:underline"><%= t("who_are_we") %></span>
         <span class="group-hover/item:translate-x-1">]</span>
       <% end %>
-      <%= link_to projects_path, class: "text-white flex justify-end gap-1 group/item" do %>
-        <span class="group-hover/item:-translate-x-1">[</span>
-        <span class="group-hover/item:underline"><%= t("projects") %></span>
-        <span class="group-hover/item:translate-x-1">]</span>
-      <% end %>
-      <%= link_to "#", class: "text-white flex justify-end gap-1 group/item" do %>
+      <div class="relative group/dropdown">
+        <div class="absolute right-0 top-7 p-5 flex-col gap-4 text-right bg-black w-64 hidden group-hover/dropdown:flex group-[[data-open='true']]:hidden">
+          <% @project_categories.each do |project_category| %>
+            <%= link_to project_category.name, projects_path(anchor: dom_id(project_category)), class: "hover:underline" %>
+          <% end %>
+        </div>
+        <%= link_to projects_path, class: "relative flex justify-end gap-1 px-1 py-2 group/item" do %>
+          <span class="group-hover/item:-translate-x-1">[</span>
+          <span class="group-hover/item:underline"><%= t("projects") %></span>
+          <span class="group-hover/item:translate-x-1">]</span>
+        <% end %>
+      </div>
+      <%= link_to "#", class: "flex justify-end gap-1 px-1 py-2 group/item" do %>
         <span class="group-hover/item:-translate-x-1">[</span>
         <span class="group-hover/item:underline"><%= t("partnership") %></span>
         <span class="group-hover/item:translate-x-1">]</span>
       <% end %>
-      <%= link_to "#", class: "text-white flex justify-end gap-1 group/item" do %>
+      <%= link_to "#", class: "flex justify-end gap-1 px-1 py-2 group/item" do %>
         <span class="group-hover/item:-translate-x-1">[</span>
         <span class="group-hover/item:underline"><%= t("contact") %></span>
         <span class="group-hover/item:translate-x-1">]</span>

@@ -1,5 +1,7 @@
 class ProjectCategory < ApplicationRecord
   has_many :projects, dependent: :nullify
 
-  validates :name, presence: true
+  validates :name, :position, presence: true
+
+  scope :ordered, -> { order(:position) }
 end
