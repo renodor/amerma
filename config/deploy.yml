@@ -97,11 +97,6 @@ accessories:
     image: postgres:16
     host: 84.234.19.186
     port: "127.0.0.1:5432:5432"
-    env:
-      clear:
-        POSTGRES_DB: amerma_production
-        POSTGRES_USER: amerma
-        POSTGRES_PASSWORD: amerma_production
     files:
       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
 #   db:
