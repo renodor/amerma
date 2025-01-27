@@ -95,7 +95,12 @@ ssh:
 accessories:
   postgres:
     image: postgres:16
-    host: postgres-amerma
+    host: 84.234.19.186
+    env:
+      clear:
+        POSTGRES_DB: amerma_production
+        POSTGRES_USER: amerma
+        POSTGRES_PASSWORD: amerma_production
 #   db:
 #     image: mysql:8.0
 #     host: 192.168.0.2
