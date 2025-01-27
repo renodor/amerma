@@ -84,8 +84,7 @@ production:
     database: amerma_production
     username: amerma
     password: <%= ENV["AMERMA_DATABASE_PASSWORD"] %>
-    host: 84.234.19.186
-    port: 5432
+    host: amerma-postgres
   cache:
     <<: *primary_production
     database: amerma_production_cache
