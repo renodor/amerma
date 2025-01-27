@@ -95,7 +95,7 @@ ssh:
 accessories:
   postgres:
     image: postgres:15
-    host: amerma-postgres
+    host: renodor/amerma-postgres
 #   db:
 #     image: mysql:8.0
 #     host: 192.168.0.2
