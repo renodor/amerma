@@ -95,7 +95,6 @@ ssh:
 accessories:
   postgres:
     image: postgres:16
-    host: 84.234.19.186
 #   db:
 #     image: mysql:8.0
 #     host: 192.168.0.2
