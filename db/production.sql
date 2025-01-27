@@ -1,0 +1,4 @@
+CREATE DATABASE amerma_production;
+CREATE DATABASE amerma_production_cache;
+CREATE DATABASE amerma_production_queue;
+CREATE DATABASE amerma_production_cable;
