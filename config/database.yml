@@ -84,6 +84,7 @@ production:
     database: amerma_production
     username: amerma
     password: <%= ENV["AMERMA_DATABASE_PASSWORD"] %>
+    host: 84.234.19.186
   cache:
     <<: *primary_production
     database: amerma_production_cache
