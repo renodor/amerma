@@ -99,7 +99,6 @@ accessories:
     image: postgres:16
     host: 84.234.19.186
     port: "127.0.0.1:5432:5432"
-    username: amerma
     env:
       clear:
         AMERMA_POSTGRES_DATABASE_USER: amerma
