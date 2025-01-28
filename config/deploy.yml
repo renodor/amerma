@@ -107,6 +107,7 @@ accessories:
         - AMERMA_POSTGRES_DATABASE_PASSWORD
     files:
       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
+    directories:
       - data:/var/lib/postgresql/data
 #   db:
 #     image: mysql:8.0
