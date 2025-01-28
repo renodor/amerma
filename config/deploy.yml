@@ -103,6 +103,7 @@ accessories:
       clear:
         POSTGRES_USER: "amerma"
         POSTGRES_DB: "amerma_production"
+        POSTGRES_PASSWORD: POSTGRES_PASSWORD
       secret:
         - POSTGRES_USER
         - POSTGRES_PASSWORD
