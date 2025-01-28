@@ -28,7 +28,7 @@
         <div class="flex flex-col gap-3 border border-2 border-black p-6 shadow-flat">
           <div class="flex items-center gap-2">
             <h2 class="font-bold grow"><%= project_category.name %></h2>
-            <%= inline_svg_tag("icons/#{project_category.icon}.svg", class: "w-10") %>
+            <%= inline_svg_tag("icons/#{project_category.icon}.svg", class: "w-10 shrink-0") %>
           </div>
           <p class="grow"><%= project_category.description %></p>
           <%= link_to t("see_projects"), projects_path(anchor: dom_id(project_category)), class: "btn-old-school" %>
