@@ -50,7 +50,7 @@ env:
 
     # Match this to any external database server to configure Active Record correctly
     # Use amerma-db for a db accessory server on same machine via local kamal docker network.
-    DB_HOST: amerma-postgres
+    AMERMA_POSTGRES_DATABASE_HOST: amerma-postgres
 
     # Log everything from Rails
     # RAILS_LOG_LEVEL: debug
@@ -102,10 +102,12 @@ accessories:
     env:
       clear:
         AMERMA_POSTGRES_DATABASE_USER: AMERMA_POSTGRES_DATABASE_USER
+        POSTGRES_DB: amerma_production
       secret:
         - AMERMA_POSTGRES_DATABASE_PASSWORD
     files:
       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
+      - data:/var/lib/postgresql/data
 #   db:
 #     image: mysql:8.0
 #     host: 192.168.0.2
