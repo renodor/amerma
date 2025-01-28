@@ -82,7 +82,7 @@ production:
   primary: &primary_production
     <<: *default
     database: amerma_production
-    username: amerma
+    username: <%= ENV["AMERMA_POSTGRES_DATABASE_USER"] %>
     password: <%= ENV["AMERMA_POSTGRES_DATABASE_PASSWORD"] %>
     host: amerma-postgres
   cache:
