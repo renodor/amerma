@@ -1,3 +1,6 @@
+# Load environment variables from .env file
+<% require "dotenv"; Dotenv.load(".env") %>
+
 # Name of your application. Used to uniquely configure containers.
 service: amerma
 
@@ -38,8 +41,6 @@ env:
     - POSTGRES_USER
     - POSTGRES_PASSWORD
   clear:
-    RAILS_ENV: production
-    RACK_ENV: production
     # Run the Solid Queue Supervisor inside the web server's Puma process to do jobs.
     # When you start using multiple servers, you should split out job processing to a dedicated machine.
     SOLID_QUEUE_IN_PUMA: true
