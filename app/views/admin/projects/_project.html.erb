@@ -23,8 +23,8 @@
 
   <% if project.cover_photo.attached? %>
     <%=
-      image_tag project.cover_photo,
-      class: "w-full h-60 object-cover mb-3"
+      image_tag project.cover_photo.variant(:cover),
+      class: "w-full h-44 object-cover mb-3"
     %>
   <% end %>
   <p class="font-bold text-xl"><%= project.name %></p>
