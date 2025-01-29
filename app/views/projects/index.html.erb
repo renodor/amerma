@@ -24,7 +24,7 @@
               </ul>
             </div>
             <% if project.cover_photo.attached? %>
-              <%= image_tag project.cover_photo, class: "w-24 h-24 object-cover grayscale" %>
+              <%= image_tag project.cover_photo.variant(:square), class: "w-24 h-24 object-cover grayscale" %>
             <% end %>
           <% end %>
         <% end %>
