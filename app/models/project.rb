@@ -3,13 +3,13 @@ class Project < ApplicationRecord
   has_many :container_blocks, as: :containerable, dependent: :destroy
   has_one_attached :cover_photo do |attachable|
     attachable.variant :square,
-    resize_to_fill: [96, 96]
-      # preprocessed: true,  # TODO: as variant are preprocessed we could remove the original image to save space
-      # colorspace: :gray,
-      # format: "png",
-      # dither: "FloydSteinberg",
-      # colors: "6",
-      # saver: { strip: true }
+      preprocessed: true,  # TODO: as variant are preprocessed we could remove the original image to save space
+      resize_to_fill: [96, 96],
+      colorspace: :gray,
+      format: "png",
+      dither: "FloydSteinberg",
+      colors: "6",
+      saver: { strip: true }
 
     attachable.variant :cover,
       preprocessed: true, # TODO: as variant are preprocessed we could remove the original image to save space
