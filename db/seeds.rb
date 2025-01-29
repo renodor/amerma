@@ -24,9 +24,22 @@ ProjectCategory.delete_all
 
 puts "Creating project categories..."
 categories = [
-  { name: "Market studies", description: "Projects related to market studies" },
-  { name: "Industry Support", description: "Projects related to industry support" },
-  { name: "Low tech industries", description: "Projects related to low tech industries" }
+  {
+      name: "Etudes",
+      description: "Visant à développer les connaissances autour des nouvelles approches industrielles.",
+      position: 1,
+      icon: "book-pixel"
+  },
+  {
+    name: "Accompagnement de la structuration de filières industrielles!",
+    description: "Afin de produire localement et de façon durable des biens et services essentiels au territoire.",
+    icon: "computer-pixel"
+  },
+  {
+    name: "Low tech industries",
+    description: "Projects related to low tech industries",
+    icon: "heart-pixel"
+  }
 ]
 
 categories.each_with_index do |category_attrs, i|

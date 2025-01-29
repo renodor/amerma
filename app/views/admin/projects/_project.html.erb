@@ -22,10 +22,7 @@
   </div>
 
   <% if project.cover_photo.attached? %>
-    <%=
-      image_tag project.cover_photo.variant(:cover),
-      class: "w-full h-44 object-cover mb-3"
-    %>
+    <%= image_tag project.cover_photo.variant(:cover), class: "w-full object-cover mb-3" %>
   <% end %>
   <p class="font-bold text-xl"><%= project.name %></p>
   <p><%= project.description %></p>
