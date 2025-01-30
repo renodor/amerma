@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   resources :partners, only: %i[index]
   resources :projects, only: %i[index show]
+  resources :messages, only: %i[new create]
 
   namespace :admin do
     resources :project_categories, only: %i[index edit update] do
@@ -34,5 +35,6 @@ Rails.application.routes.draw do
     end
     resources :team_members, only: %i[index new create edit update destroy]
     resources :partners, only: %i[index new create edit update destroy]
+    resources :messages, onlye: %i[index show destroy]
   end
 end

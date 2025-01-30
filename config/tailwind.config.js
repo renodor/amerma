@@ -24,7 +24,8 @@ module.exports = {
         "auto": "repeat(auto-fit, minmax(0, 1fr))",
       },
       boxShadow: {
-        "flat": "4px 4px 0 black"
+        "flat": "4px 4px 0 black",
+        "inset-flat": "inset 4px 4px 0 black"
       },
     },
   },

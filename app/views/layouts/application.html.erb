@@ -29,5 +29,8 @@
       <%= yield %>
     </main>
     <%= render "shared/footer" %>
+    <%= turbo_frame_tag "flash" do %>
+      <%= render "shared/flash" %>
+    <% end %>
   </body>
 </html>

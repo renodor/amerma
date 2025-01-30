@@ -50,7 +50,9 @@
               <li><%= project_status(project.status) %></li>
             </ul>
           </div>
-          <%= image_tag project.cover_photo.variant(:square), class: "w-24 h-24 object-cover grayscale" %>
+          <% if project.cover_photo.attached? %>
+            <%= image_tag project.cover_photo.variant(:square), class: "w-24 h-24 object-cover grayscale" %>
+          <% end %>
         <% end %>
       <% end %>
     </div>

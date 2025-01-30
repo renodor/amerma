@@ -20,12 +20,12 @@
   </head>
 
   <body class="flex">
-    <%= render "shared/admin_sidebar" %>
+    <%= render "admin/shared/sidebar" %>
     <main class="min-h-full w-full p-8 bg-stone-100">
       <%= yield %>
     </main>
     <%= turbo_frame_tag "flash" do %>
-      <%= render "shared/flash" %>
+      <%= render "admin/shared/flash" %>
     <% end %>
   </body>
 </html>

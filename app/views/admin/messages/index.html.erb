@@ -1,0 +1,19 @@
+<header class="flex justify-between items-center mb-6">
+  <h1 class="text-3xl font-bold mb-4"><%= t("messages") %></h1>
+</header>
+<div class="flex flex-col gap-4">
+  <% @messages.each do |message| %>
+    <div class="flex gap-4 items-center justify-between bg-white p-4 border">
+      <div>
+        <p><span class="text-sm text-gray-500"><%= t("name") %>:</span> <span class="font-bold"><%= message.name %></span></p>
+        <p><span class="text-sm text-gray-500"><%= t("email") %>:</span> <%= message.email %></p>
+        <p><span class="text-sm text-gray-500"><%= t("received_at") %>:</span> <%= message.created_at.strftime("%d %b %Y - %Hh%M") %></p>
+        <p><span class="text-sm text-gray-500"><%= t("message") %>:</span> <%= message.body.truncate(100) %></p>
+      </div>
+      <div class="flex flex-col gap-4">
+        <%= link_to "See", admin_message_path(message), class: "admin-btn-secondary" %>
+        <%= button_to "Delete", admin_message_path(message), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "admin-btn-delete" %>
+      </div>
+    </div>
+  <% end %>
+</div>

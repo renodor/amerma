@@ -6,4 +6,4 @@
   <%= hidden_field_tag "container_block[position]", @container_block.position + 1, id: dom_id(ContainerBlock.new, :position) %>
 <% end %>
 
-<%= turbo_stream.update "flash", partial: "shared/flash" %>
+<%= turbo_stream.update "flash", partial: "admin/shared/flash" %>

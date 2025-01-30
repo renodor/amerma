@@ -14,6 +14,10 @@
   .shadow-border {
     @apply border-2 border-black shadow-flat
   }
+
+  .inset-shadow-border {
+    @apply border-2 border-black shadow-inset-flat
+  }
 }
 
 @layer components {
@@ -30,19 +34,19 @@
   }
 
   .btn-primary {
-    @apply px-4 py-1 border border-2 border-black bg-black text-white hover:underline
+    @apply px-4 py-1 border border-2 border-black bg-black text-white cursor-pointer hover:underline
   }
 
   .btn-secondary {
-    @apply px-4 py-1 border border-2 border-black hover:shadow-flat
+    @apply px-4 py-1 border border-2 border-black cursor-pointer hover:shadow-flat
   }
 
   .btn-old-school {
-    @apply underline text-[blue] hover:no-underline
+    @apply underline text-[blue] cursor-pointer hover:no-underline
   }
 
   .trix-content a {
-    @apply underline text-[blue] hover:no-underline
+    @apply underline text-[blue] cursor-pointer hover:no-underline
   }
 }
 
