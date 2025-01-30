@@ -7,6 +7,7 @@ fr:
   save: "Sauvegarder"
   add_container: "Ajouter le container"
   edit_container: "Modifier le container"
+  container_column_delete_warning: "Attention! Réduire le nombre de colonne supprimera le contenu des colonnes supprimés."
   title_optional: "Titre (optionnel)"
   subtitle_optional: "Sous-titre (optionnel)"
   caption_optional: "Légende (optionnel)"

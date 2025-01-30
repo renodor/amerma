@@ -4,4 +4,8 @@ class ProjectCategory < ApplicationRecord
   validates :name, :position, presence: true
 
   scope :ordered, -> { order(:position) }
+
+  def icon_path
+    "icons/#{icon}.svg"
+  end
 end

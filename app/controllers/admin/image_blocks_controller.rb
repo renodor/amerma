@@ -2,7 +2,7 @@ class Admin::ImageBlocksController < ApplicationController
   def create
     @project = Project.find(params[:project_id])
     @container_block = @project.container_blocks.find(params[:container_block_id])
-    @content_block = @container_block.content_blocks.new(content_block_params)
+    @content_block = @container_block.content_blocks.find(params[:content_block_id])
     @content_block.contentable = ImageBlock.new(image_block_params)
 
     if @content_block.save
@@ -22,6 +22,16 @@ class Admin::ImageBlocksController < ApplicationController
     else
       # TODO
     end
+  end
+
+  def destroy
+    ImageBlock.find(params[:id]).destroy
+
+    @project = Project.find(params[:project_id])
+    @container_block = @project.container_blocks.find(params[:container_block_id])
+    @content_block = @container_block.content_blocks.find(params[:content_block_id])
+
+    flash.now[:success] = t("container_block_deleted")
   end
 
   private

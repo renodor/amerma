@@ -1,73 +1,170 @@
 <div id=<%= dom_id(content_block) %> class="flex justify-center items-center border rounded p-3 relative">
+  <span class="mr-10"><%= content_block.position %></span>
   <div class="<%= content_block.class_list.join(" ") %>">
     <% if content_block.text_block? %>
       <%= content_block.text_block.text %>
+      <div class="flex justify-center items-center gap-3 absolute inset-0 opacity-0 transition-opacity bg-white/80 hover:opacity-100">
+        <%=
+          link_to inline_svg_tag("icons/chevron-up.svg", class: "w-5 -rotate-90"),
+          update_position_admin_project_container_block_content_block_path(project, container_block, content_block, direction: "down"),
+          data: { turbo_stream: true },
+          class: "admin-btn-secondary text-sm px-2 py-1"
+        %>
+        <%=
+          link_to inline_svg_tag("icons/chevron-up.svg", class: "w-5 rotate-90"),
+          update_position_admin_project_container_block_content_block_path(project, container_block, content_block, direction: "up"),
+          data: { turbo_stream: true },
+          class: "admin-btn-secondary text-sm px-2 py-1"
+        %>
+        <div data-controller="modal">
+          <%=
+            button_tag type: :button,
+            class: "admin-btn-secondary bg-white text-sm px-3 py-1",
+            data: { action: "click->modal#showModal" } do
+          %>
+            <span><%= t("edit") %></span>
+          <% end %>
+
+          <dialog class="backdrop:bg-black/60 p-4 rounded max-w-[600px]" data-modal-target="dialog">
+            <div class="flex flex-col gap-4">
+              <div class="flex items-center">
+                <h3 class="grow font-bold"><%= t("edit_text") %></h3>
+                <button data-action="click->modal#closeModal">
+                  <%= inline_svg_tag("icons/x-mark.svg", class: "w-6 text-black hover:opacity-70") %>
+                </button>
+              </div>
+                <%=
+                  render "admin/text_blocks/form",
+                  content_block: content_block,
+                  container_block: container_block,
+                  project: project
+                %>
+            </div>
+          </dialog>
+        </div>
+        <%=
+          button_to t("remove"),
+          admin_project_container_block_content_block_text_block_path(project, container_block, content_block, content_block.text_block),
+          method: :delete,
+          class: "admin-btn-delete bg-white text-sm px-3 py-1",
+          form: { data: { turbo_confirm: t("are_you_sure?") } }
+        %>
+      </div>
     <% elsif content_block.image_block? %>
       <div class="flex flex-col gap-1">
         <p class="text-lg font-bold"><%= content_block.image_block.title %></p>
         <p><%= content_block.image_block.subtitle %></p>
         <% if content_block.image_block.image.attached? %>
-          <%= image_tag content_block.image_block.image, class: "w-full" %>
+          <%= image_tag content_block.image_block.image.variant(:default), class: "w-full" %>
         <% end %>
         <p class="text-sm text-gray-500"><%= content_block.image_block.caption %></p>
       </div>
-    <% end %>
-  </div>
-
-  <div class="flex justify-center items-center gap-3 absolute inset-0 opacity-0 transition-opacity bg-white/80 cursor-pointer hover:opacity-100">
-    <%=
-      link_to inline_svg_tag("icons/chevron-up.svg", class: "w-5 -rotate-90"),
-      update_position_admin_project_container_block_content_block_path(project, container_block, content_block, direction: "down"),
-      data: { turbo_stream: true },
-      class: "admin-btn-secondary text-sm px-2 py-1"
-    %>
-    <%=
-      link_to inline_svg_tag("icons/chevron-up.svg", class: "w-5 rotate-90"),
-      update_position_admin_project_container_block_content_block_path(project, container_block, content_block, direction: "up"),
-      data: { turbo_stream: true },
-      class: "admin-btn-secondary text-sm px-2 py-1"
-    %>
-    <div data-controller="modal">
-      <%=
-        button_tag type: :button,
-        class: "admin-btn-secondary bg-white text-sm px-3 py-1",
-        data: { action: "click->modal#showModal" } do
-      %>
-        <span><%= t("edit") %></span>
-      <% end %>
-
-      <dialog class="backdrop:bg-black/60 p-4 rounded max-w-[600px]" data-modal-target="dialog">
-        <div class="flex flex-col gap-4">
-          <div class="flex items-center">
-            <h3 class="grow font-bold"><%= t("edit_text") %></h3>
-            <button data-action="click->modal#closeModal">
-              <%= inline_svg_tag("icons/x-mark.svg", class: "w-6 text-black hover:opacity-70") %>
-            </button>
-          </div>
-          <% if content_block.text_block? %>
-            <%=
-              render "admin/text_blocks/form",
-              content_block: content_block,
-              container_block: container_block,
-              project: project
-            %>
-          <% elsif content_block.image_block? %>
-            <%=
-              render "admin/image_blocks/form",
-              content_block: content_block,
-              container_block: container_block,
-              project: project
-            %>
+      <div class="flex justify-center items-center gap-3 absolute inset-0 opacity-0 transition-opacity bg-white/80 hover:opacity-100">
+        <%=
+          link_to inline_svg_tag("icons/chevron-up.svg", class: "w-5 -rotate-90"),
+          update_position_admin_project_container_block_content_block_path(project, container_block, content_block, direction: "down"),
+          data: { turbo_stream: true },
+          class: "admin-btn-secondary text-sm px-2 py-1"
+        %>
+        <%=
+          link_to inline_svg_tag("icons/chevron-up.svg", class: "w-5 rotate-90"),
+          update_position_admin_project_container_block_content_block_path(project, container_block, content_block, direction: "up"),
+          data: { turbo_stream: true },
+          class: "admin-btn-secondary text-sm px-2 py-1"
+        %>
+        <div data-controller="modal">
+          <%=
+            button_tag type: :button,
+            class: "admin-btn-secondary bg-white text-sm px-3 py-1",
+            data: { action: "click->modal#showModal" } do
+          %>
+            <span><%= t("edit") %></span>
           <% end %>
+
+          <dialog class="backdrop:bg-black/60 p-4 rounded max-w-[600px]" data-modal-target="dialog">
+            <div class="flex flex-col gap-4">
+              <div class="flex items-center">
+                <h3 class="grow font-bold"><%= t("edit_text") %></h3>
+                <button data-action="click->modal#closeModal">
+                  <%= inline_svg_tag("icons/x-mark.svg", class: "w-6 text-black hover:opacity-70") %>
+                </button>
+              </div>
+                <%=
+                  render "admin/image_blocks/form",
+                  content_block: content_block,
+                  container_block: container_block,
+                  project: project
+                %>
+            </div>
+          </dialog>
         </div>
-      </dialog>
-    </div>
-    <%=
-      button_to t("remove"),
-      admin_project_container_block_content_block_path(project, container_block, content_block),
-      method: :delete,
-      class: "admin-btn-delete bg-white text-sm px-3 py-1",
-      form: { data: { turbo_confirm: t("are_you_sure?") } }
-    %>
+        <%=
+          button_to t("remove"),
+          admin_project_container_block_content_block_image_block_path(project, container_block, content_block, content_block.image_block),
+          method: :delete,
+          class: "admin-btn-delete bg-white text-sm px-3 py-1",
+          form: { data: { turbo_confirm: t("are_you_sure?") } }
+        %>
+      </div>
+    <% else %>
+      <div class="flex justify-center gap-3 items-center h-full">
+        <div data-controller="modal">
+          <%=
+            button_tag type: :button,
+            class: "admin-btn-secondary text-sm px-3 py-1",
+            data: { action: "click->modal#showModal" } do
+          %>
+            <%= inline_svg_tag("icons/plus.svg", class: "w-5") %>
+            <span><%= t("text") %></span>
+          <% end %>
+
+          <dialog class="backdrop:bg-black/60 p-4 w-[600px] rounded" data-modal-target="dialog">
+            <div class="flex flex-col gap-4">
+              <div class="flex items-center">
+                <h3 class="grow font-bold"><%= t("new_text") %></h3>
+                <button data-action="click->modal#closeModal">
+                  <%= inline_svg_tag("icons/x-mark.svg", class: "w-6 text-black hover:opacity-70") %>
+                </button>
+              </div>
+              <% content_block.contentable = TextBlock.new %>
+              <%=
+                render "admin/text_blocks/form",
+                content_block: content_block,
+                container_block: container_block,
+                project: project
+              %>
+            </div>
+          </dialog>
+        </div>
+        <div data-controller="modal">
+          <%=
+            button_tag type: :button,
+            class: "admin-btn-secondary text-sm px-3 py-1",
+            data: { action: "click->modal#showModal" } do
+          %>
+            <%= inline_svg_tag("icons/plus.svg", class: "w-5") %>
+            <span><%= t("image") %></span>
+          <% end %>
+
+          <dialog class="backdrop:bg-black/60 p-4 rounded" data-modal-target="dialog">
+            <div class="flex flex-col gap-4">
+              <div class="flex items-center">
+                <h3 class="grow font-bold"><%= t("new_image") %></h3>
+                <button data-action="click->modal#closeModal">
+                  <%= inline_svg_tag("icons/x-mark.svg", class: "w-6 text-black hover:opacity-70") %>
+                </button>
+              </div>
+              <% content_block.contentable = ImageBlock.new %>
+              <%=
+                render "admin/image_blocks/form",
+                content_block: content_block,
+                container_block: container_block,
+                project: project
+              %>
+            </div>
+          </dialog>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>

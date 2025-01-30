@@ -5,7 +5,7 @@
   <% @project_categories.each do |project_category| %>
     <section id="<%= dom_id(project_category) %>" class="bg-gray-100 p-4 py-6 scroll-mt-[80px]">
       <div class="flex flex-col sm:flex-row sm:items-center sm:gap-5">
-        <%= inline_svg_tag("icons/#{project_category.icon}.svg", class: "shrink-0 w-10") %>
+        <%= inline_svg_tag(project_category.icon_path, class: "shrink-0 w-10") %>
         <div>
           <h2 class="font-bold text-2xl"><%= project_category.name %></h2>
           <p><%= project_category.description %></p>

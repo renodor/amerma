@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_25_183854) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_30_064938) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -59,6 +59,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_25_183854) do
     t.bigint "containerable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "column_count", default: 1, null: false
     t.index ["containerable_type", "containerable_id"], name: "index_container_blocks_on_containerable"
   end
 
@@ -66,8 +67,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_25_183854) do
     t.integer "position", default: 0, null: false
     t.string "class_list", default: [], null: false, array: true
     t.bigint "container_block_id", null: false
-    t.string "contentable_type", null: false
-    t.bigint "contentable_id", null: false
+    t.string "contentable_type"
+    t.bigint "contentable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["container_block_id"], name: "index_content_blocks_on_container_block_id"
@@ -102,6 +103,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_25_183854) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "visible", default: false, null: false
+    t.string "owner"
     t.index ["project_category_id"], name: "index_projects_on_project_category_id"
   end
 

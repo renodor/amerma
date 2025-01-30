@@ -6,6 +6,14 @@
   ul {
     @apply list-disc list-inside
   }
+
+  .dashed-border {
+    @apply border-dashed border-2 border-black
+  }
+
+  .shadow-border {
+    @apply border-2 border-black shadow-flat
+  }
 }
 
 @layer components {
@@ -30,6 +38,10 @@
   }
 
   .btn-old-school {
+    @apply underline text-[blue] hover:no-underline
+  }
+
+  .trix-content a {
     @apply underline text-[blue] hover:no-underline
   }
 }

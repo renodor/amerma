@@ -1,5 +1,5 @@
 <section id=<%= dom_id(container_block) %> class="bg-white flex flex-col gap-4 border rounded p-3">
-  <div id=<%= dom_id(container_block, :content_blocks) %> class="<%= container_block.class_list.join(" ") %>">
+  <div id=<%= dom_id(container_block, :content_blocks) %> class="<%= container_block.class_list.join(" ") %> <%= container_block.column_count_classes %>">
     <%=
       render container_block.content_blocks.ordered,
       container_block: container_block,
@@ -8,69 +8,6 @@
   </div>
 
   <div class="flex justify-between gap-4">
-    <div class="flex gap-3">
-      <div data-controller="modal">
-        <%=
-          button_tag type: :button,
-          class: "admin-btn-secondary text-sm px-3 py-1",
-          data: { action: "click->modal#showModal" } do
-        %>
-          <%= inline_svg_tag("icons/plus.svg", class: "w-5") %>
-          <span><%= t("text") %></span>
-        <% end %>
-
-        <dialog class="backdrop:bg-black/60 p-4 w-[600px] rounded" data-modal-target="dialog">
-          <div class="flex flex-col gap-4">
-            <div class="flex items-center">
-              <h3 class="grow font-bold"><%= t("new_text") %></h3>
-              <button data-action="click->modal#closeModal">
-                <%= inline_svg_tag("icons/x-mark.svg", class: "w-6 text-black hover:opacity-70") %>
-              </button>
-            </div>
-            <%=
-              render "admin/text_blocks/form",
-              content_block: container_block.content_blocks.new(
-                position: container_block.content_blocks.ordered.last&.position.to_i + 1,
-                contentable: TextBlock.new
-              ),
-              container_block: container_block,
-              project: project
-            %>
-          </div>
-        </dialog>
-      </div>
-      <div data-controller="modal">
-        <%=
-          button_tag type: :button,
-          class: "admin-btn-secondary text-sm px-3 py-1",
-          data: { action: "click->modal#showModal" } do
-        %>
-          <%= inline_svg_tag("icons/plus.svg", class: "w-5") %>
-          <span><%= t("image") %></span>
-        <% end %>
-
-        <dialog class="backdrop:bg-black/60 p-4 rounded" data-modal-target="dialog">
-          <div class="flex flex-col gap-4">
-            <div class="flex items-center">
-              <h3 class="grow font-bold"><%= t("new_image") %></h3>
-              <button data-action="click->modal#closeModal">
-                <%= inline_svg_tag("icons/x-mark.svg", class: "w-6 text-black hover:opacity-70") %>
-              </button>
-            </div>
-            <%=
-              render "admin/image_blocks/form",
-              content_block: container_block.content_blocks.new(
-                position: container_block.content_blocks.ordered.last&.position.to_i + 1,
-                contentable: ImageBlock.new
-              ),
-              container_block: container_block,
-              project: project
-            %>
-          </div>
-        </dialog>
-      </div>
-    </div>
-
     <div class="flex gap-3">
       <%=
         link_to inline_svg_tag("icons/chevron-up.svg", class: "w-5"),

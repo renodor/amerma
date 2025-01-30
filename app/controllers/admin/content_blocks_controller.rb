@@ -1,10 +1,4 @@
 class Admin::ContentBlocksController < ApplicationController
-  def destroy
-    @content_block = ContentBlock.find(params[:id])
-    @content_block.destroy
-    flash.now[:success] = t("container_block_deleted")
-  end
-
   def update_position
     @project = Project.find(params[:project_id])
     @container_block = @project.container_blocks.find(params[:container_block_id])

@@ -1,9 +1,4 @@
-<%= form_with model: [:admin, project, container_block, content_block.image_block], class: "flex flex-col gap-4" do |form| %>
-  <%= hidden_field_tag "content_block[position]", content_block.position, class: dom_id(container_block, :content_block_position) %>
-  <%= hidden_field_tag "content_block[class_list][]", "flex" %>
-  <%= hidden_field_tag "content_block[class_list][]", "justify-center" %>
-  <%= hidden_field_tag "content_block[class_list][]", "items-center" %>
-
+<%= form_with model: [:admin, project, container_block, content_block, content_block.image_block], class: "flex flex-col gap-4" do |form| %>
   <%= form.text_field :title, placeholder: t("title_optional"), class: "border rounded p-3 text-lg font-bold" %>
   <%= form.text_field :subtitle, placeholder: t("subtitle_optional"), class: "border rounded p-3" %>
 
@@ -40,6 +35,5 @@
   </div>
 
   <%= form.text_field :caption, placeholder: t("caption_optional"), class: "border rounded p-3 text-sm text-gray-500" %>
-
   <%= form.submit class: "admin-btn-primary cursor-pointer", data: { action: "click->modal#closeModal" } %>
 <% end %>

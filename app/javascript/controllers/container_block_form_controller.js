@@ -3,8 +3,13 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = [
     "classListInput",
-    "containerPreview"
+    "containerPreview",
+    "columnDeleteWarning"
   ]
+
+  static values = {
+    persistedColumnCount: Number
+  }
 
   updateClassList({ currentTarget }) {
     if (!currentTarget.checked) {
@@ -12,7 +17,7 @@ export default class extends Controller {
       return
     }
 
-    this.containerPreviewTarget.className = "grid grid-cols-auto"
+    this.containerPreviewTarget.className = "grid grid-cols-auto gap-6 p-4"
 
     this.classListInputTargets.forEach((input) => {
       if (input.dataset.type === currentTarget.dataset.type) {
@@ -23,5 +28,15 @@ export default class extends Controller {
         this.containerPreviewTarget.classList.add(input.value)
       }
     })
+  }
+
+  updateColumnCount({ currentTarget }) {
+    this.element.dataset.columnCount = currentTarget.value
+
+    if (this.element.dataset.persisted === "true" && currentTarget.value < this.persistedColumnCountValue) {
+      this.columnDeleteWarningTarget.classList.remove("hidden")
+    } else {
+      this.columnDeleteWarningTarget.classList.add("hidden")
+    }
   }
 }

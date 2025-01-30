@@ -1,71 +1,149 @@
-<div class="flex flex-col gap-6" data-controller="container-block-form">
+<div
+  class="flex flex-col gap-6 group"
+  data-controller="container-block-form"
+  data-container-block-form-persisted-column-count-value="<%= container_block.column_count %>"
+  data-persisted="<%= container_block.persisted? %>"
+  data-column-count="<%= container_block.column_count %>"
+>
   <%= form_with model: [:admin, project, container_block], class: "flex flex-col gap-6" do |form| %>
     <%= form.hidden_field :position, id: dom_id(container_block, :position) %>
     <%= form.hidden_field :class_list, value: "grid", multiple: true %>
-    <%= form.hidden_field :class_list, value: "grid-cols-auto", multiple: true %>
+    <%= form.hidden_field :class_list, value: "gap-6", multiple: true %>
+    <%= form.hidden_field :class_list, value: "p-4", multiple: true %>
+
+    <div class="grid grid-cols-4 gap-4">
+      <div>
+        <%= label_tag nil, class: "flex flex-col gap-2 items-center text-gray-400 px-4 py-2 cursor-pointer rounded border has-[:checked]:bg-slate-100 has-[:checked]:text-slate-800" do %>
+          <%=
+            form.radio_button :column_count, "1",
+            {
+              class: "hidden",
+              data: { action: "change->container-block-form#updateColumnCount" }
+            }
+          %>
+          <%= t("one_column") %>
+        <% end %>
+      </div>
+      <div>
+        <%= label_tag nil, class: "flex flex-col gap-2 items-center text-gray-400 px-4 py-2 cursor-pointer rounded border has-[:checked]:bg-slate-100 has-[:checked]:text-slate-800" do %>
+          <%=
+            form.radio_button :column_count, "2",
+            {
+              class: "hidden",
+              data: { action: "change->container-block-form#updateColumnCount" }
+            }
+          %>
+          <%= t("two_columns") %>
+        <% end %>
+      </div>
+      <div>
+        <%= label_tag nil, class: "flex flex-col gap-2 items-center text-gray-400 px-4 py-2 cursor-pointer rounded border has-[:checked]:bg-slate-100 has-[:checked]:text-slate-800" do %>
+          <%=
+            form.radio_button :column_count, "3",
+            {
+              class: "hidden",
+              data: { action: "change->container-block-form#updateColumnCount" }
+            }
+          %>
+          <%= t("three_columns") %>
+        <% end %>
+      </div>
+      <div>
+        <%= label_tag nil, class: "flex flex-col gap-2 items-center text-gray-400 px-4 py-2 cursor-pointer rounded border has-[:checked]:bg-slate-100 has-[:checked]:text-slate-800" do %>
+          <%=
+            form.radio_button :column_count, "4",
+            {
+              class: "hidden",
+              data: { action: "change->container-block-form#updateColumnCount" }
+            }
+          %>
+          <%= t("four_columns") %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <%= label_tag nil, class: "flex flex-col gap-2 items-center text-gray-400 px-4 py-2 cursor-pointer rounded border has-[:checked]:bg-slate-100 has-[:checked]:text-slate-800" do %>
+          <%=
+            checkbox_tag "container_block[class_list][]",
+            value: "items-center",
+            class: "hidden",
+            checked: container_block.class_list.include?("items-center"),
+            data: {
+              type: "items",
+              action: "change->container-block-form#updateClassList",
+              "container-block-form-target": "classListInput"
+            }
+          %>
+          <%= t("centered_items") %>
+        <% end %>
+      </div>
+      <div>
+        <%= label_tag nil, class: "flex flex-col gap-2 items-center text-gray-400 px-4 py-2 cursor-pointer rounded border has-[:checked]:bg-slate-100 has-[:checked]:text-slate-800" do %>
+          <%=
+            checkbox_tag "container_block[class_list][]",
+            value: "items-start",
+            class: "hidden",
+            checked: container_block.class_list.include?("items-start"),
+            data: {
+              type: "items",
+              action: "change->container-block-form#updateClassList",
+              "container-block-form-target": "classListInput"
+            }
+          %>
+          <%= t("items_top") %>
+        <% end %>
+      </div>
+    </div>
 
     <div class="grid grid-cols-3 gap-4">
       <div>
         <%= label_tag nil, class: "flex flex-col gap-2 items-center text-gray-400 px-4 py-2 cursor-pointer rounded border has-[:checked]:bg-slate-100 has-[:checked]:text-slate-800" do %>
           <%=
             checkbox_tag "container_block[class_list][]",
-            value: "gap-2",
+            value: "border-none",
             class: "hidden",
-            checked: container_block.class_list.include?("gap-2"),
+            checked: container_block.class_list.include?("border-none"),
             data: {
-              type: "gap",
+              type: "border",
               action: "change->container-block-form#updateClassList",
               "container-block-form-target": "classListInput"
             }
           %>
-          <%= t("small_gap") %>
-          <div class="flex w-full justify-center gap-2">
-            <div class="w-4 h-4 border border-slate-800 rounded"></div>
-            <div class="w-4 h-4 border border-slate-800 rounded"></div>
-            <div class="w-4 h-4 border border-slate-800 rounded"></div>
-          </div>
+          <%= t("no_border") %>
         <% end %>
       </div>
       <div>
         <%= label_tag nil, class: "flex flex-col gap-2 items-center text-gray-400 px-4 py-2 cursor-pointer rounded border has-[:checked]:bg-slate-100 has-[:checked]:text-slate-800" do %>
           <%=
             checkbox_tag "container_block[class_list][]",
-            value: "gap-6",
+            value: "dashed-border",
             class: "hidden",
-            checked: container_block.class_list.include?("gap-6"),
+            checked: container_block.class_list.include?("dashed-border"),
             data: {
-              type: "gap",
+              type: "border",
               action: "change->container-block-form#updateClassList",
               "container-block-form-target": "classListInput"
             }
           %>
-          <%= t("medium_gap") %>
-          <div class="flex w-full justify-center gap-6">
-            <div class="w-4 h-4 border border-slate-800 rounded"></div>
-            <div class="w-4 h-4 border border-slate-800 rounded"></div>
-            <div class="w-4 h-4 border border-slate-800 rounded"></div>
-          </div>
+          <%= t("dashed_border") %>
         <% end %>
       </div>
       <div>
         <%= label_tag nil, class: "flex flex-col gap-2 items-center text-gray-400 px-4 py-2 cursor-pointer rounded border has-[:checked]:bg-slate-100 has-[:checked]:text-slate-800" do %>
           <%=
             checkbox_tag "container_block[class_list][]",
-            value: "gap-10",
+            value: "shadow-border",
             class: "hidden",
-            checked: container_block.class_list.include?("gap-10"),
+            checked: container_block.class_list.include?("shadow-border"),
             data: {
-              type: "gap",
+              type: "border",
               action: "change->container-block-form#updateClassList",
               "container-block-form-target": "classListInput"
             }
           %>
-          <%= t("large_gap") %>
-          <div class="flex w-full justify-center gap-10">
-            <div class="w-4 h-4 border border-slate-800 rounded"></div>
-            <div class="w-4 h-4 border border-slate-800 rounded"></div>
-            <div class="w-4 h-4 border border-slate-800 rounded"></div>
-          </div>
+          <%= t("shadow_border") %>
         <% end %>
       </div>
     </div>
@@ -73,14 +151,19 @@
     <div class="pt-3 border-t">
       <p class="mb-3 text-sm text-gray-400"><%= t("Preview") %> :</p>
       <div class="bg-slate-100 rounded p-4">
-        <div class="<%= container_block.class_list.join(" ") %>" data-container-block-form-target="containerPreview">
-          <div class="w-full h-10 bg-slate-300 rounded"></div>
-          <div class="w-full h-10 bg-slate-300 rounded"></div>
-          <div class="w-full h-10 bg-slate-300 rounded"></div>
+        <div class="grid-cols-auto <%= container_block.class_list.join(" ") %>" data-container-block-form-target="containerPreview">
+          <div class="w-full h-20 bg-slate-300 rounded"></div>
+          <div class="w-full h-10 bg-slate-300 rounded hidden group-[[data-column-count='2']]:block group-[[data-column-count='3']]:block group-[[data-column-count='4']]:block"></div>
+          <div class="w-full h-20 bg-slate-300 rounded hidden group-[[data-column-count='3']]:block group-[[data-column-count='4']]:block"></div>
+          <div class="w-full h-10 bg-slate-300 rounded hidden group-[[data-column-count='4']]:block"></div>
         </div>
       </div>
     </div>
 
+    <p class="flex gap-3 items-center justify-center text-red-400 hidden" data-container-block-form-target="columnDeleteWarning">
+      <%= inline_svg_tag "icons/exclamation-triangle-solid.svg", class: "w-7 h-7" %>
+      <span class="text-xs"><%= t("container_column_delete_warning") %></span>
+    </p>
     <%= form.submit class: "admin-btn-primary cursor-pointer", data: { action: "click->modal#closeModal" } %>
   <% end %>
 </div>

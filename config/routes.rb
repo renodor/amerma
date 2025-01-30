@@ -24,9 +24,9 @@ Rails.application.routes.draw do
         member do
           get :update_position
         end
-        resources :text_blocks, only: %i[create update]
-        resources :image_blocks, only: %i[create update]
-        resources :content_blocks, only: :destroy do
+        resources :content_blocks, only: [] do
+          resources :text_blocks, only: %i[create update destroy]
+          resources :image_blocks, only: %i[create update destroy]
           member do
             get :update_position
           end

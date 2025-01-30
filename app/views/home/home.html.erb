@@ -2,7 +2,7 @@
   <section class="mt-3">
     <%= image_tag "banner.png", class: "h-52 w-full object-cover" %>
     <div class="flex justify-center">
-      <p class="w-11/12 -mt-16 p-7 border border-2 border-black border-dashed bg-white sm:w-2/3 lg:w-1/2">
+      <p class="w-11/12 -mt-16 p-7 border-2 border-black border-dashed bg-white sm:w-2/3 lg:w-1/2">
         <span class="text-4xl font-bold">AMERMA</span> est une association pour l'étude, la promotion, l'accompagnement, l'expérimentation et la mise en place de <strong>nouvelles approches industrielles</strong>, locales, raisonnées, accessibles et à <strong>moindre impact écologique.</strong>
       </p>
     </div>
@@ -25,10 +25,10 @@
     </div>
     <div class="grid grid-cols-1 gap-y-10 gap-x-14 lg:grid-cols-3">
       <% @project_categories.each do |project_category| %>
-        <div class="flex flex-col gap-3 border border-2 border-black p-6 shadow-flat">
+        <div class="flex flex-col gap-3 shadow-border p-6">
           <div class="flex items-center gap-2">
             <h2 class="font-bold grow"><%= project_category.name %></h2>
-            <%= inline_svg_tag("icons/#{project_category.icon}.svg", class: "w-10 shrink-0") %>
+            <%= inline_svg_tag(project_category.icon_path, class: "w-10 shrink-0") %>
           </div>
           <p class="grow"><%= project_category.description %></p>
           <%= link_to t("see_projects"), projects_path(anchor: dom_id(project_category)), class: "btn-old-school" %>

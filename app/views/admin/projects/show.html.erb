@@ -36,7 +36,8 @@
         <%=
           render "admin/container_blocks/form",
           container_block: ContainerBlock.new(
-            class_list: ["grid", "grid-cols-auto", "gap-6"],
+            class_list: ["grid", "gap-6", "items-center", "p-4", "border-none"],
+            column_count: 1,
             position: @project.container_blocks.ordered.last&.position.to_i + 1
           ),
           project: @project

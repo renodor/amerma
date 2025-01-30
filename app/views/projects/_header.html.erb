@@ -1,0 +1,23 @@
+<header class="w-full mt-10">
+  <% if project.cover_photo.attached? %>
+    <%= image_tag project.cover_photo.variant(:cover), class: "w-full object-cover mb-6" %>
+  <% end %>
+  <div class="flex flex-col gap-8">
+    <div class="flex gap-4 items-center">
+      <h1 class="font-bold text-3xl grow"><%= project.name %></h1>
+    </div>
+    <div class="bg-gray-100 p-4">
+      <div class="flex gap-4 justify-between">
+        <ul class="leading-7 mb-3">
+          <li><span class="text-sm text-gray-500"><%= t("status") %>:</span> <%= project_status(project.status) %></li>
+          <li><span class="text-sm text-gray-500"><%= t("timeline") %>:</span> <%= project.start_date.strftime("%d %b %Y") %> - <%= project.end_date.strftime("%d %b %Y") %></li>
+          <% if project.owner.present? %>
+            <li><span class="text-sm text-gray-500"><%= t("owner") %>:</span> <%= project.owner %></li>
+          <% end %>
+        </ul>
+        <%= inline_svg_tag project.project_category.icon_path, class: "w-10 h-10 shrink-0" %>
+      </div>
+      <p class="bg-white border-2 border-dashed border-black p-4"><%= project.description %></p>
+    </div>
+  </div>
+</header>

@@ -1,30 +1,24 @@
-<div class="w-full my-10">
-  <% if @project.cover_photo.attached? %>
-    <%= image_tag @project.cover_photo.variant(:cover), class: "w-full object-cover" %>
-  <% end %>
-  <h1 class="font-bold text-xl mt-6"><%= @project.name %></h1>
-  <p><%= @project.description %></p>
+<%= render "header", project: @project %>
 
-  <div class="flex flex-col gap-10 mt-6">
-    <% @project.container_blocks.ordered.each do |container_block| %>
-      <div class="<%= container_block.class_list.join(" ") %>">
-        <% container_block.content_blocks.ordered.each do |content_block| %>
-          <div class="<%= content_block.class_list.join(" ") %>">
-            <% if content_block.text_block? %>
-              <%= content_block.text_block.text %>
-            <% elsif content_block.image_block? %>
-              <div class="flex flex-col gap-1">
-                <p class="text-lg font-bold"><%= content_block.image_block.title %></p>
-                <p><%= content_block.image_block.subtitle %></p>
-                <% if content_block.image_block.image.attached? %>
-                  <%= image_tag content_block.image_block.image, class: "w-full" %>
-                <% end %>
-                <p class="text-sm text-gray-500"><%= content_block.image_block.caption %></p>
-              </div>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
+<div class="flex flex-col gap-10 mt-10">
+  <% @project.container_blocks.ordered.each do |container_block| %>
+    <div class="<%= container_block.class_list.join(" ") %> <%= container_block.column_count_classes %>">
+      <% container_block.content_blocks.ordered.each do |content_block| %>
+        <div class="<%= content_block.class_list.join(" ") %>">
+          <% if content_block.text_block? %>
+            <%= content_block.text_block.text %>
+          <% elsif content_block.image_block? %>
+            <div class="flex flex-col gap-1">
+              <p class="text-lg font-bold"><%= content_block.image_block.title %></p>
+              <p><%= content_block.image_block.subtitle %></p>
+              <% if content_block.image_block.image.attached? %>
+                <%= image_tag content_block.image_block.image.variant(:default), class: "w-full" %>
+              <% end %>
+              <p class="text-sm text-gray-500"><%= content_block.image_block.caption %></p>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 </div>
