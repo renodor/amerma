@@ -1,0 +1,5 @@
+<%= turbo_stream.update dom_id(@team_member, :name) do %>
+  <%= @team_member.name %>
+<% end %>
+
+<%= turbo_stream.update "flash", partial: "shared/flash" %>

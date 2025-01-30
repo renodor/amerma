@@ -3,7 +3,7 @@
   <%= link_to t("new_team_member"), new_admin_team_member_path, class: "admin-btn-primary" %>
 </header>
 <div class="flex flex-col gap-4">
-  <% @team_members.each do |team_member| %>
+  <% @team_members.order(:created_at).each do |team_member| %>
     <div class="flex gap-4 items-center justify-between bg-white p-4 rounded border">
       <div class="flex gap-4 items-center">
         <% if team_member.photo.attached? %>

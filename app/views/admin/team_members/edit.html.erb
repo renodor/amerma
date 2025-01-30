@@ -1,4 +1,4 @@
 <header class="flex justify-between items-center mb-6">
-  <h1 class="text-2xl font-bold mb-4"><%= t("edit") %> <span><%= @team_member.name %></span></h1>
+  <h1 class="text-2xl font-bold mb-4"><%= t("edit") %> <span id="<%= dom_id(@team_member, :name) %>"><%= @team_member.name %></span></h1>
 </header>
 <%= render "form", team_member: @team_member %>

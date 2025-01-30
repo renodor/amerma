@@ -16,7 +16,7 @@ class Admin::TeamMembersController < ApplicationController
   def create
     @team_member = TeamMember.new(team_member_params)
     if @team_member.save
-      flash.now[:success] = t("team_member_created")
+      flash[:success] = t("team_member_created")
       redirect_to edit_admin_team_member_path(@team_member)
     else
       # TODO
