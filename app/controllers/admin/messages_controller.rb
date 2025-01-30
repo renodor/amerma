@@ -1,4 +1,4 @@
-class Admin::MessagesController < ApplicationController
+class Admin::MessagesController < Admin::BaseController
   layout "admin"
 
   def index

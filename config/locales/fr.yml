@@ -21,3 +21,4 @@ fr:
   message: "Message"
   send: "Envoyer"
   message_sent: "Votre message a bien été envoyé, merci!"
+  password: "Mot de passe"

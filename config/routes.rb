@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :messages, only: %i[new create]
 
   namespace :admin do
+    root to: "projects#index"
     resources :project_categories, only: %i[index edit update] do
       member do
         get :update_position

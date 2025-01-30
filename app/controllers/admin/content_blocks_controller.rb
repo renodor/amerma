@@ -1,4 +1,4 @@
-class Admin::ContentBlocksController < ApplicationController
+class Admin::ContentBlocksController < Admin::BaseController
   def update_position
     @project = Project.find(params[:project_id])
     @container_block = @project.container_blocks.find(params[:container_block_id])

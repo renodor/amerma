@@ -1,4 +1,4 @@
-class Admin::ImageBlocksController < ApplicationController
+class Admin::ImageBlocksController < Admin::BaseController
   def create
     @project = Project.find(params[:project_id])
     @container_block = @project.container_blocks.find(params[:container_block_id])
