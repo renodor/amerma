@@ -1,0 +1,46 @@
+<%= form_with model: [:admin, partner], class: "flex flex-col gap-4" do |form| %>
+  <%=
+    form.text_field :name,
+    placeholder: :name,
+    class: "w-full border p-3 font-bold text-xl"
+  %>
+  <%=
+    form.textarea :description,
+    placeholder: :description,
+    class: "w-full border p-3"
+  %>
+  <%=
+    form.text_field :website_url,
+    placeholder: :website_url,
+    class: "w-full border p-3"
+  %>
+  <div
+    class="flex flex-col gap-4 group"
+    data-controller="image-upload"
+    data-has-image="<%= partner.logo.attached? %>"
+  >
+    <%= form.hidden_field :remove_image, disabled: true, data: { "image-upload-target": "removeCoverPhotoInput" } %>
+    <%=
+      image_tag partner.logo.variant(:default).presence || "",
+      class: "w-fit group-[[data-has-image='false']]:hidden",
+      data: { "image-upload-target": "imagePreview" }
+    %>
+    <%=
+      label_tag dom_id(partner),
+      class: "admin-btn-secondary w-fit" do
+    %>
+      <span class="group-[[data-has-image='true']]:hidden"><%= t("choose_logo") %></span>
+      <span class="group-[[data-has-image='false']]:hidden"><%= t("change_logo") %></span>
+      <%=
+        form.file_field :logo,
+        class: "hidden",
+        id: dom_id(partner),
+        data: {
+          "image-upload-target": "imageInput",
+          action: "change->image-upload#imageUploaded"
+        }
+      %>
+    <% end %>
+  </div>
+  <%= form.submit class: "admin-btn-primary cursor-pointer" %>
+<% end %>

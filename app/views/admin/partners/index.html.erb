@@ -1,0 +1,23 @@
+<header class="flex justify-between items-center mb-6">
+  <h1 class="text-3xl font-bold mb-4"><%= t("partners") %></h1>
+  <%= link_to t("new_partner"), new_admin_partner_path, class: "admin-btn-primary" %>
+</header>
+<div class="flex flex-col gap-4">
+  <% @partners.order(:created_at).each do |partner| %>
+    <div class="flex gap-4 items-center justify-between bg-white p-4 rounded border">
+      <div class="flex gap-4 items-center">
+        <% if partner.logo.attached? %>
+          <%= image_tag partner.logo.variant(:default), class: "object-cover shrink-0" %>
+        <% end %>
+        <div>
+          <h2 class="text-xl font-bold"><%= partner.name %></h2>
+          <p class="text-gray-500"><%= partner.description %></p>
+        </div>
+      </div>
+      <div class="flex flex-col gap-4">
+        <%= link_to "Edit", edit_admin_partner_path(partner), class: "admin-btn-secondary" %>
+        <%= button_to "Delete", admin_partner_path(partner), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "admin-btn-delete" %>
+      </div>
+    </div>
+  <% end %>
+</div>
