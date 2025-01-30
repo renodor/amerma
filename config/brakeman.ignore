@@ -1,0 +1,73 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "18e8d9c08769d7651c19fe79b2a14ed644371cff15413f7748d5655857d905e0",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/partners/index.html.erb",
+      "line": 15,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(t(\"website\"), (Unresolved Model).new.website_url, :target => :_blank, :class => \"btn-old-school self-end\")",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "PartnersController",
+          "method": "index",
+          "line": 4,
+          "file": "app/controllers/partners_controller.rb",
+          "rendered": {
+            "name": "partners/index",
+            "file": "app/views/partners/index.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "partners/index"
+      },
+      "user_input": "(Unresolved Model).new.website_url",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "f18f97483ca466e7bd64c59721d0ef988b6f26ce033bf7c8a8606a81be78d5c1",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/pages/about.html.erb",
+      "line": 25,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(\"linked_in\", (Unresolved Model).new.linked_in_url, :target => :_blank, :class => \"btn-old-school self-end\")",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "PagesController",
+          "method": "about",
+          "line": 9,
+          "file": "app/controllers/pages_controller.rb",
+          "rendered": {
+            "name": "pages/about",
+            "file": "app/views/pages/about.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "pages/about"
+      },
+      "user_input": "(Unresolved Model).new.linked_in_url",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    }
+  ],
+  "brakeman_version": "7.0.0"
+}
