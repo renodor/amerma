@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_30_064938) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_30_135043) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -105,6 +105,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_30_064938) do
     t.boolean "visible", default: false, null: false
     t.string "owner"
     t.index ["project_category_id"], name: "index_projects_on_project_category_id"
+  end
+
+  create_table "team_members", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.string "linked_in_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "text_blocks", force: :cascade do |t|

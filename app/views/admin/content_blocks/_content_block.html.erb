@@ -1,5 +1,4 @@
 <div id=<%= dom_id(content_block) %> class="flex justify-center items-center border rounded p-3 relative">
-  <span class="mr-10"><%= content_block.position %></span>
   <div class="<%= content_block.class_list.join(" ") %>">
     <% if content_block.text_block? %>
       <%= content_block.text_block.text %>

@@ -1,0 +1,37 @@
+<header class="my-10 flex flex-col gap-5">
+  <h1 class="text-5xl font-bold border-b border-black"><%= t("who_are_we?") %></h1>
+  <p><strong>Amerma</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis augue ex. Fusce mollis libero vitae viverra mattis. Proin laoreet vehicula erat nec luctus. Aliquam malesuada ullamcorper aliquam.</p>
+  <%= image_tag "about-banner.png", class: "h-52 w-full object-cover" %>
+</header>
+
+<div class="flex flex-col gap-20">
+  <section class="mt-3 flex flex-col gap-5">
+    <h2 class="text-3xl font-bold"><%= t("history") %></h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis augue ex. Fusce mollis libero vitae viverra mattis. Proin laoreet vehicula erat nec luctus. Aliquam malesuada ullamcorper aliquam. Sed quis lectus vel risus ornare pharetra. Etiam id condimentum purus. Phasellus condimentum, ipsum in sagittis ultrices, urna libero pretium tortor, non molestie tortor arcu ac ipsum. Ut ultricies justo sed elit volutpat aliquet. Proin eget ultrices ipsum. Nulla ullamcorper diam et arcu dapibus bibendum. Aliquam posuere convallis odio eu malesuada. Etiam luctus convallis purus et tempus.</p>
+    <p>Mauris et sapien molestie, venenatis risus at, hendrerit mi. Mauris congue quam eget libero ultricies, non scelerisque mauris iaculis. Nulla eu ornare augue. In id quam lobortis, porta massa at, auctor lectus. Suspendisse sed tincidunt ante. Aliquam sollicitudin sapien risus, in iaculis diam dapibus eu. Sed euismod dapibus enim non suscipit. Nulla sit amet vestibulum felis, sed pharetra arcu. Integer sollicitudin orci eget cursus consectetur. Pellentesque ut cursus mi, eget sodales nisl. Morbi bibendum mauris bibendum quam facilisis, non molestie massa molestie. Sed et sem convallis, pharetra justo laoreet, blandit elit.</p>
+  </section>
+
+  <section class="mt-3 flex flex-col gap-5">
+    <h2 class="text-3xl font-bold"><%= t("team") %></h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis augue ex. Fusce mollis libero vitae viverra mattis. Proin laoreet vehicula erat nec luctus. Aliquam malesuada ullamcorper aliquam.</p>
+
+    <div class="flex gap-6 justify-evenly flex-wrap">
+      <% @team_members.order(:created_at).each do |team_member| %>
+        <div class="flex flex-col gap-3 items-center shadow-border p-4 w-56">
+          <%= image_tag team_member.photo.variant(:default) %>
+          <p class="text-xl font-bold"><%= team_member.name %></p>
+          <p><%= team_member.description %></p>
+          <% if team_member.linked_in_url.present? %>
+            <%= link_to "linked_in", team_member.linked_in_url, target: :_blank, class: "btn-old-school self-end" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </section>
+
+  <section class="mt-3 flex flex-col gap-5">
+    <h2 class="text-3xl font-bold"><%= t("vision_and_mission") %></h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis augue ex. Fusce mollis libero vitae viverra mattis. Proin laoreet vehicula erat nec luctus. Aliquam malesuada ullamcorper aliquam. Sed quis lectus vel risus ornare pharetra. Etiam id condimentum purus. Phasellus condimentum, ipsum in sagittis ultrices, urna libero pretium tortor, non molestie tortor arcu ac ipsum. Ut ultricies justo sed elit volutpat aliquet. Proin eget ultrices ipsum. Nulla ullamcorper diam et arcu dapibus bibendum. Aliquam posuere convallis odio eu malesuada. Etiam luctus convallis purus et tempus.</p>
+    <p>Mauris et sapien molestie, venenatis risus at, hendrerit mi. Mauris congue quam eget libero ultricies, non scelerisque mauris iaculis. Nulla eu ornare augue. In id quam lobortis, porta massa at, auctor lectus. Suspendisse sed tincidunt ante. Aliquam sollicitudin sapien risus, in iaculis diam dapibus eu. Sed euismod dapibus enim non suscipit. Nulla sit amet vestibulum felis, sed pharetra arcu. Integer sollicitudin orci eget cursus consectetur. Pellentesque ut cursus mi, eget sodales nisl. Morbi bibendum mauris bibendum quam facilisis, non molestie massa molestie. Sed et sem convallis, pharetra justo laoreet, blandit elit.</p>
+  </section>
+</div>

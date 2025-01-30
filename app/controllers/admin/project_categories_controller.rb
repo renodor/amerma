@@ -12,7 +12,7 @@ class Admin::ProjectCategoriesController < ApplicationController
   def update
     @project_category = ProjectCategory.find(params[:id])
     if @project_category.update(project_category_params)
-      flash.now[:success] = t("project_updated")
+      flash.now[:success] = t("project_category_updated")
     else
       # TODO
     end

@@ -8,9 +8,8 @@
     data-has-image="<%= content_block.image_block.image.attached? %>"
   >
     <%= form.hidden_field :remove_image, disabled: true, data: { "image-upload-target": "removeCoverPhotoInput" } %>
-
     <%=
-      image_tag content_block.image_block.image.presence || "",
+      image_tag content_block.image_block.image.variant(:default).presence || "",
       class: "w-full h-60 object-cover mb-3 group-[[data-has-image='false']]:hidden",
       data: { "image-upload-target": "imagePreview" }
     %>

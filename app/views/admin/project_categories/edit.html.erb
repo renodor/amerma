@@ -3,7 +3,7 @@
     <%= t("edit") %> <span id="<%= dom_id(@project_category, :heading) %>"><%= @project_category.name %></span>
   </h1>
 </div>
-<%= form_with model: [:admin, @project_category], class: "flex flex-col gap-4", data: { controller: "project-form "} do |form| %>
+<%= form_with model: [:admin, @project_category], class: "flex flex-col gap-4" do |form| %>
   <%=
     form.text_field :name,
     placeholder: :name,

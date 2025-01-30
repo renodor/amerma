@@ -18,15 +18,15 @@
 
 @layer components {
   .admin-btn-primary {
-    @apply flex justify-center items-center gap-1 bg-slate-700 text-white text-center px-4 py-2 rounded transition-colors hover:bg-slate-900;
+    @apply flex justify-center items-center gap-1 bg-black text-white text-center px-4 py-2 cursor-pointer hover:underline;
   }
 
   .admin-btn-secondary {
-    @apply flex justify-center items-center gap-1 text-slate-800 text-center border border-slate-800 px-4 py-2 rounded transition-colors hover:bg-slate-200;
+    @apply flex justify-center items-center gap-1 text-center border border-black px-4 py-2 cursor-pointer hover:underline;
   }
 
   .admin-btn-delete {
-    @apply flex justify-center items-center gap-1 text-red-500 text-center border border-red-500 px-4 py-2 rounded transition-colors hover:bg-red-100;
+    @apply flex justify-center items-center gap-1 text-red-500 text-center border border-red-500 px-4 py-2 cursor-pointer hover:underline;
   }
 
   .btn-primary {
