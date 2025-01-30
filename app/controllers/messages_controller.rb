@@ -11,6 +11,7 @@ class MessagesController < ApplicationController
 
     @message = Message.new(message_params)
     if @message.save
+      DiscordMessageSender.new.send_message(@message)
       flash.now[:success] = t("message_sent")
     else
       # TODO
