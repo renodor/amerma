@@ -61,6 +61,7 @@ fr:
   new_project: "Nouveau projet"
   view_project: "Voir le projet"
   view_projects: "Voir les projets"
+  project_created: "Projet crée"
   project_updated: "Projet modifié"
   visible: "Visible"
   hidden: "Caché"

@@ -5,6 +5,21 @@ class Admin::ProjectsController < Admin::BaseController
     @projects = Project.all.order(created_at: :desc)
   end
 
+  def new
+    @project_categories = ProjectCategory.all
+    @project = Project.new
+  end
+
+  def create
+    @project = Project.new(project_params)
+    if @project.save
+      flash[:success] = t("project_created")
+      redirect_to admin_project_path(@project)
+    else
+      # TODO
+    end
+  end
+
   def show
     @project_categories = ProjectCategory.all
     @project = Project.find(params[:id])

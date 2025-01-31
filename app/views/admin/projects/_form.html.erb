@@ -88,7 +88,8 @@
     </div>
     <%=
       form.text_field :name,
-      placeholder: t("name"),
+      placeholder: "#{t('name')}*",
+      required: true,
       class: "w-full border p-3 font-bold text-xl"
     %>
     <div class="flex gap-4">

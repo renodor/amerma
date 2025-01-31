@@ -10,7 +10,13 @@
       <div class="flex gap-4 justify-between">
         <ul class="leading-7 mb-3">
           <li><span class="text-sm text-gray-500"><%= t("status") %>:</span> <%= project_status(project.status) %></li>
-          <li><span class="text-sm text-gray-500"><%= t("timeline") %>:</span> <%= project.start_date.strftime("%d %b %Y") %> - <%= project.end_date.strftime("%d %b %Y") %></li>
+          <% if project.start_date.present? && project.end_date.present? %>
+            <li><span class="text-sm text-gray-500"><%= t("timeline") %>:</span> <%= project.start_date.strftime("%d %b %Y") %> - <%= project.end_date.strftime("%d %b %Y") %></li>
+          <% elsif project.start_date.present? %>
+            <li><span class="text-sm text-gray-500"><%= t("start_date") %>:</span> <%= project.start_date.strftime("%d %b %Y") %></li>
+          <% elsif project.end_date.present? %>
+            <li><span class="text-sm text-gray-500"><%= t("end_date") %>:</span> <%= project.end_date.strftime("%d %b %Y") %></li>
+          <% end %>
           <% if project.owner.present? %>
             <li><span class="text-sm text-gray-500"><%= t("owner") %>:</span> <%= project.owner %></li>
           <% end %>
