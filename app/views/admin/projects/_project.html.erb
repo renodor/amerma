@@ -1,7 +1,7 @@
-<section class="flex flex-col gap-4 bg-white p-4 border rounded">
+<section class="flex flex-col gap-4 bg-white p-4 border">
   <div class="flex items-center gap-10">
-    <span class="px-4 py-3 bg-white border rounded"><%= project.project_category.name %></span>
-    <div class="flex flex-col items-center px-4 py-1 rounded border bg-slate-100 text-slate-800">
+    <span class="px-4 py-3 bg-white border"><%= project.project_category.name %></span>
+    <div class="flex flex-col items-center px-4 py-1 border bg-slate-100 text-slate-800">
       <% if project.visible? %>
         <%= t("visible") %>
         <%= inline_svg_tag("icons/eye-solid.svg", class: "w-4") %>
@@ -10,7 +10,7 @@
         <%= inline_svg_tag("icons/eye-slash.svg", class: "w-4") %>
       <% end %>
     </div>
-    <div class="flex flex-col items-center px-4 py-1 rounded border bg-slate-100 text-slate-800">
+    <div class="flex flex-col items-center px-4 py-1 border bg-slate-100 text-slate-800">
       <% if project.featured? %>
         <%= t("featured") %>
         <%= inline_svg_tag("icons/star-filled.svg", class: "w-4") %>

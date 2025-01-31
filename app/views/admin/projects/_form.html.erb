@@ -1,4 +1,4 @@
-<section class="bg-white p-4 border rounded">
+<section class="bg-white p-4 border">
   <%= form_with model: [:admin, project], class: "flex flex-col gap-4", data: { controller: "project-form "} do |form| %>
     <div>
       <%=
@@ -7,20 +7,20 @@
         :id,
         :name,
         { include_blank: t("choose_category") },
-        { class: "w-auto px-4 py-3 bg-white border rounded border-slate-800" }
+        { class: "w-auto px-4 py-3 bg-white border" }
       %>
     </div>
     <div class="flex items-center gap-10">
       <div class="flex gap-4">
         <div>
-          <%= form.label :visible_true, class: "flex flex-col items-center text-gray-400 px-4 py-1 border cursor-pointer rounded has-[:checked]:bg-slate-100 has-[:checked]:text-slate-800" do %>
+          <%= form.label :visible_true, class: "flex flex-col items-center text-gray-400 px-4 py-1 border cursor-pointer has-[:checked]:bg-gray-100 has-[:checked]:text-black" do %>
             <%= form.radio_button :visible, true, class: "hidden" %>
             <%= t("visible") %>
             <%= inline_svg_tag("icons/eye-solid.svg", class: "w-4") %>
           <% end %>
         </div>
         <div>
-          <%= form.label :visible_false, class: "flex flex-col items-center text-gray-400 px-4 py-1 border cursor-pointer rounded has-[:checked]:bg-slate-100 has-[:checked]:text-slate-800" do %>
+          <%= form.label :visible_false, class: "flex flex-col items-center text-gray-400 px-4 py-1 border cursor-pointer has-[:checked]:bg-gray-100 has-[:checked]:text-black" do %>
             <%= form.radio_button :visible, false, class: "hidden" %>
             <%= t("hidden") %>
             <%= inline_svg_tag("icons/eye-slash.svg", class: "w-4") %>
@@ -29,14 +29,14 @@
       </div>
       <div class="flex gap-4">
         <div>
-          <%= form.label :featured_true, class: "flex flex-col items-center text-gray-400 px-4 py-1 border cursor-pointer rounded has-[:checked]:bg-slate-100 has-[:checked]:text-slate-800" do %>
+          <%= form.label :featured_true, class: "flex flex-col items-center text-gray-400 px-4 py-1 border cursor-pointer has-[:checked]:bg-gray-100 has-[:checked]:text-black" do %>
             <%= form.radio_button :featured, true, class: "hidden" %>
             <%= t("featured") %>
             <%= inline_svg_tag("icons/star-filled.svg", class: "w-4") %>
           <% end %>
         </div>
         <div>
-          <%= form.label :featured_false, class: "flex flex-col items-center text-gray-400 px-4 py-1 border cursor-pointer rounded has-[:checked]:bg-slate-100 has-[:checked]:text-slate-800" do %>
+          <%= form.label :featured_false, class: "flex flex-col items-center text-gray-400 px-4 py-1 border cursor-pointer has-[:checked]:bg-gray-100 has-[:checked]:text-black" do %>
             <%= form.radio_button :featured, false, class: "hidden" %>
             <%= t("not_featured") %>
             <%= inline_svg_tag("icons/star.svg", class: "w-4") %>
@@ -45,7 +45,7 @@
       </div>
     </div>
     <div
-      class="border rounded p-3 relative group"
+      class="border p-3 relative group"
       data-project-form-target="coverPhotoContainer"
       data-has-cover-photo="<%= project.cover_photo.attached? %>"
     >
@@ -70,14 +70,14 @@
       <div class="flex gap-3 justify-end right-5">
         <%=
           form.label :cover_photo,
-          class: "px-3 py-1 rounded border border-slate-800 text-slate-800 text-sm cursor-pointer transition-colors hover:bg-slate-200" do
+          class: "admin-btn-secondary text-sm px-2 py-1" do
         %>
           <span class="group-[[data-has-cover-photo='false']]:hidden"><%= t("change") %></span>
           <span class="group-[[data-has-cover-photo='true']]:hidden"><%= t("add_cover_photo") %></span>
         <% end %>
         <%=
           button_tag t("remove"),
-          class: "px-3 py-1 rounded border border-red-500 text-red-500 text-sm cursor-pointer transition-colors hover:bg-red-100 group-[[data-has-cover-photo='false']]:hidden",
+          class: "admin-btn-delete text-sm px-3 py-1 group-[[data-has-cover-photo='false']]:hidden",
           type: :button,
           data: {
             id: "cover-photo",
@@ -89,23 +89,23 @@
     <%=
       form.text_field :name,
       placeholder: :name,
-      class: "w-full border rounded p-3 font-bold text-xl"
+      class: "w-full border p-3 font-bold text-xl"
     %>
     <div class="flex gap-4">
       <div>
-        <%= form.label :status_completed, class: "flex flex-col items-center text-gray-400 px-4 py-1 border cursor-pointer rounded has-[:checked]:bg-slate-100 has-[:checked]:text-slate-800" do %>
+        <%= form.label :status_completed, class: "flex flex-col items-center text-gray-400 px-4 py-1 border cursor-pointer has-[:checked]:bg-gray-100 has-[:checked]:text-black" do %>
           <%= form.radio_button :status, "completed", class: "hidden" %>
           <%= t("completed") %>
         <% end %>
       </div>
       <div>
-        <%= form.label :status_in_progress, class: "flex flex-col items-center text-gray-400 px-4 py-1 border cursor-pointer rounded has-[:checked]:bg-slate-100 has-[:checked]:text-slate-800" do %>
+        <%= form.label :status_in_progress, class: "flex flex-col items-center text-gray-400 px-4 py-1 border cursor-pointer has-[:checked]:bg-gray-100 has-[:checked]:text-black" do %>
           <%= form.radio_button :status, "in_progress", class: "hidden" %>
           <%= t("in_progress") %>
         <% end %>
       </div>
       <div>
-        <%= form.label :status_planned, class: "flex flex-col items-center text-gray-400 px-4 py-1 border cursor-pointer rounded has-[:checked]:bg-slate-100 has-[:checked]:text-slate-800" do %>
+        <%= form.label :status_planned, class: "flex flex-col items-center text-gray-400 px-4 py-1 border cursor-pointer has-[:checked]:bg-gray-100 has-[:checked]:text-black" do %>
           <%= form.radio_button :status, "planned", class: "hidden" %>
           <%= t("planned") %>
         <% end %>
@@ -116,26 +116,26 @@
         <%= form.label :start_date, t("start_date"), class: "text-sm" %>
         <%=
           form.date_field :start_date,
-          class: "border rounded p-3"
+          class: "border p-3"
         %>
       </div>
       <div>
         <%= form.label :end_date, t("end_date"), class: "text-sm" %>
         <%=
           form.date_field :end_date,
-          class: "border rounded p-3"
+          class: "border p-3"
         %>
       </div>
     </div>
     <%=
       form.text_field :owner,
       placeholder: :owner,
-      class: "border rounded p-3"
+      class: "border p-3"
     %>
     <%=
       form.textarea :description,
       placeholder: :description,
-      class: "w-full border rounded p-3"
+      class: "w-full border p-3"
     %>
 
     <%= form.submit class: "admin-btn-primary cursor-pointer" %>

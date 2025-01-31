@@ -28,7 +28,7 @@
         <div class="flex flex-col gap-3 shadow-border p-6">
           <div class="flex items-center gap-2">
             <h2 class="font-bold grow"><%= project_category.name %></h2>
-            <%= inline_svg_tag(project_category.icon_path, class: "w-10 shrink-0") %>
+            <%= inline_svg_tag(project_category.icon_path, class: "w-10 h-10 shrink-0") %>
           </div>
           <p class="grow"><%= project_category.description %></p>
           <%= link_to t("see_projects"), projects_path(anchor: dom_id(project_category)), class: "btn-old-school" %>
@@ -41,7 +41,7 @@
     <h2 class="underline mb-3">Nos derniers projets:</h2>
     <div class="flex flex-col gap-6">
       <% @projects.each do |project| %>
-        <%= link_to project_path(project), class: "flex flex-col-reverse items-start justify-between gap-3 border border-black p-4 cursor-pointer hover:shadow-flat hover:-translate-y-1 hover:-translate-x-1 sm:flex-row sm:items-center" do %>
+        <%= link_to project_path(project), class: "flex flex-col-reverse items-start justify-between gap-3 border border-black p-4 cursor-pointer transition-all hover:shadow-flat hover:-translate-y-1 hover:-translate-x-1 sm:flex-row sm:items-center" do %>
           <div>
             <h3 class="font-bold"><%= project.name %></h3>
             <ul class="leading-7">

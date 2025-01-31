@@ -4,12 +4,12 @@
   <% end %>
   <%=
     link_to root_path,
-    class: "p-3 text-stone-300 border border-white border-dashed rounded transition-colors hover:bg-slate-900 ",
+    class: "p-3 text-gray-300 border border-white border-dashed transition-colors hover:bg-gray-800 hover:text-white",
     target: :_blank do
   %>
     <div class="flex justify-between items-center">
       <span class="font-bold">Amerma</span>
-      <%= inline_svg_tag("icons/arrow-top-right-on-square.svg", class: "w-5 shrink-0") %>
+      <%= inline_svg_tag("icons/outside.svg", class: "fill-white w-4 h-4 shrink-0") %>
     </div>
     <span class="text-xs"><%= root_url %></span>
   <% end %>

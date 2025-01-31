@@ -1,4 +1,4 @@
-<section id=<%= dom_id(container_block) %> class="bg-white flex flex-col gap-4 border rounded p-3">
+<section id=<%= dom_id(container_block) %> class="bg-white flex flex-col gap-4 border p-3">
   <div id=<%= dom_id(container_block, :content_blocks) %> class="<%= container_block.class_list.join(" ") %> <%= container_block.column_count_classes %>">
     <%=
       render container_block.content_blocks.ordered,
@@ -30,7 +30,7 @@
           <span><%= t("edit") %></span>
         <% end %>
 
-        <dialog class="backdrop:bg-black/60 p-4 rounded" data-modal-target="dialog">
+        <dialog class="backdrop:bg-black/60 p-4" data-modal-target="dialog">
           <div class="flex flex-col gap-4">
             <div class="flex items-center">
               <h3 class="grow font-bold"><%= t("edit_container") %></h3>

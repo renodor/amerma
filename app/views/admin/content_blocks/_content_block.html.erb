@@ -1,4 +1,4 @@
-<div id=<%= dom_id(content_block) %> class="flex justify-center items-center border rounded p-3 relative">
+<div id=<%= dom_id(content_block) %> class="flex justify-center items-center border p-3 relative">
   <div class="<%= content_block.class_list.join(" ") %>">
     <% if content_block.text_block? %>
       <%= content_block.text_block.text %>
@@ -24,7 +24,7 @@
             <span><%= t("edit") %></span>
           <% end %>
 
-          <dialog class="backdrop:bg-black/60 p-4 rounded max-w-[600px]" data-modal-target="dialog">
+          <dialog class="backdrop:bg-black/60 p-4 max-w-[600px]" data-modal-target="dialog">
             <div class="flex flex-col gap-4">
               <div class="flex items-center">
                 <h3 class="grow font-bold"><%= t("edit_text") %></h3>
@@ -80,7 +80,7 @@
             <span><%= t("edit") %></span>
           <% end %>
 
-          <dialog class="backdrop:bg-black/60 p-4 rounded max-w-[600px]" data-modal-target="dialog">
+          <dialog class="backdrop:bg-black/60 p-4 max-w-[600px]" data-modal-target="dialog">
             <div class="flex flex-col gap-4">
               <div class="flex items-center">
                 <h3 class="grow font-bold"><%= t("edit_text") %></h3>

@@ -1,9 +1,9 @@
 <%= form_with model: [:admin, project, container_block, content_block, content_block.image_block], class: "flex flex-col gap-4" do |form| %>
-  <%= form.text_field :title, placeholder: t("title_optional"), class: "border rounded p-3 text-lg font-bold" %>
-  <%= form.text_field :subtitle, placeholder: t("subtitle_optional"), class: "border rounded p-3" %>
+  <%= form.text_field :title, placeholder: t("title_optional"), class: "border p-3 text-lg font-bold" %>
+  <%= form.text_field :subtitle, placeholder: t("subtitle_optional"), class: "border p-3" %>
 
   <div
-    class="border rounded p-3 relative group"
+    class="border p-3 relative group"
     data-controller="image-upload"
     data-has-image="<%= content_block.image_block.image.attached? %>"
   >
@@ -16,7 +16,7 @@
     <div class="flex gap-3 justify-end right-5">
       <%=
         label_tag dom_id(container_block, content_block.persisted? ? content_block.id : :new_content_block),
-        class: "px-3 py-1 rounded border border-slate-800 text-slate-800 text-sm cursor-pointer transition-colors hover:bg-slate-200" do
+        class: "admin-btn-secondary text-sm px-2 py-1" do
       %>
         <span class="group-[[data-has-image='true']]:hidden"><%= t("choose_image") %></span>
         <span class="group-[[data-has-image='false']]:hidden"><%= t("change_image") %></span>
@@ -33,6 +33,6 @@
     </div>
   </div>
 
-  <%= form.text_field :caption, placeholder: t("caption_optional"), class: "border rounded p-3 text-sm text-gray-500" %>
+  <%= form.text_field :caption, placeholder: t("caption_optional"), class: "border p-3 text-sm text-gray-500" %>
   <%= form.submit class: "admin-btn-primary cursor-pointer", data: { action: "click->modal#closeModal" } %>
 <% end %>
