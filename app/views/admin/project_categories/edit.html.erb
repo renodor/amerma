@@ -6,12 +6,12 @@
 <%= form_with model: [:admin, @project_category], class: "flex flex-col gap-4" do |form| %>
   <%=
     form.text_field :name,
-    placeholder: :name,
+    placeholder: t("name"),
     class: "w-full border p-3 font-bold text-xl"
   %>
   <%=
     form.textarea :description,
-    placeholder: :description,
+    placeholder: t("description"),
     class: "w-full border p-3"
   %>
 

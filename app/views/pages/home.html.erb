@@ -31,7 +31,7 @@
             <%= inline_svg_tag(project_category.icon_path, class: "w-10 h-10 shrink-0") %>
           </div>
           <p class="grow"><%= project_category.description %></p>
-          <%= link_to t("see_projects"), projects_path(anchor: dom_id(project_category)), class: "btn-old-school" %>
+          <%= link_to t("view_projects"), projects_path(anchor: dom_id(project_category)), class: "btn-old-school" %>
         </div>
       <% end %>
     </div>

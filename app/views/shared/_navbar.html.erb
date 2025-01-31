@@ -16,7 +16,7 @@
     <div class="w-full bg-black py-4 flex-col hidden text-white md:flex md:flex-row md:justify-end md:p-0 group-[[data-open='true']]:flex" data-navbar-target="menu">
       <%= link_to about_path, class: "flex justify-end gap-1 px-1 py-2 group/item" do %>
         <span class="group-hover/item:-translate-x-1">[</span>
-        <span class="group-hover/item:underline"><%= t("who_are_we") %></span>
+        <span class="group-hover/item:underline"><%= t("who_are_we?") %></span>
         <span class="group-hover/item:translate-x-1">]</span>
       <% end %>
       <div class="relative group/dropdown">
@@ -33,7 +33,7 @@
       </div>
       <%= link_to partners_path, class: "flex justify-end gap-1 px-1 py-2 group/item" do %>
         <span class="group-hover/item:-translate-x-1">[</span>
-        <span class="group-hover/item:underline"><%= t("partnership") %></span>
+        <span class="group-hover/item:underline"><%= t("partners") %></span>
         <span class="group-hover/item:translate-x-1">]</span>
       <% end %>
       <%= link_to new_message_path, class: "flex justify-end gap-1 px-1 py-2 group/item" do %>

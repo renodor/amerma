@@ -1,4 +1,4 @@
 <%= form_with model: [:admin, project, container_block, content_block, content_block.text_block], class: "flex flex-col gap-4" do |form| %>
   <%= form.rich_textarea :text, id: form.object.object_id %>
-  <%= form.submit class: "admin-btn-primary cursor-pointer", data: { action: "click->modal#closeModal" } %>
+  <%= form.submit t("save"), class: "admin-btn-primary cursor-pointer", data: { action: "click->modal#closeModal" } %>
 <% end %>

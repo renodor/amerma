@@ -6,7 +6,7 @@ class Admin::ImageBlocksController < Admin::BaseController
     @content_block.contentable = ImageBlock.new(image_block_params)
 
     if @content_block.save
-      flash.now[:success] = t("text_block_created")
+      flash.now[:success] = t("image_block_created")
     else
       # TODO
     end
@@ -18,7 +18,7 @@ class Admin::ImageBlocksController < Admin::BaseController
       @project = Project.find(params[:project_id])
       @container_block = @project.container_blocks.find(params[:container_block_id])
       @content_block = image_block.content_block
-      flash.now[:success] = t("content_block_updated")
+      flash.now[:success] = t("image_block_updated")
     else
       # TODO
     end
@@ -31,7 +31,7 @@ class Admin::ImageBlocksController < Admin::BaseController
     @container_block = @project.container_blocks.find(params[:container_block_id])
     @content_block = @container_block.content_blocks.find(params[:content_block_id])
 
-    flash.now[:success] = t("container_block_deleted")
+    flash.now[:success] = t("image_block_deleted")
   end
 
   private

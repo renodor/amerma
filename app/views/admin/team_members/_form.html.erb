@@ -1,17 +1,17 @@
 <%= form_with model: [:admin, team_member], class: "flex flex-col gap-4" do |form| %>
   <%=
     form.text_field :name,
-    placeholder: :name,
+    placeholder: t("name"),
     class: "w-full border p-3 font-bold text-xl"
   %>
   <%=
     form.textarea :description,
-    placeholder: :description,
+    placeholder: t("description"),
     class: "w-full border p-3"
   %>
   <%=
     form.text_field :linked_in_url,
-    placeholder: :linked_in_url,
+    placeholder: t("linked_in_url"),
     class: "w-full border p-3"
   %>
   <div
@@ -42,5 +42,5 @@
       %>
     <% end %>
   </div>
-  <%= form.submit class: "admin-btn-primary cursor-pointer" %>
+  <%= form.submit t("save"), class: "admin-btn-primary cursor-pointer" %>
 <% end %>

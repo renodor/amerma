@@ -15,8 +15,8 @@
         </div>
       </div>
       <div class="flex flex-col gap-4">
-        <%= link_to "Edit", edit_admin_team_member_path(team_member), class: "admin-btn-secondary" %>
-        <%= button_to "Delete", admin_team_member_path(team_member), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "admin-btn-delete" %>
+        <%= link_to t("edit"), edit_admin_team_member_path(team_member), class: "admin-btn-secondary" %>
+        <%= button_to t("delete"), admin_team_member_path(team_member), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "admin-btn-delete" %>
       </div>
     </div>
   <% end %>

@@ -42,7 +42,7 @@
           </dialog>
         </div>
         <%=
-          button_to t("remove"),
+          button_to t("delete"),
           admin_project_container_block_content_block_text_block_path(project, container_block, content_block, content_block.text_block),
           method: :delete,
           class: "admin-btn-delete bg-white text-sm px-3 py-1",
@@ -83,7 +83,7 @@
           <dialog class="backdrop:bg-black/60 p-4 max-w-[600px]" data-modal-target="dialog">
             <div class="flex flex-col gap-4">
               <div class="flex items-center">
-                <h3 class="grow font-bold"><%= t("edit_text") %></h3>
+                <h3 class="grow font-bold"><%= t("edit_image") %></h3>
                 <button data-action="click->modal#closeModal">
                   <%= inline_svg_tag("icons/x-mark.svg", class: "w-6 text-black hover:opacity-70") %>
                 </button>
@@ -98,7 +98,7 @@
           </dialog>
         </div>
         <%=
-          button_to t("remove"),
+          button_to t("delete"),
           admin_project_container_block_content_block_image_block_path(project, container_block, content_block, content_block.image_block),
           method: :delete,
           class: "admin-btn-delete bg-white text-sm px-3 py-1",

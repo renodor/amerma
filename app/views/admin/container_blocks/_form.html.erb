@@ -149,7 +149,7 @@
     </div>
 
     <div class="pt-3 border-t">
-      <p class="mb-3 text-sm text-gray-400"><%= t("Preview") %> :</p>
+      <p class="mb-3 text-sm text-gray-400"><%= t("preview") %> :</p>
       <div class="bg-slate-100 p-4">
         <div class="grid-cols-auto <%= container_block.class_list.join(" ") %>" data-container-block-form-target="containerPreview">
           <div class="w-full h-20 bg-slate-300"></div>
@@ -164,6 +164,6 @@
       <%= inline_svg_tag "icons/warning.svg", class: "w-7 h-7 fill-red-400" %>
       <span class="text-xs"><%= t("container_column_delete_warning") %></span>
     </p>
-    <%= form.submit class: "admin-btn-primary cursor-pointer", data: { action: "click->modal#closeModal" } %>
+    <%= form.submit t("save"), class: "admin-btn-primary cursor-pointer", data: { action: "click->modal#closeModal" } %>
   <% end %>
 </div>

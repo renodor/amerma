@@ -34,5 +34,5 @@
   </div>
 
   <%= form.text_field :caption, placeholder: t("caption_optional"), class: "border p-3 text-sm text-gray-500" %>
-  <%= form.submit class: "admin-btn-primary cursor-pointer", data: { action: "click->modal#closeModal" } %>
+  <%= form.submit t("save"), class: "admin-btn-primary cursor-pointer", data: { action: "click->modal#closeModal" } %>
 <% end %>

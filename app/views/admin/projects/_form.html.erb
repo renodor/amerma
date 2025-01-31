@@ -72,11 +72,11 @@
           form.label :cover_photo,
           class: "admin-btn-secondary text-sm px-2 py-1" do
         %>
-          <span class="group-[[data-has-cover-photo='false']]:hidden"><%= t("change") %></span>
+          <span class="group-[[data-has-cover-photo='false']]:hidden"><%= t("change_cover_photo") %></span>
           <span class="group-[[data-has-cover-photo='true']]:hidden"><%= t("add_cover_photo") %></span>
         <% end %>
         <%=
-          button_tag t("remove"),
+          button_tag t("delete"),
           class: "admin-btn-delete text-sm px-3 py-1 group-[[data-has-cover-photo='false']]:hidden",
           type: :button,
           data: {
@@ -88,7 +88,7 @@
     </div>
     <%=
       form.text_field :name,
-      placeholder: :name,
+      placeholder: t("name"),
       class: "w-full border p-3 font-bold text-xl"
     %>
     <div class="flex gap-4">
@@ -129,15 +129,15 @@
     </div>
     <%=
       form.text_field :owner,
-      placeholder: :owner,
+      placeholder: t("owner"),
       class: "border p-3"
     %>
     <%=
       form.textarea :description,
-      placeholder: :description,
+      placeholder: t("description"),
       class: "w-full border p-3"
     %>
 
-    <%= form.submit class: "admin-btn-primary cursor-pointer" %>
+    <%= form.submit t("save"), class: "admin-btn-primary cursor-pointer" %>
   <% end %>
 </section>

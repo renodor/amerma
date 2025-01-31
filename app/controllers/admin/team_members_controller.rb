@@ -34,6 +34,7 @@ class Admin::TeamMembersController < Admin::BaseController
 
   def destroy
     TeamMember.find(params[:id]).destroy
+    flash[:success] = t("team_member_deleted")
     redirect_to admin_team_members_path
   end
 

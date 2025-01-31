@@ -34,6 +34,7 @@ class Admin::PartnersController < Admin::BaseController
 
   def destroy
     Partner.find(params[:id]).destroy
+    flash[:success] = t("partner_deleted")
     redirect_to admin_partners_path
   end
 

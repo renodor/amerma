@@ -18,7 +18,7 @@ class Admin::TextBlocksController < Admin::BaseController
       @project = Project.find(params[:project_id])
       @container_block = @project.container_blocks.find(params[:container_block_id])
       @content_block = text_block.content_block
-      flash.now[:success] = t("content_block_updated")
+      flash.now[:success] = t("text_block_updated")
     else
       # TODO
     end
@@ -31,7 +31,7 @@ class Admin::TextBlocksController < Admin::BaseController
     @container_block = @project.container_blocks.find(params[:container_block_id])
     @content_block = @container_block.content_blocks.find(params[:content_block_id])
 
-    flash.now[:success] = t("container_block_deleted")
+    flash.now[:success] = t("text_block_deleted")
   end
 
   private
