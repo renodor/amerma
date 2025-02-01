@@ -18,7 +18,9 @@
     <div class="flex gap-6 justify-evenly flex-wrap">
       <% @team_members.order(:created_at).each do |team_member| %>
         <div class="flex flex-col gap-3 items-center shadow-border p-4 w-56">
-          <%= image_tag team_member.photo.variant(:default) %>
+          <% if team_member.photo.attached? %>
+            <%= image_tag team_member.photo.variant(:default) %>
+          <% end %>
           <p class="text-xl font-bold"><%= team_member.name %></p>
           <p><%= team_member.description %></p>
           <% if team_member.linked_in_url.present? %>

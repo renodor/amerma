@@ -19,7 +19,8 @@ class Admin::TeamMembersController < Admin::BaseController
       flash[:success] = t("team_member_created")
       redirect_to edit_admin_team_member_path(@team_member)
     else
-      # TODO
+      flash[:error] = t("team_member_create_error")
+      redirect_to new_admin_team_member_path(@project)
     end
   end
 
@@ -28,7 +29,8 @@ class Admin::TeamMembersController < Admin::BaseController
     if @team_member.update(team_member_params)
       flash.now[:success] = t("team_member_updated")
     else
-      # TODO
+      flash[:error] = t("team_member_update_error")
+      redirect_to edit_admin_team_member_path(@team_member)
     end
   end
 

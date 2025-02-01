@@ -16,7 +16,8 @@ class Admin::ProjectsController < Admin::BaseController
       flash[:success] = t("project_created")
       redirect_to admin_project_path(@project)
     else
-      # TODO
+      flash[:error] = t("project_create_error")
+      redirect_to new_admin_project_path(@project)
     end
   end
 
@@ -36,7 +37,8 @@ class Admin::ProjectsController < Admin::BaseController
       @project.cover_photo.purge if params[:project][:remove_cover_photo]
       flash.now[:success] = t("project_updated")
     else
-      # TODO
+      flash[:error] = t("project_update_error")
+      redirect_to admin_project_path(@project)
     end
   end
 

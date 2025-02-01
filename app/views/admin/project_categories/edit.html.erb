@@ -6,7 +6,8 @@
 <%= form_with model: [:admin, @project_category], class: "flex flex-col gap-4" do |form| %>
   <%=
     form.text_field :name,
-    placeholder: t("name"),
+    placeholder: "#{t("name")}*",
+    required: true,
     class: "w-full border p-3 font-bold text-xl"
   %>
   <%=

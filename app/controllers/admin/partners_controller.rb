@@ -19,7 +19,8 @@ class Admin::PartnersController < Admin::BaseController
       flash[:success] = t("partner_created")
       redirect_to edit_admin_partner_path(@partner)
     else
-      # TODO
+      flash[:error] = t("partner_create_error")
+      redirect_to new_admin_partner_path
     end
   end
 
@@ -28,7 +29,8 @@ class Admin::PartnersController < Admin::BaseController
     if @partner.update(partner_params)
       flash.now[:success] = t("partner_updated")
     else
-      # TODO
+      flash[:error] = t("partner_update_error")
+      redirect_to edit_admin_partner_path(@partner)
     end
   end
 

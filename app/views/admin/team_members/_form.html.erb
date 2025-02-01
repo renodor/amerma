@@ -1,7 +1,16 @@
-<%= form_with model: [:admin, team_member], class: "flex flex-col gap-4" do |form| %>
+<%=
+  form_with model: [:admin, team_member],
+  class: "flex flex-col gap-4 group",
+  data: {
+    controller: "image-upload",
+    action: "sunmit->modal#closeModal",
+    "has-image": team_member.photo.attached?
+  } do |form|
+%>
   <%=
     form.text_field :name,
-    placeholder: t("name"),
+    placeholder: "#{t("name")}*",
+    required: true,
     class: "w-full border p-3 font-bold text-xl"
   %>
   <%=
@@ -14,12 +23,8 @@
     placeholder: t("linked_in_url"),
     class: "w-full border p-3"
   %>
-  <div
-    class="flex flex-col gap-4 group"
-    data-controller="image-upload"
-    data-has-image="<%= team_member.photo.attached? %>"
-  >
-    <%= form.hidden_field :remove_image, disabled: true, data: { "image-upload-target": "removeCoverPhotoInput" } %>
+  <div class="flex flex-col gap-4">
+    <%= form.hidden_field :remove_image, disabled: true, data: { "image-upload-target": "removeImageInput" } %>
     <%=
       image_tag team_member.photo.variant(:default).presence || "",
       class: "w-fit group-[[data-has-image='false']]:hidden",
@@ -34,6 +39,7 @@
       <%=
         form.file_field :photo,
         class: "hidden",
+        accept: "image/png,image/gif,image/jpeg,image/webp",
         id: dom_id(team_member),
         data: {
           "image-upload-target": "imageInput",

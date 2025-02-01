@@ -10,4 +10,15 @@ class ImageBlock < ApplicationRecord
       colors: "6",
       saver: { strip: true }
   end
+
+  validates :image, presence: true
+  validate :image_type
+
+  private
+
+  def image_type
+    unless %w[image/png image/jpeg image/webp image/gif].include?(image.content_type)
+      errors.add :image, I18n.t("image_format_invalid")
+    end
+  end
 end

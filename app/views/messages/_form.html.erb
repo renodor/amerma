@@ -1,0 +1,13 @@
+<%= form_with model: message, id: dom_id(message), class: "flex flex-col gap-4 w-full relative bg-gray-100 p-4 shadow-border" do |form| %>
+  <%= text_field_tag "message[content]", "", class: "absolute border-none" %>
+  <%= text_field_tag "message[email]", "", class: "absolute border-none" %>
+  <%= form.text_field :name, placeholder: "#{t("name")}*", required: true, class: "relative border-2 border-black p-4 transition-shadow focus:outline-none focus:inset-shadow-border" %>
+  <div class="flex flex-col gap-4 md:flex-row">
+    <%= text_field_tag "message[mail]", "", type: :email, placeholder: "#{t("email")}*", required: true, class: "w-full border-2 border-black p-4 transition-shadow focus:outline-none focus:inset-shadow-border" %>
+    <%= form.text_field :phone, placeholder: t("phone"), class: "w-full border-2 border-black p-4 transition-shadow focus:outline-none focus:inset-shadow-border" %>
+    <%= form.text_field :organisation, placeholder: t("organisation"), class: "w-full border-2 border-black p-4 transition-shadow focus:outline-none focus:inset-shadow-border" %>
+  </div>
+  <%= form.textarea :body, rows: 10, placeholder: "#{t("message")}*", required: true, class: "mt-5 border-2 border-black p-4 transition-shadow focus:outline-none focus:inset-shadow-border" %>
+
+  <%= form.submit t("send"), class: "btn-primary py-5" %>
+<% end %>

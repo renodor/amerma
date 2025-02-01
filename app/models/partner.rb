@@ -6,4 +6,13 @@ class Partner < ApplicationRecord
   end
 
   validates :name, presence: true
+  validate :logo_type
+
+  private
+
+  def logo_type
+    unless %w[image/png image/jpeg image/webp image/gif].include?(logo.content_type)
+      errors.add :logo, I18n.t("image_format_invalid")
+    end
+  end
 end

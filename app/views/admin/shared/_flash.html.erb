@@ -1,14 +1,25 @@
 <% flash.each do |flash_type, message| %>
   <div class="fixed bottom-0 left-0 w-full" data-controller="flash">
-    <div class="flex justify-center bg-white items-center gap-4 shadow-border m-3">
-      <div class="grow flex justify-center items-center gap-6 p-5">
-        <%= inline_svg_tag("icons/rock-hand.svg", class: "w-6 h-6") %>
-        <%= message %>
+    <% if flash_type == "error" %>
+      <div class="flex justify-center items-center gap-4 shadow-border bg-gray-500 text-white m-3">
+        <div class="grow flex justify-center items-center gap-4 p-5">
+          <%= inline_svg_tag "icons/warning.svg", class: "shrink-0 w-8 h-8 fill-white hidden sm:block" %>
+          <%= message %>
+        </div>
+        <div class="p-5 cursor-pointer hover:text-gray-300" data-action="click->flash#remove">
+          <%= inline_svg_tag("icons/x-mark.svg", class: "w-8") %>
+        </div>
       </div>
-      <div class="p-5 cursor-pointer" data-action="click->flash#remove">
-        <%= inline_svg_tag("icons/x-mark.svg", class: "w-8 transition-colors") %>
+    <% else %>
+      <div class="flex justify-center items-center gap-4 shadow-border bg-white m-3">
+        <div class="grow flex justify-center items-center gap-4 p-5">
+          <%= inline_svg_tag("icons/rock-hand.svg", class: "shrink-0 w-8 h-8") %>
+          <%= message %>
+        </div>
+        <div class="p-5 cursor-pointer" data-action="click->flash#remove">
+          <%= inline_svg_tag("icons/x-mark.svg", class: "w-8 transition-colors") %>
+        </div>
       </div>
-    </div>
+    <% end %>
   </div>
-  <!-- TODO: alert flash-->
 <% end %>

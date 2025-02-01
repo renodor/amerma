@@ -31,10 +31,19 @@ class Project < ApplicationRecord
   scope :featured, -> { where(featured: true) }
 
   validates :name, presence: true
+  validate :cover_photo_type
 
   enum :status, {
     completed: 0,
     in_progress: 1,
     planned: 2
   }
+
+  private
+
+  def cover_photo_type
+    unless %w[image/png image/jpeg image/webp image/gif].include?(cover_photo.content_type)
+      errors.add :cover_photo, I18n.t("image_format_invalid")
+    end
+  end
 end

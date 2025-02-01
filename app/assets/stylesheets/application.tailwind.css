@@ -50,7 +50,9 @@
   }
 }
 
-.trix-button-group--file-tools,
-.trix-button-group--history-tools {
-  display: none!important;
+@layer utilities {
+  .trix-button-group--file-tools,
+  .trix-button-group--history-tools {
+    display: none!important;
+  }
 }

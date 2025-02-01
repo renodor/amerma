@@ -8,19 +8,21 @@ class Admin::TextBlocksController < Admin::BaseController
     if @content_block.save
       flash.now[:success] = t("text_block_created")
     else
-      # TODO
+      flash[:error] = t("text_block_create_error")
+      redirect_to admin_project_path(@project)
     end
   end
 
   def update
     text_block = TextBlock.find(params[:id])
+    @project = Project.find(params[:project_id])
     if text_block.update(text_block_params)
-      @project = Project.find(params[:project_id])
       @container_block = @project.container_blocks.find(params[:container_block_id])
       @content_block = text_block.content_block
       flash.now[:success] = t("text_block_updated")
     else
-      # TODO
+      flash[:error] = t("text_block_update_error")
+      redirect_to admin_project_path(@project)
     end
   end
 

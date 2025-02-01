@@ -1,1 +1,5 @@
 <%= turbo_stream.update "flash", partial: "shared/flash" %>
+
+<%= turbo_stream.replace dom_id(Message.new) do %>
+  <%= render"form", message: Message.new %>
+<% end %>

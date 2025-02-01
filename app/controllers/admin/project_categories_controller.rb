@@ -14,7 +14,8 @@ class Admin::ProjectCategoriesController < Admin::BaseController
     if @project_category.update(project_category_params)
       flash.now[:success] = t("project_category_updated")
     else
-      # TODO
+      flash[:error] = t("project_category_update_error")
+      redirect_to edit_admin_project_category_path(@project_category)
     end
   end
 

@@ -8,19 +8,21 @@ class Admin::ImageBlocksController < Admin::BaseController
     if @content_block.save
       flash.now[:success] = t("image_block_created")
     else
-      # TODO
+      flash[:error] = t("image_block_create_error")
+      redirect_to admin_project_path(@project)
     end
   end
 
   def update
     image_block = ImageBlock.find(params[:id])
+    @project = Project.find(params[:project_id])
     if image_block.update(image_block_params)
-      @project = Project.find(params[:project_id])
       @container_block = @project.container_blocks.find(params[:container_block_id])
       @content_block = image_block.content_block
       flash.now[:success] = t("image_block_updated")
     else
-      # TODO
+      flash[:error] = t("image_block_update_error")
+      redirect_to admin_project_path(@project)
     end
   end
 

@@ -4,23 +4,31 @@ export default class extends Controller {
   static targets = [
     "imageInput",
     "imagePreview",
-    "removeCoverPhotoInput"
+    "removeImageInput",
+    "imageInvalidMessage"
   ]
 
   imageUploaded({ currentTarget }) {
     const files = currentTarget.files
 
-    console.log(currentTarget)
     if (files.length > 0) {
-      this.removeCoverPhotoInputTarget.disabled = true
+      this.removeImageInputTarget.disabled = true
       this.element.dataset.hasImage = true
       this.imagePreviewTarget.src = URL.createObjectURL(files[0]);
     }
   }
 
+  imageInvalid() {
+    this.imageInvalidMessageTarget.classList.remove("hidden")
+  }
+
+  imageValid() {
+    this.imageInvalidMessageTarget.classList.add("hidden")
+  }
+
   removeImage() {
     this.element.dataset.hasImage = false
-    this.removeCoverPhotoInputTarget.disabled = false
+    this.removeImageInputTarget.disabled = false
     this.imageInputTarget.value = ""
   }
 }

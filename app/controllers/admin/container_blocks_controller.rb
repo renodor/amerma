@@ -13,7 +13,8 @@ class Admin::ContainerBlocksController < Admin::BaseController
     if @container_block.save
       flash.now[:success] = t("container_block_created")
     else
-      # TODO
+      flash[:error] = t("container_block_create_error")
+      redirect_to admin_project_path(@project)
     end
   end
 
@@ -36,7 +37,8 @@ class Admin::ContainerBlocksController < Admin::BaseController
     if @container_block.update(container_block_params)
       flash.now[:success] = t("container_block_updated")
     else
-      # TODO
+      flash[:error] = t("container_block_update_error")
+      redirect_to admin_project_path(@project)
     end
   end
 

@@ -11,10 +11,18 @@ class MessagesController < ApplicationController
 
     @message = Message.new(message_params)
     if @message.save
-      DiscordMessageSender.new.send_message(@message)
-      flash.now[:success] = t("message_sent")
+      DiscordMessageSender.new.send_message(@message) if Rails.env.production?
+
+      respond_to do |format|
+        format.html do
+          flash.now[:success] = t("message_sent")
+          redirect_to new_message_path
+        end
+
+        format.turbo_stream { flash.now[:success] = t("message_sent") }
+      end
     else
-      # TODO
+      flash.now[:error] = t("message_error")
     end
   end
 
