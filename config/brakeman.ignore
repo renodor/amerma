@@ -7,7 +7,7 @@
       "check_name": "LinkToHref",
       "message": "Potentially unsafe model attribute in `link_to` href",
       "file": "app/views/partners/index.html.erb",
-      "line": 15,
+      "line": 19,
       "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
       "code": "link_to(t(\"website\"), (Unresolved Model).new.website_url, :target => :_blank, :class => \"btn-old-school self-end\")",
       "render_path": [
@@ -37,13 +37,13 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 4,
-      "fingerprint": "f18f97483ca466e7bd64c59721d0ef988b6f26ce033bf7c8a8606a81be78d5c1",
+      "fingerprint": "61968d45a4f2d2b222974b4dfdd15e39c8ba7bc5ebd02a7e82d874b8d5c12152",
       "check_name": "LinkToHref",
       "message": "Potentially unsafe model attribute in `link_to` href",
       "file": "app/views/pages/about.html.erb",
-      "line": 25,
+      "line": 27,
       "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
-      "code": "link_to(\"linked_in\", (Unresolved Model).new.linked_in_url, :target => :_blank, :class => \"btn-old-school self-end\")",
+      "code": "link_to((Unresolved Model).new.linked_in_url, :target => :_blank, :class => \"btn-old-school self-end flex items-center gap-2 text-xs\")",
       "render_path": [
         {
           "type": "controller",
