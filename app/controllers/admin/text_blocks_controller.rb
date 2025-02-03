@@ -38,10 +38,6 @@ class Admin::TextBlocksController < Admin::BaseController
 
   private
 
-  def content_block_params
-    params.require(:content_block).permit(:position, class_list: [])
-  end
-
   def text_block_params
     params.require(:text_block).permit(:text)
   end

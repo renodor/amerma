@@ -16,8 +16,8 @@ class TeamMember < ApplicationRecord
   private
 
   def photo_type
-    unless %w[image/png image/jpeg image/webp image/gif].include?(photo.content_type)
-      errors.add :photo, I18n.t("image_format_invalid")
-    end
+    return if photo.blank? || %w[image/png image/jpeg image/webp image/gif].include?(photo.content_type)
+
+    errors.add :photo, I18n.t("image_format_invalid")
   end
 end

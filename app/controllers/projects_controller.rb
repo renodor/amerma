@@ -5,5 +5,6 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
+    redirect_to projects_path unless @project.visible?
   end
 end

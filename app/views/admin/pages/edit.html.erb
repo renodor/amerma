@@ -1,0 +1,14 @@
+<header class="flex justify-between items-center mb-6">
+  <h1 class="text-3xl font-bold mb-4"><%= t("edit_texts") %> | <%= t(@page.name.downcase) %></h1>
+</header>
+<div class="flex flex-col gap-10">
+  <% @page.container_blocks.each do |container_block| %>
+    <section class="bg-white p-4">
+      <h2 class="text-xl font-bold mb-4"><%= container_block.location&.humanize %></h2>
+      <%= form_with model: [:update_text_block_admin, @page, container_block.content_blocks.first.text_block], class: "flex flex-col gap-4" do |form| %>
+        <%= form.rich_textarea :text, id: form.object.object_id %>
+        <%= form.submit t("save"), class: "admin-btn-primary cursor-pointer", data: { action: "click->modal#closeModal" } %>
+      <% end %>
+    </section>
+  <% end %>
+</div>

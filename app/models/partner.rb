@@ -11,8 +11,8 @@ class Partner < ApplicationRecord
   private
 
   def logo_type
-    unless %w[image/png image/jpeg image/webp image/gif].include?(logo.content_type)
-      errors.add :logo, I18n.t("image_format_invalid")
-    end
+    return if logo.blank? || %w[image/png image/jpeg image/webp image/gif].include?(logo.content_type)
+
+    errors.add :logo, I18n.t("image_format_invalid")
   end
 end

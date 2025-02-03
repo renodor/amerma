@@ -16,6 +16,14 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root to: "projects#index"
+
+    resources :pages, only: %i[index edit] do
+      resources :text_block, only: [] do
+        member do
+          patch :update_text_block, controller: "pages"
+        end
+      end
+    end
     resources :project_categories, only: %i[index edit update] do
       member do
         get :update_position
@@ -37,6 +45,6 @@ Rails.application.routes.draw do
     end
     resources :team_members, only: %i[index new create edit update destroy]
     resources :partners, only: %i[index new create edit update destroy]
-    resources :messages, onlye: %i[index show destroy]
+    resources :messages, only: %i[index show destroy]
   end
 end

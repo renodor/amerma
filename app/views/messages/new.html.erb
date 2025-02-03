@@ -12,7 +12,7 @@
       <% end %>
       <p class="flex items-center gap-4"><%= inline_svg_tag "icons/pin-map.svg", class: "w-8 h-8 fill-black shrink-0" %><span>Marseille, France</span></p>
     </div>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis augue ex. Fusce mollis libero vitae viverra mattis. Proin laoreet vehicula erat nec luctus. Aliquam malesuada ullamcorper aliquam.</p>
+    <%= @contact_text&.text %>
   </div>
   <%= render "form", message: @message %>
 </section>

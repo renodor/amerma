@@ -17,8 +17,8 @@ class ImageBlock < ApplicationRecord
   private
 
   def image_type
-    unless %w[image/png image/jpeg image/webp image/gif].include?(image.content_type)
-      errors.add :image, I18n.t("image_format_invalid")
-    end
+    return if image.blank? || %w[image/png image/jpeg image/webp image/gif].include?(image.content_type)
+
+    errors.add :image, I18n.t("image_format_invalid")
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_30_213917) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_03_205003) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -60,6 +60,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_30_213917) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "column_count", default: 1, null: false
+    t.string "location"
     t.index ["containerable_type", "containerable_id"], name: "index_container_blocks_on_containerable"
   end
 
@@ -89,6 +90,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_30_213917) do
     t.string "phone"
     t.string "organisation"
     t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pages", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

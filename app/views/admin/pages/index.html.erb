@@ -1,0 +1,13 @@
+<header class="flex justify-between items-center mb-6">
+  <h1 class="text-3xl font-bold mb-4"><%= t("pages") %></h1>
+</header>
+<div class="flex flex-col gap-4">
+  <% @pages.each do |page| %>
+    <div class="flex gap-4 items-center justify-between bg-white p-4 border">
+      <h2 class="text-xl font-bold"><%= page.name %></h2>
+      <div class="flex flex-col gap-4">
+        <%= link_to t("edit_texts"), edit_admin_page_path(page), class: "admin-btn-secondary" %>
+      </div>
+    </div>
+  <% end %>
+</div>

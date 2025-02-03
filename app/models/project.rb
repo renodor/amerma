@@ -42,8 +42,8 @@ class Project < ApplicationRecord
   private
 
   def cover_photo_type
-    unless %w[image/png image/jpeg image/webp image/gif].include?(cover_photo.content_type)
-      errors.add :cover_photo, I18n.t("image_format_invalid")
-    end
+    return if cover_photo.blank? || %w[image/png image/jpeg image/webp image/gif].include?(cover_photo.content_type)
+
+    errors.add :cover_photo, I18n.t("image_format_invalid")
   end
 end

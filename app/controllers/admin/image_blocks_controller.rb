@@ -38,10 +38,6 @@ class Admin::ImageBlocksController < Admin::BaseController
 
   private
 
-  def content_block_params
-    params.require(:content_block).permit(:position, class_list: [])
-  end
-
   def image_block_params
     params.require(:image_block).permit(:title, :subtitle, :image, :caption)
   end
