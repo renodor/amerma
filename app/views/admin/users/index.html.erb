@@ -1,0 +1,10 @@
+<header class="flex justify-between items-center mb-6">
+  <h1 class="text-3xl font-bold mb-4"><%= t("admins") %></h1>
+</header>
+<div class="flex flex-col gap-4">
+  <% @users.each do |user| %>
+    <div class="flex gap-4 items-center justify-between bg-white p-4 border">
+      <p><%= user.email %></p>
+    </div>
+  <% end %>
+</div>

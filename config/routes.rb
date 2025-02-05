@@ -48,5 +48,6 @@ Rails.application.routes.draw do
     resources :team_members, only: %i[index new create edit update destroy]
     resources :partners, only: %i[index new create edit update destroy]
     resources :messages, only: %i[index show destroy]
+    resources :users, only: %i[index]
   end
 end
