@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def translates(record, attribute)
+    record["#{attribute}_#{params[:locale]}"].presence || record[attribute]
+  end
+
   def project_status(status)
     colors = case status
     when "completed"

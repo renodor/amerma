@@ -20,7 +20,7 @@
             <%= image_tag team_member.photo.variant(:default) %>
           <% end %>
           <p class="text-xl font-bold"><%= team_member.name %></p>
-          <p><%= team_member.description %></p>
+          <p><%= translates(team_member, :description) %></p>
           <% if team_member.linked_in_url.present? %>
               <%= link_to team_member.linked_in_url, target: :_blank, class: "btn-old-school self-end flex items-center gap-2 text-xs" do %>
                 <span>linkedIn</span>

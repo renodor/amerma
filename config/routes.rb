@@ -6,13 +6,15 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
-  root "pages#home"
+  scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+    get "/:locale" => "pages#home"
+    root to: "pages#home"
 
-  get "about", to: "pages#about"
-
-  resources :partners, only: %i[index]
-  resources :projects, only: %i[index show]
-  resources :messages, only: %i[new create]
+    get "about", to: "pages#about"
+    resources :partners, only: %i[index]
+    resources :projects, only: %i[index show]
+    resources :messages, only: %i[new create]
+  end
 
   namespace :admin do
     root to: "projects#index"
