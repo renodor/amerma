@@ -1,4 +1,11 @@
-<%= form_with model: [:admin, project, container_block, content_block, content_block.text_block], class: "flex flex-col gap-4" do |form| %>
-  <%= form.rich_textarea :text, id: form.object.object_id %>
+<%= form_with model: [:admin, project, container_block, content_block, content_block.text_block], class: "flex flex-col gap-6" do |form| %>
+  <div>
+    <%= form.label :text, "#{t('text')} FR" %>
+    <%= form.rich_textarea :text, id: form.object.object_id %>
+  </div>
+  <div>
+    <%= form.label :text_en, "#{t('text')} EN" %>
+    <%= form.rich_textarea :text_en, id: "#{form.object.object_id}-en" %>
+  </div>
   <%= form.submit t("save"), class: "admin-btn-primary cursor-pointer", data: { action: "click->modal#closeModal" } %>
 <% end %>

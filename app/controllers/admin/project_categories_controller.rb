@@ -39,6 +39,6 @@ class Admin::ProjectCategoriesController < Admin::BaseController
   private
 
   def project_category_params
-    params.require(:project_category).permit(:name, :description)
+    params.require(:project_category).permit(:name, :name_en, :description, :description_en)
   end
 end

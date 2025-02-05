@@ -1,17 +1,21 @@
 <footer class="bg-black py-10 text-white">
   <div class="container mx-auto px-6 sm:px-10 lg:px-24 xl:max-w-[1280px] flex justify-between">
     <p>
-      <% I18n.available_locales.each do |locale| %>
+      <% I18n.available_locales.sort { |a, b| b <=> a }.each do |locale| %>
           <% if locale.to_s == params[:locale] || (params[:locale].blank? && locale == I18n.default_locale)  %>
             <span class="bg-white text-black p-2"><%= locale.upcase %></span>
           <% else %>
-            <%= link_to locale.upcase, url_for(locale: locale), class: "p-2 underline hover:no-underline" %>
+            <%=
+              link_to locale.upcase,
+              params[:action] == "home" ? root_path(locale: locale) : url_for(locale: locale),
+              class: "p-2 underline hover:no-underline"
+            %>
           <% end %>
       <% end %>
     </p>
     <p class="flex gap-2 items-end">
       <span>
-        <%= t("built_by") %> <%= link_to "renodor", "https://www.renodor.co", target: :_blank, class: "underline hover:no-underline" %>
+        <%= t("crafted_by") %> <%= link_to "renodor", "https://www.renodor.co", target: :_blank, class: "underline hover:no-underline" %>
       </span>
       <%= inline_svg_tag("icons/happy-computer.svg", class: "w-8 h-8 fill-white") %>
     </p>

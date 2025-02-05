@@ -23,6 +23,6 @@ class Admin::PagesController < Admin::BaseController
   private
 
   def text_block_params
-    params.require(:text_block).permit(:text)
+    params.require(:text_block).permit(:text, :text_en)
   end
 end

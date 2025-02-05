@@ -10,8 +10,8 @@
 
   <section class="flex flex-col items-center gap-4 sm:flex-row">
     <div class="sm:w-1/2">
-      <%= @home_text&.text %>
-      <%= link_to "En savoir plus", about_path, class: "btn-primary inline-block mt-2" %>
+      <%= translates(@home_text, :text) %>
+      <%= link_to t("know_more"), about_path, class: "btn-primary inline-block mt-2" %>
     </div>
     <div class="sm:w-1/2 flex justify-center">
       <%= image_tag "home-image1.png", class: "w-52 h-52 object-cover" %>
@@ -20,17 +20,17 @@
 
   <section>
     <div class="text-center mb-6">
-      <p>L’association développe une offre s’articulant autour de</p>
-      <p class="text-xl font-bold">TROIS SERVICES:</p>
+      <p><%= t("the_association_developed_an_offer") %></p>
+      <p class="text-xl font-bold"><%= t("three_services") %>:</p>
     </div>
     <div class="grid grid-cols-1 gap-y-10 gap-x-14 lg:grid-cols-3">
       <% @project_categories.each do |project_category| %>
         <div class="flex flex-col gap-3 shadow-border p-6">
           <div class="flex items-center gap-2">
-            <h2 class="font-bold grow"><%= project_category.name %></h2>
+            <h2 class="font-bold grow"><%= translates(project_category, :name) %></h2>
             <%= inline_svg_tag(project_category.icon_path, class: "w-10 h-10 shrink-0") %>
           </div>
-          <p class="grow"><%= project_category.description %></p>
+          <p class="grow"><%= translates(project_category, :description) %></p>
           <%= link_to t("view_projects"), projects_path(anchor: dom_id(project_category)), class: "btn-old-school" %>
         </div>
       <% end %>
@@ -38,15 +38,15 @@
   </section>
 
   <section>
-    <h2 class="underline mb-3">Nos derniers projets:</h2>
+    <h2 class="underline mb-3"><%= t("our_last_projects") %>:</h2>
     <div class="flex flex-col gap-6">
       <% @projects.each do |project| %>
         <%= link_to project_path(project), class: "flex flex-col-reverse items-start justify-between gap-3 border border-black p-4 cursor-pointer transition-all hover:shadow-flat hover:-translate-y-1 hover:-translate-x-1 sm:flex-row sm:items-center" do %>
           <div>
-            <h3 class="font-bold"><%= project.name %></h3>
+            <h3 class="font-bold"><%= translates(project, :name) %></h3>
             <ul class="leading-7">
-              <li><%= project.description.truncate(100) %></li>
-              <li><%= project.start_date.strftime("%d %b %Y") %> / <%= project.end_date.strftime("%d %b %Y") %></li>
+              <li><%= translates(project, :description).truncate(100) %></li>
+              <li><%= l(project.start_date, format: :default) %> - <%= l(project.end_date, format: :default) %></li>
               <li><%= project_status(project.status) %></li>
             </ul>
           </div>

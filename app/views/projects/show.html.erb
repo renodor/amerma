@@ -6,15 +6,15 @@
       <% container_block.content_blocks.ordered.each do |content_block| %>
         <div class="<%= content_block.class_list.join(" ") %>">
           <% if content_block.text_block? %>
-            <%= content_block.text_block.text %>
+            <%= translates(content_block.text_block, :text) %>
           <% elsif content_block.image_block? %>
             <div class="flex flex-col gap-1">
-              <p class="text-lg font-bold"><%= content_block.image_block.title %></p>
-              <p><%= content_block.image_block.subtitle %></p>
+              <p class="text-lg font-bold"><%= translates(content_block.image_block, :title) %></p>
+              <p><%= translates(content_block.image_block, :subtitle) %></p>
               <% if content_block.image_block.image.attached? %>
                 <%= image_tag content_block.image_block.image.variant(:default), class: "w-full" %>
               <% end %>
-              <p class="text-sm text-gray-500"><%= content_block.image_block.caption %></p>
+              <p class="text-sm text-gray-500"><%= translates(content_block.image_block, :caption) %></p>
             </div>
           <% end %>
         </div>

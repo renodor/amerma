@@ -13,11 +13,24 @@
     required: true,
     class: "w-full border p-3 font-bold text-xl"
   %>
-  <%=
-    form.textarea :description,
-    placeholder: t("description"),
-    class: "w-full border p-3"
-  %>
+  <div class="flex items-center gap-4">
+    <div class="w-full">
+      <%= form.label :description, "#{t("description")} FR" %>
+      <%=
+        form.textarea :description,
+        placeholder: "#{t("description")} FR",
+        class: "w-full border p-3 mt-2"
+      %>
+    </div>
+    <div class="w-full">
+      <%= form.label :description_en, "#{t("description")} EN" %>
+      <%=
+        form.textarea :description_en,
+        placeholder: "#{t("description")} EN",
+        class: "w-full border p-3 mt-2"
+      %>
+    </div>
+  </div>
   <%=
     form.text_field :linked_in_url,
     placeholder: t("linked_in_url"),

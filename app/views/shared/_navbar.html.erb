@@ -22,7 +22,7 @@
       <div class="relative group/dropdown">
         <div class="absolute right-0 top-7 p-5 flex-col gap-4 text-right bg-black w-64 hidden group-hover/dropdown:flex group-[[data-open='true']]:hidden">
           <% ProjectCategory.ordered.each do |project_category| %>
-            <%= link_to project_category.name, projects_path(anchor: dom_id(project_category)), class: "hover:underline" %>
+            <%= link_to translates(project_category, :name), projects_path(anchor: dom_id(project_category)), class: "hover:underline" %>
           <% end %>
         </div>
         <%= link_to projects_path, class: "relative flex justify-end gap-1 px-1 py-2 group/item" do %>

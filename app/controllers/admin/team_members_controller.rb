@@ -43,6 +43,6 @@ class Admin::TeamMembersController < Admin::BaseController
   private
 
   def team_member_params
-    params.require(:team_member).permit(:name, :description, :linked_in_url, :photo)
+    params.require(:team_member).permit(:name, :description, :description_en, :linked_in_url, :photo)
   end
 end

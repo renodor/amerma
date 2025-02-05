@@ -43,6 +43,6 @@ class Admin::PartnersController < Admin::BaseController
   private
 
   def partner_params
-    params.require(:partner).permit(:name, :description, :website_url, :logo)
+    params.require(:partner).permit(:name, :description, :description_en, :website_url, :logo)
   end
 end

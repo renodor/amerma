@@ -89,12 +89,25 @@
         %>
       </div>
     </div>
-    <%=
-      form.text_field :name,
-      placeholder: "#{t('name')}*",
-      required: true,
-      class: "w-full border p-3 font-bold text-xl"
-    %>
+    <div class="flex gap-3">
+      <div class="w-full">
+        <%= form.label :name, "#{t("name")} FR" %>
+        <%=
+          form.text_field :name,
+          placeholder: "#{t('name')}*",
+          required: true,
+          class: "w-full border p-3 font-bold text-xl"
+        %>
+      </div>
+      <div class="w-full">
+        <%= form.label :name_en, "#{t("name")} EN" %>
+        <%=
+          form.text_field :name_en,
+          placeholder: "#{t('name')} EN",
+          class: "w-full border p-3 font-bold text-xl"
+        %>
+      </div>
+    </div>
     <div class="flex gap-4">
       <div>
         <%= form.label :status_completed, class: "flex flex-col items-center text-gray-400 px-4 py-1 border cursor-pointer has-[:checked]:bg-gray-100 has-[:checked]:text-black" do %>
@@ -136,11 +149,22 @@
       placeholder: t("owner"),
       class: "border p-3"
     %>
-    <%=
-      form.textarea :description,
-      placeholder: t("description"),
-      class: "w-full border p-3"
-    %>
+    <div>
+      <%= form.label :description, "#{t("description")} FR" %>
+      <%=
+        form.textarea :description,
+        placeholder: t("description"),
+        class: "w-full border p-3"
+      %>
+    </div>
+    <div>
+      <%= form.label :description_en, "#{t("description")} EN" %>
+      <%=
+        form.textarea :description_en,
+        placeholder: "#{t("description")} EN",
+        class: "w-full border p-3"
+      %>
+    </div>
 
     <%= form.submit t("save"), class: "admin-btn-primary cursor-pointer" %>
   <% end %>

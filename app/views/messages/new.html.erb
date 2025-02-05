@@ -12,7 +12,7 @@
       <% end %>
       <p class="flex items-center gap-4"><%= inline_svg_tag "icons/pin-map.svg", class: "w-8 h-8 fill-black shrink-0" %><span>Marseille, France</span></p>
     </div>
-    <%= @contact_text&.text %>
+    <%= translates(@contact_text, :text) %>
   </div>
   <%= render "form", message: @message %>
 </section>

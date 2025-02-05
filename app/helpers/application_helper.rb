@@ -1,6 +1,6 @@
 module ApplicationHelper
   def translates(record, attribute)
-    record["#{attribute}_#{params[:locale]}"].presence || record[attribute]
+    record.try("#{attribute}_#{params[:locale]}").presence || record.try(attribute)
   end
 
   def project_status(status)

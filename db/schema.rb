@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_04_190649) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_05_220457) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -82,6 +82,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_190649) do
     t.text "caption"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "title_en"
+    t.string "subtitle_en"
+    t.text "caption_en"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -106,6 +109,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_190649) do
     t.string "website_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "description_en"
   end
 
   create_table "project_categories", force: :cascade do |t|
@@ -115,6 +119,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_190649) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "position", default: 0, null: false
+    t.string "name_en"
+    t.text "description_en"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -129,6 +135,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_190649) do
     t.datetime "updated_at", null: false
     t.boolean "visible", default: false, null: false
     t.string "owner"
+    t.string "name_en"
+    t.text "description_en"
     t.index ["project_category_id"], name: "index_projects_on_project_category_id"
   end
 

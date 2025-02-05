@@ -7,8 +7,27 @@
     "has-image": content_block.image_block.image.attached?
   } do |form|
 %>
-  <%= form.text_field :title, placeholder: t("title_optional"), class: "border p-3 text-lg font-bold" %>
-  <%= form.text_field :subtitle, placeholder: t("subtitle_optional"), class: "border p-3" %>
+  <div class="flex gap-3">
+    <div class="w-full">
+      <%= form.label :title, "#{t("title")} FR" %>
+      <%= form.text_field :title, placeholder: "#{t("title")} FR (#{t("optional")})", class: "w-full border p-3 text-lg font-bold" %>
+    </div>
+    <div class="w-full">
+      <%= form.label :title_en, "#{t("title")} EN" %>
+      <%= form.text_field :title_en, placeholder: "#{t("title")} EN (#{t("optional")})", class: "w-full border p-3 text-lg font-bold" %>
+    </div>
+  </div>
+
+  <div class="flex gap-3">
+    <div class="w-full">
+      <%= form.label :subtitle, "#{t("subtitle")} FR" %>
+      <%= form.text_field :subtitle, placeholder: "#{t("subtitle")} FR (#{t("optional")})", class: "w-full border p-3" %>
+    </div>
+    <div class="w-full">
+      <%= form.label :subtitle_en, "#{t("subtitle")} EN" %>
+      <%= form.text_field :subtitle_en, placeholder: "#{t("subtitle")} EN (#{t("optional")})", class: "w-full border p-3" %>
+    </div>
+  </div>
 
   <div class="border p-3 relative">
     <%= form.hidden_field :remove_image, disabled: true, data: { "image-upload-target": "removeImageInput" } %>
@@ -28,7 +47,7 @@
           form.file_field :image,
           class: "hidden",
           id: dom_id(container_block, content_block.persisted? ? content_block.id : :new_content_block),
-          required: true,
+          required: !content_block.image_block.image.attached?,
           accept: "image/png,image/gif,image/jpeg,image/webp",
           data: {
             "image-upload-target": "imageInput",
@@ -43,6 +62,15 @@
     </p>
   </div>
 
-  <%= form.text_field :caption, placeholder: t("caption_optional"), class: "border p-3 text-sm text-gray-500" %>
+  <div class="flex gap-3">
+    <div class="w-full">
+      <%= form.label :caption, "#{t("caption")} FR" %>
+      <%= form.text_field :caption, placeholder: "#{t("caption")} FR (#{t("optional")})", class: "w-full border p-3 text-sm text-gray-500" %>
+    </div>
+    <div class="w-full">
+      <%= form.label :caption_en, "#{t("caption")} EN" %>
+      <%= form.text_field :caption_en, placeholder: "#{t("caption")} EN (#{t("optional")})", class: "w-full border p-3 text-sm text-gray-500"  %>
+    </div>
+  </div>
   <%= form.submit t("save"), class: "admin-btn-primary cursor-pointer" %>
 <% end %>

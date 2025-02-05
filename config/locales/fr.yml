@@ -1,6 +1,27 @@
 fr:
+  time:
+    formats:
+      default: "%d %b %Y"
+  date:
+    abbr_month_names:
+    -
+    - Jan
+    - Fév
+    - Mars
+    - Avr
+    - Mai
+    - Juin
+    - Juil
+    - Août
+    - Sept
+    - Oct
+    - Nov
+    - Déc
   home: "Accueil"
   who_are_we?: "Qui sommes-nous?"
+  know_more: "En savoir plus"
+  the_association_developed_an_offer: "L’association développe une offre s’articulant autour de"
+  three_services: "TROIS SERVICES"
   projects: "Projets"
   project_updated: "Projet sauvegardé"
   contact: "Contact"
@@ -41,9 +62,10 @@ fr:
   image: "Image"
   new_image: "Nouvelle image"
   edit_image: "Modifier l'image"
-  title_optional: "Titre (optionnel)"
-  subtitle_optional: "Sous-titre (optionnel)"
-  caption_optional: "Légende (optionnel)"
+  title: "Titre"
+  subtitle: "Sous-titre"
+  caption: "Légende"
+  optional: "optionnel"
   choose_image: "Choisir une image"
   change_image: "Changer l'image"
   image_block_created: "Image crée"
@@ -76,6 +98,7 @@ fr:
   new_project: "Nouveau projet"
   view_project: "Voir le projet"
   view_projects: "Voir les projets"
+  our_last_projects: "Nos derniers projets"
   project_created: "Projet crée"
   project_updated: "Projet modifié"
   project_create_error: "Error lors de la création du projet. Merci de réessayer plus tard"
@@ -100,12 +123,12 @@ fr:
   linked_in_url: "URL LinkedIn"
   website_url: "URL du site web"
   messages: "Messages"
+  message: "Message"
   name: "Nom"
   email: "Email"
   phone: "Téléphone"
   organisation: "Organisation"
   received_at: "Reçu le"
-  message: "Message"
   send: "Envoyer"
   message_sent: "Votre message a bien été envoyé, merci!"
   message_error: "Erreur lors de l'envoie de votre message. Merci de réessayer plus tard"
@@ -117,4 +140,4 @@ fr:
   website: "Site web"
   login: "Login"
   password: "Mot de passe"
-  built_by: "Fabriqué par"
+  crafted_by: "Crafted by"
