@@ -7,10 +7,11 @@ class PagesController < ApplicationController
 
   def about
     @team_members = TeamMember.all.includes(photo_attachment: :blob)
-    about_page = Page.find_by(name: "about")
-    @about_text_1 = about_page&.container_blocks&.find_by(location: "about_1")&.content_blocks&.first&.text_block
-    @about_text_2 = about_page&.container_blocks&.find_by(location: "about_2")&.content_blocks&.first&.text_block
-    @about_text_3 = about_page&.container_blocks&.find_by(location: "about_3")&.content_blocks&.first&.text_block
-    @about_text_4 = about_page&.container_blocks&.find_by(location: "about_4")&.content_blocks&.first&.text_block
+    container_blocks = Page.find_by(name: "about").container_blocks
+    # TODO: avoid N+1 here?
+    @about_text_1 = container_blocks&.find_by(location: "about_1")&.content_blocks&.first&.text_block
+    @about_text_2 = container_blocks&.find_by(location: "about_2")&.content_blocks&.first&.text_block
+    @about_text_3 = container_blocks&.find_by(location: "about_3")&.content_blocks&.first&.text_block
+    @about_text_4 = container_blocks&.find_by(location: "about_4")&.content_blocks&.first&.text_block
   end
 end
