@@ -22,6 +22,8 @@ puts "Deleting all records..."
 Project.delete_all
 ProjectCategory.delete_all
 Page.delete_all
+TeamMember.delete_all
+Partner.delete_all
 
 puts "Creating project categories..."
 categories = [
@@ -32,7 +34,7 @@ categories = [
       icon: "book"
   },
   {
-    name: "Accompagnement de la structuration de filières industrielles!",
+    name: "Accompagnement de la structuration de filières industrielles",
     description: "Afin de produire localement et de façon durable des biens et services essentiels au territoire.",
     icon: "factory"
   },
@@ -54,6 +56,7 @@ categories.each_with_index do |category_attrs, i|
       status: ["planned", "in_progress", "completed"].sample,
       start_date: Date.today - rand(100).days,
       end_date: Date.today + rand(100).days,
+      owner: ["Dewid", "Lucas", "Marie", "John", "Paul", "Django", "Georges"].sample,
       featured: true,
       visible: true
     )
@@ -84,7 +87,8 @@ puts "Create team members"
 3.times do |i|
   team_member = TeamMember.new(
     name: "Team member #{i + 1}",
-    description: "Description for team member #{i + 1}"
+    description: "Description for team member #{i + 1}",
+    linked_in_url: "https://www.linkedin.com/in/team_member_#{i + 1}/"
   )
 
   team_member.photo.attach(io: URI.parse("https://picsum.photos/200").open, filename: "#{team_member.name} - profile", content_type: "image/jpg")
