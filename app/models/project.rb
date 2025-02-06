@@ -1,6 +1,6 @@
 class Project < ApplicationRecord
   belongs_to :project_category
-  has_many :container_blocks, ->{ order(:position) }, as: :containerable, dependent: :destroy
+  has_many :container_blocks, -> { order(:position) }, as: :containerable, dependent: :destroy
   has_one_attached :cover_photo do |attachable|
     attachable.variant :square,
       preprocessed: true,  # TODO: as variant are preprocessed we could remove the original image to save space
