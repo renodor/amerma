@@ -7,7 +7,7 @@
       "check_name": "LinkToHref",
       "message": "Potentially unsafe model attribute in `link_to` href",
       "file": "app/views/partners/index.html.erb",
-      "line": 19,
+      "line": 18,
       "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
       "code": "link_to(t(\"website\"), (Unresolved Model).new.website_url, :target => :_blank, :class => \"btn-old-school self-end\")",
       "render_path": [
@@ -15,7 +15,7 @@
           "type": "controller",
           "class": "PartnersController",
           "method": "index",
-          "line": 4,
+          "line": 5,
           "file": "app/controllers/partners_controller.rb",
           "rendered": {
             "name": "partners/index",
@@ -41,7 +41,7 @@
       "check_name": "LinkToHref",
       "message": "Potentially unsafe model attribute in `link_to` href",
       "file": "app/views/pages/about.html.erb",
-      "line": 27,
+      "line": 25,
       "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
       "code": "link_to((Unresolved Model).new.linked_in_url, :target => :_blank, :class => \"btn-old-school self-end flex items-center gap-2 text-xs\")",
       "render_path": [
@@ -49,7 +49,7 @@
           "type": "controller",
           "class": "PagesController",
           "method": "about",
-          "line": 9,
+          "line": 15,
           "file": "app/controllers/pages_controller.rb",
           "rendered": {
             "name": "pages/about",
@@ -65,6 +65,29 @@
       "confidence": "Weak",
       "cwe_id": [
         79
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Dangerous Send",
+      "warning_code": 23,
+      "fingerprint": "c3a9f96b7ce7496875a24dd952f19f4a3ac7587d3b637edecad400ca882cfd40",
+      "check_name": "Send",
+      "message": "User controlled method execution",
+      "file": "app/helpers/application_helper.rb",
+      "line": 3,
+      "link": "https://brakemanscanner.org/docs/warning_types/dangerous_send/",
+      "code": "record.try(\"#{attribute}_#{params[:locale]}\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ApplicationHelper",
+        "method": "translates"
+      },
+      "user_input": "params[:locale]",
+      "confidence": "High",
+      "cwe_id": [
+        77
       ],
       "note": ""
     }

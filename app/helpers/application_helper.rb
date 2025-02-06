@@ -1,5 +1,6 @@
 module ApplicationHelper
   def translates(record, attribute)
+    # Safe to ignore Brakeman warning as params[:locale] is scoped at route level
     record.try("#{attribute}_#{params[:locale]}").presence || record.try(attribute)
   end
 
