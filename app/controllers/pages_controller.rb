@@ -2,7 +2,7 @@ class PagesController < ApplicationController
   def home
     @home_text = Page.find_by(name: "home")&.container_blocks&.find_by(location: "home")&.content_blocks&.first&.text_block
     @project_categories = ProjectCategory.ordered
-    @projects = Project.visible.featured.order(created_at: :desc).limit(3)
+    @projects = Project.visible.featured.order(created_at: :desc).limit(3).includes(cover_photo_attachment: :blob)
   end
 
   def about
