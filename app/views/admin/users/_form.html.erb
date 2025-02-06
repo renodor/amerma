@@ -1,0 +1,6 @@
+<%= form_with model: [:admin, user], id: dom_id(user), class: "flex flex-col gap-4" do |form| %>
+  <%= form.password_field :current_password, placeholder: "#{t('current_password')}*", :autocomplete => "off", class: "border p-3"  %>
+  <%= form.password_field :password, placeholder: "#{t('new_password')}*", class: "border p-3" %>
+  <%= form.password_field :password_confirmation, placeholder: "#{t('new_password_confirmation')}*", class: "border p-3"  %>
+  <%= form.submit t("save"), class: "admin-btn-primary cursor-pointer" %>
+<% end %>

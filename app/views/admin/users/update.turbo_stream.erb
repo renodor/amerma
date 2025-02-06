@@ -1,0 +1,5 @@
+<%= turbo_stream.update "flash", partial: "admin/shared/flash" %>
+
+<%= turbo_stream.replace dom_id(current_user) do %>
+  <%= render "form", user: current_user %>
+<% end %>

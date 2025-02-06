@@ -5,6 +5,9 @@
   <% @users.each do |user| %>
     <div class="flex gap-4 items-center justify-between bg-white p-4 border">
       <p><%= user.email %></p>
+      <% if user == current_user %>
+        <%= link_to t("edit_password"), edit_admin_user_path(user), class: "admin-btn-secondary" %>
+      <% end %>
     </div>
   <% end %>
 </div>
