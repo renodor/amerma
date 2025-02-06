@@ -5,9 +5,9 @@ class Admin::ContentBlocksController < Admin::BaseController
     content_block = @container_block.content_blocks.find(params[:id])
 
     if params[:direction] == "up"
-      other_content_block = @container_block.content_blocks.where("position > ?", content_block.position).ordered.first
+      other_content_block = @container_block.content_blocks.where("position > ?", content_block.position).first
     else
-      other_content_block = @container_block.content_blocks.where("position < ?", content_block.position).ordered.last
+      other_content_block = @container_block.content_blocks.where("position < ?", content_block.position).last
     end
 
     if other_content_block

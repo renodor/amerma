@@ -1,9 +1,9 @@
 <%= render "header", project: @project %>
 
 <div class="flex flex-col gap-10 mt-10">
-  <% @project.container_blocks.ordered.each do |container_block| %>
+  <% @container_blocks.each do |container_block| %>
     <div class="<%= container_block.class_list.join(" ") %> <%= container_block.column_count_classes %>">
-      <% container_block.content_blocks.ordered.each do |content_block| %>
+      <% container_block.content_blocks.each do |content_block| %>
         <div class="<%= content_block.class_list.join(" ") %>">
           <% if content_block.text_block? %>
             <%= translates(content_block.text_block, :text) %>

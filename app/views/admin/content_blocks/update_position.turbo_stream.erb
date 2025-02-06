@@ -1,6 +1,6 @@
 <%= turbo_stream.update dom_id(@container_block, :content_blocks) do %>
   <%=
-    render @container_block.content_blocks.ordered,
+    render @container_block.content_blocks,
     container_block: @container_block,
     project: @project
   %>

@@ -1,5 +1,5 @@
 class ProjectCategory < ApplicationRecord
-  has_many :projects, dependent: :nullify
+  has_many :projects, -> { where(visible: true) }, dependent: :nullify
 
   validates :name, :position, presence: true
 

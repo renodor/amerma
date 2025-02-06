@@ -15,7 +15,7 @@
   <% end %>
 
   <div id="<%= dom_id(@project, :container_blocks) %>" class="flex flex-col gap-4">
-    <%= render @project.container_blocks.ordered, project: @project %>
+    <%= render @project.container_blocks, project: @project %>
   </div>
 
   <div data-controller="modal">
@@ -41,7 +41,7 @@
           container_block: ContainerBlock.new(
             class_list: ["grid", "gap-6", "items-center", "p-4", "border-none"],
             column_count: 1,
-            position: @project.container_blocks.ordered.last&.position.to_i + 1
+            position: @project.container_blocks.last&.position.to_i + 1
           ),
           project: @project
         %>

@@ -25,13 +25,13 @@ class Admin::ContainerBlocksController < Admin::BaseController
     if params[:container_block][:column_count].to_i > @container_block.column_count
       @container_block.content_blocks.new(Array.new(params[:container_block][:column_count].to_i - @container_block.column_count) do |index|
           {
-              position: @container_block.content_blocks.ordered.last.position + 1 + index,
+              position: @container_block.content_blocks.last.position + 1 + index,
               class_list: %w[flex justify-center items-center]
           }
         end
       )
     elsif params[:container_block][:column_count].to_i < @container_block.column_count
-      @container_block.content_blocks.ordered.where("position > ?", params[:container_block][:column_count].to_i).destroy_all
+      @container_block.content_blocks.where("position > ?", params[:container_block][:column_count].to_i).destroy_all
     end
 
     if @container_block.update(container_block_params)
@@ -50,12 +50,12 @@ class Admin::ContainerBlocksController < Admin::BaseController
 
   def update_position
     @project = Project.find(params[:project_id])
-    container_block = @project.container_blocks.ordered.find(params[:id])
+    container_block = @project.container_blocks.find(params[:id])
 
     if params[:direction] == "up"
-      other_container_block = @project.container_blocks.where("position > ?", container_block.position).ordered.first
+      other_container_block = @project.container_blocks.where("position > ?", container_block.position).first
     else
-      other_container_block = @project.container_blocks.where("position < ?", container_block.position).ordered.last
+      other_container_block = @project.container_blocks.where("position < ?", container_block.position).last
     end
 
     if other_container_block

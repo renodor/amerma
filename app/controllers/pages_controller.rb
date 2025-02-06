@@ -6,7 +6,7 @@ class PagesController < ApplicationController
   end
 
   def about
-    @team_members = TeamMember.all
+    @team_members = TeamMember.all.includes(photo_attachment: :blob)
     about_page = Page.find_by(name: "about")
     @about_text_1 = about_page&.container_blocks&.find_by(location: "about_1")&.content_blocks&.first&.text_block
     @about_text_2 = about_page&.container_blocks&.find_by(location: "about_2")&.content_blocks&.first&.text_block
