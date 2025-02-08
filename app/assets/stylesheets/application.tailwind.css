@@ -51,6 +51,10 @@
 }
 
 @layer utilities {
+  trix-editor {
+    @apply rounded-none border-gray-200
+  }
+
   .trix-button-group--file-tools,
   .trix-button-group--history-tools {
     display: none!important;

@@ -4,15 +4,41 @@
 <div class="flex flex-col gap-10">
   <% @page.container_blocks.each do |container_block| %>
     <section class="bg-white p-4">
-      <h2 class="text-xl font-bold mb-4"><%= container_block.location&.humanize %></h2>
-      <%= form_with model: [:update_text_block_admin, @page, container_block.content_blocks.first.text_block], class: "flex flex-col gap-4" do |form| %>
+      <%=
+        form_with model: [:update_text_block_admin, @page, container_block.content_blocks.first.text_block],
+        class: "flex flex-col gap-4",
+        data: { controller: "text-block-form"} do |form|
+      %>
+        <div class="flex justify-between items-center">
+          <h2 class="text-xl font-bold mb-4"><%= container_block.location&.humanize %></h2>
+          <%= form.checkbox :is_raw_html, class: "hidden peer", data: { action: "change->text-block-form#isRawHtmlChanged"} %>
+          <%= form.label :is_raw_html, "HTML", class: "px-3 py-2 text-gray-500 cursor-pointer transition-colors hover:text-black peer-checked:bg-black peer-checked:text-white" %>
+        </div>
         <div>
           <%= form.label :text, "#{t('text')} FR" %>
-          <%= form.rich_textarea :text, id: form.object.object_id %>
+          <div class="has-[trix-editor:disabled]:hidden">
+            <%= form.rich_textarea :text, id: form.object.object_id, data: { "text-block-form-target": "richTextEditor" } %>
+          </div>
+          <%=
+            form.textarea :text,
+            rows: 4,
+            disabled: !container_block.content_blocks.first.text_block.is_raw_html?,
+            class: "border w-full disabled:hidden",
+            data: { "text-block-form-target": "rawTextInput" }
+          %>
         </div>
         <div>
           <%= form.label :text_en, "#{t('text')} EN" %>
-          <%= form.rich_textarea :text_en, id: "#{form.object.object_id}-en" %>
+          <div class="has-[trix-editor:disabled]:hidden">
+            <%= form.rich_textarea :text_en, id: "#{form.object.object_id}-en", data: { "text-block-form-target": "richTextEditor" } %>
+          </div>
+          <%=
+            form.textarea :text_en,
+            rows: 4,
+            disabled: !container_block.content_blocks.first.text_block.is_raw_html?,
+            class: "border w-full disabled:hidden",
+            data: { "text-block-form-target": "rawTextInput" }
+          %>
         </div>
         <%= form.submit t("save"), class: "admin-btn-primary cursor-pointer", data: { action: "click->modal#closeModal" } %>
       <% end %>
