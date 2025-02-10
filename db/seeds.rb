@@ -36,11 +36,13 @@ categories = [
   {
     name: "Accompagnement de la structuration de filières industrielles",
     description: "Afin de produire localement et de façon durable des biens et services essentiels au territoire.",
+    position: 2,
     icon: "factory"
   },
   {
     name: "Low tech industries",
     description: "Projects related to low tech industries",
+    position: 3,
     icon: "windmill"
   }
 ]
