@@ -42,11 +42,11 @@
   }
 
   .btn-old-school {
-    @apply underline text-[blue] cursor-pointer hover:no-underline
+    @apply underline text-amerma-blue cursor-pointer hover:no-underline
   }
 
   .trix-content a {
-    @apply underline text-[blue] cursor-pointer hover:no-underline
+    @apply underline text-amerma-blue cursor-pointer hover:no-underline
   }
 }
 
