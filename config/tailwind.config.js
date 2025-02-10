@@ -29,6 +29,23 @@ module.exports = {
       },
     },
   },
+  safelist: [
+    "grid",
+    "gap-6",
+    "p-4",
+    "items-center",
+    "items-start",
+    "border-none",
+    "dashed-border",
+    "shadow-border",
+    "flex",
+    "justify-center",
+    "items-center",
+    "grid-cols-1",
+    "sm:grid-cols-2",
+    "md:grid-cols-3",
+    "lg:grid-cols-4"
+  ],
   plugins: [
     // require('@tailwindcss/forms'),
     // require('@tailwindcss/typography'),
