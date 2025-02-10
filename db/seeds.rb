@@ -68,8 +68,8 @@ categories.each_with_index do |category_attrs, i|
 end
 
 puts "Create pages and texts"
-home = Page.create!(name: "home").
-home.container_blocks.create(location: "home_1").content_blocks.create!(contentable: TextBlock.new(text: "<span style='font-size:40px; font-weight: bold'>AMERMA</span> est une association pour l'étude, la promotion, l'accompagnement, l'expérimentation et la mise en place de <strong>nouvelles approches industrielles</strong>, locales, raisonnées, accessibles et à <strong>moindre impact écologique.</strong>"))
+home = Page.create!(name: "home")
+home.container_blocks.create(location: "home_1").content_blocks.create!(contentable: TextBlock.new(is_raw_html: true, text: "<span style='font-size:40px; font-weight: bold'>AMERMA</span> est une association pour l'étude, la promotion, l'accompagnement, l'expérimentation et la mise en place de <strong>nouvelles approches industrielles</strong>, locales, raisonnées, accessibles et à <strong>moindre impact écologique.</strong>"))
 home.container_blocks.create(location: "home_2").content_blocks.create!(contentable: TextBlock.new(text: "<div>Dans cette optique, AMERMA défend le concept de techno-discernement associé à la démarche low-tech, utilisée à des échelles industrielles, notamment à travers son application aux moyens de production des biens et services essentiels au fonctionnement de notre société.</div>"))
 
 about = Page.create!(name: "about")

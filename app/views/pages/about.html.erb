@@ -1,18 +1,18 @@
 <header class="my-10 flex flex-col gap-5">
   <h1 class="text-5xl font-bold border-b border-black"><%= t("who_are_we?") %></h1>
-  <%= translates(@about_text_1, :text) %>
+  <%= render_translated_action_text(@about_text_1, :text) %>
   <%= image_tag "about-banner.png", class: "h-52 w-full object-cover" %>
 </header>
 
 <div class="flex flex-col gap-20">
   <section class="mt-3 flex flex-col gap-5">
     <h2 class="text-3xl font-bold flex gap-3 items-center"><%= inline_svg_tag "icons/time.svg", class: "w-10 h-10" %><%= t("history") %></h2>
-    <%= translates(@about_text_2, :text) %>
+    <%= render_translated_action_text(@about_text_2, :text) %>
   </section>
 
   <section class="mt-3 flex flex-col gap-5">
     <h2 class="text-3xl font-bold flex gap-3 items-center"><%= inline_svg_tag "icons/team.svg", class: "w-10 h-10" %><%= t("team") %></h2>
-    <%= translates(@about_text_3, :text) %>
+    <%= render_translated_action_text(@about_text_3, :text) %>
     <div class="flex gap-6 justify-evenly flex-wrap">
       <% @team_members.order(:created_at).each do |team_member| %>
         <div class="flex flex-col gap-3 items-center shadow-border p-4 w-56">
@@ -34,6 +34,6 @@
 
   <section class="mt-3 flex flex-col gap-5">
     <h2 class="text-3xl font-bold flex gap-3 items-center"><%= inline_svg_tag "icons/diamond.svg", class: "w-10 h-10" %><%= t("vision_and_mission") %></h2>
-    <%= translates(@about_text_4, :text) %>
+    <%= render_translated_action_text(@about_text_4, :text) %>
   </section>
 </div>

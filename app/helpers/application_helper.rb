@@ -1,4 +1,9 @@
 module ApplicationHelper
+  def render_translated_action_text(record, attribute)
+    action_text = translates(record, attribute)
+    record.try(:is_raw_html?) ? action_text.body&.html_safe : action_text
+  end
+
   def translates(record, attribute)
     # Safe to ignore Brakeman warning as params[:locale] is scoped at route level
     record.try("#{attribute}_#{params[:locale]}").presence || record.try(attribute)
