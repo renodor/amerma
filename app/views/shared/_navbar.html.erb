@@ -1,46 +1,67 @@
-<nav class="w-full bg-black fixed top-0 z-10 group" data-controller="navbar" data-open="false">
-  <div class="container px-6 py-2 mx-auto flex flex-wrap justify-between items-center sm:px-10 lg:flex-nowrap lg:px-24 xl:max-w-[1280px]">
-    <div class="text-white text-lg font-bold">
-      <%= link_to root_path do %>
-        <%= image_tag "logo.png", class: "w-48" %>
-      <% end %>
+<nav class="h-[56px] w-full text-white fixed top-0 z-10 group" data-controller="navbar" data-open="false">
+  <div class="relative z-20 container px-6 py-2 mx-auto bg-black flex flex-nowrap justify-between items-center sm:px-10 lg:px-24 xl:max-w-[1280px]">
+    <%= link_to root_path, class: "shrink-0" do %>
+      <%= image_tag "logo.png", class: "w-32" %>
+    <% end %>
+    <div class="relative flex flex-col p-4 gap-1 cursor-pointer lg:hidden" data-action="click->navbar#toggleMobileNav">
+      <div class="h-2 w-6"></div>
+      <span
+        class="absolute top-4 block w-6 h-0.5 bg-white group-[[data-open='true']]:top-[19px] group-[[data-open='true']]:rotate-45 group-[[data-open='false']]:[transition:top_0.1s_0.1s,transform_0.1s] group-[[data-open='true']]:[transition:top_0.1s,transform_0.1s_0.1s]"
+      ></span>
+      <span
+        class="absolute top-[22px] block w-6 h-0.5 bg-white group-[[data-open='true']]:top-[19px] group-[[data-open='true']]:-rotate-45 group-[[data-open='false']]:[transition:top_0.1s_0.1s,transform_0.1s] group-[[data-open='true']]:[transition:top_0.1s,transform_0.1s_0.1s]"
+      ></span>
     </div>
-    <div class="flex flex-col p-4 gap-1 lg:hidden group-[[data-open='true']]:hidden" data-action="click->navbar#openMobileNav">
-      <span class="block w-6 h-0.5 bg-white"></span>
-      <span class="block w-6 h-0.5 bg-white"></span>
-    </div>
-    <div class="relative flex p-4 h-[40px] lg:hidden group-[[data-open='false']]:hidden" data-action="click->navbar#closeMobileNav">
-      <span class="block w-6 h-0.5 bg-white rotate-45"></span>
-      <span class="block w-6 h-0.5 bg-white absolute -rotate-45"></span>
-    </div>
-    <div class="w-full bg-black py-4 flex-col hidden text-white lg:flex lg:flex-row lg:items-center lg:justify-end lg:p-0 group-[[data-open='true']]:flex" data-navbar-target="menu">
+    <div class="hidden items-center justify-end lg:flex">
       <%= link_to about_path, class: "flex justify-end gap-1 px-1 py-2 group/item" do %>
-        <span class="group-hover/item:-translate-x-1">[</span>
+        <span class="group-hover/item:-translate-x-1 transition-transform">[</span>
         <span class="group-hover/item:underline"><%= t("who_are_we?") %></span>
-        <span class="group-hover/item:translate-x-1">]</span>
+        <span class="group-hover/item:translate-x-1 transition-transform">]</span>
       <% end %>
-      <div class="relative group/dropdown">
-        <div class="absolute right-0 top-7 p-5 flex-col gap-4 text-right bg-black w-64 hidden group-hover/dropdown:flex group-[[data-open='true']]:hidden">
+      <div class="relative group/item">
+        <div class="absolute right-0 top-7 p-5 flex-col gap-4 text-right bg-black w-64 transition-all duration-200 invisible opacity-0 flex group-hover/item:visible group-hover/item:opacity-100 group-[[data-open='true']]:hidden">
           <% ProjectCategory.ordered.each do |project_category| %>
             <%= link_to translates(project_category, :name), projects_path(anchor: dom_id(project_category)), class: "hover:underline" %>
           <% end %>
         </div>
-        <%= link_to projects_path, class: "relative flex justify-end gap-1 px-1 py-2 group/item" do %>
-          <span class="group-hover/item:-translate-x-1">[</span>
+        <%= link_to projects_path, class: "relative flex justify-end gap-1 px-1 py-2" do %>
+          <span class="group-hover/item:-translate-x-1 transition-transform">[</span>
           <span class="group-hover/item:underline"><%= t("projects") %></span>
-          <span class="group-hover/item:translate-x-1">]</span>
+          <span class="group-hover/item:translate-x-1 transition-transform">]</span>
         <% end %>
       </div>
       <%= link_to partners_path, class: "flex justify-end gap-1 px-1 py-2 group/item" do %>
-        <span class="group-hover/item:-translate-x-1">[</span>
+        <span class="group-hover/item:-translate-x-1 transition-transform">[</span>
         <span class="group-hover/item:underline"><%= t("partners") %></span>
-        <span class="group-hover/item:translate-x-1">]</span>
+        <span class="group-hover/item:translate-x-1 transition-transform">]</span>
       <% end %>
       <%= link_to new_message_path, class: "flex justify-end gap-1 px-1 py-2 group/item" do %>
-        <span class="group-hover/item:-translate-x-1">[</span>
+        <span class="group-hover/item:-translate-x-1 transition-transform">[</span>
         <span class="group-hover/item:underline"><%= t("contact") %></span>
-        <span class="group-hover/item:translate-x-1">]</span>
+        <span class="group-hover/item:translate-x-1 transition-transform">]</span>
       <% end %>
     </div>
+  </div>
+  <div class="relative z-10 container mx-auto px-6 pb-4 w-full bg-black flex flex-col items-end sm:px-10 lg:hidden -translate-y-full transition-transform group-[[data-open='true']]:translate-y-0">
+    <%= link_to about_path, class: "flex justify-end gap-1 p-1 group/item" do %>
+      <span class="group-hover/item:-translate-x-1 transition-transform">[</span>
+      <span class="group-hover/item:underline"><%= t("who_are_we?") %></span>
+      <span class="group-hover/item:translate-x-1 transition-transform">]</span>
+    <% end %>
+    <%= link_to projects_path, class: "flex justify-end gap-1 p-1 group/item" do %>
+      <span class="group-hover/item:-translate-x-1 transition-transform">[</span>
+      <span class="group-hover/item:underline"><%= t("projects") %></span>
+      <span class="group-hover/item:translate-x-1 transition-transform">]</span>
+    <% end %>
+    <%= link_to partners_path, class: "flex justify-end gap-1 p-1 group/item" do %>
+      <span class="group-hover/item:-translate-x-1 transition-transform">[</span>
+      <span class="group-hover/item:underline"><%= t("partners") %></span>
+      <span class="group-hover/item:translate-x-1 transition-transform">]</span>
+    <% end %>
+    <%= link_to new_message_path, class: "flex justify-end gap-1 p-1 group/item" do %>
+      <span class="group-hover/item:-translate-x-1 transition-transform">[</span>
+      <span class="group-hover/item:underline"><%= t("contact") %></span>
+      <span class="group-hover/item:translate-x-1 transition-transform">]</span>
+    <% end %>
   </div>
 </nav>

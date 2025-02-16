@@ -1,5 +1,5 @@
 <footer class="bg-black py-10 text-white">
-  <div class="container mx-auto px-6 sm:px-10 lg:px-24 xl:max-w-[1280px] flex justify-between">
+  <div class="container mx-auto px-6 sm:px-10 lg:px-24 xl:max-w-[1280px] flex justify-between items-center">
     <p>
       <% I18n.available_locales.sort { |a, b| b <=> a }.each do |locale| %>
           <% if locale.to_s == params[:locale] || (params[:locale].blank? && locale == I18n.default_locale)  %>

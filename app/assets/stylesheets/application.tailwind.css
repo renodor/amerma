@@ -4,7 +4,7 @@
 
 @layer base {
   ul {
-    @apply list-disc list-inside
+    @apply list-disc ml-4
   }
 
   .dashed-border {
