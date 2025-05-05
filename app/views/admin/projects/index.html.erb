@@ -4,19 +4,28 @@
 </header>
 <div class="flex flex-col gap-4">
   <% @projects.each do |project| %>
-    <div class="flex gap-4 items-center justify-between bg-white p-4 border">
+    <div class="flex gap-4 items-center justify-between bg-white p-4 border" data-spec="project-<%= project.id %>">
       <div class="flex gap-4 items-center">
         <% if project.cover_photo.attached? %>
           <%= image_tag project.cover_photo.variant(:square), class: "object-cover shrink-0" %>
         <% end %>
         <div>
-          <h2 class="text-xl font-bold"><%= project.name %></h2>
-          <p class="text-gray-500"><%= project.description %></p>
+          <h2 class="text-xl font-bold" data-spec="project-name"><%= project.name %></h2>
+          <p class="text-gray-500" data-spec="project-description"><%= project.description %></p>
         </div>
       </div>
       <div class="flex flex-col gap-4">
         <%= link_to t("edit"), admin_project_path(project), class: "admin-btn-secondary" %>
-        <%= button_to t("delete"), admin_project_path(project), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "admin-btn-delete" %>
+        <%=
+          button_to(
+            t("delete"),
+            admin_project_path(project),
+            method: :delete,
+            data: { turbo_confirm: "Are you sure?" },
+            class: "admin-btn-delete",
+            form: { data: { spec: "delete-project"}}
+          )
+        %>
       </div>
     </div>
   <% end %>
