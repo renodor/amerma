@@ -1,13 +1,12 @@
 require "rails_helper"
 
-RSpec.describe "Admin::Projects", :debug do
-  let!(:project) { create(:project, :with_cover_photo) }
-  let!(:project2) { create(:project) }
-  let!(:project_category) { create(:project_category) }
-
+RSpec.describe "Admin::Projects" do
   before { login_as_user }
 
   describe "#index" do
+    let!(:project) { create(:project, :with_cover_photo) }
+    let!(:project2) { create(:project) }
+
     before { visit admin_projects_path }
 
     it "displays page header" do
@@ -41,6 +40,8 @@ RSpec.describe "Admin::Projects", :debug do
   end
 
   describe "#new and #create" do
+    let!(:project_category) { create(:project_category) }
+
     before { visit new_admin_project_path }
 
     it "creates a new project" do
@@ -71,6 +72,7 @@ RSpec.describe "Admin::Projects", :debug do
 
       project = Project.find_by(name: project_name_fr)
       expect(page).to have_current_path(admin_project_path(project))
+
       expect(project.project_category).to eq(project_category)
       expect(project).to be_visible
       expect(project).to be_featured
@@ -83,6 +85,116 @@ RSpec.describe "Admin::Projects", :debug do
       expect(project.owner).to eq(project_owner)
       expect(project.description).to eq(project_desc_fr)
       expect(project.description_en).to eq(project_desc_en)
+    end
+
+    it "displays error message when project creation fails" do
+      fill_in "#{I18n.t("name")} FR", with: "Mon Nouveau Projet FR"
+      click_on I18n.t("save")
+      expect(find("[data-spec='flash']")).to have_text(I18n.t("project_create_error"))
+    end
+  end
+
+  describe "#show", :debug do
+    let!(:project_category) { create(:project_category, name: "Test Category Show") }
+    let!(:project) do
+      create(
+        :project,
+        :with_cover_photo,
+        project_category: project_category,
+        name: "Detailed Project FR",
+        name_en: "Detailed Project EN",
+        description: "FR Description for detailed view.",
+        description_en: "EN Description for detailed view.",
+        visible: true,
+        featured: true,
+        status: :completed,
+        owner: "Project Owner Name",
+        start_date: Date.today - 2.months,
+        end_date: Date.today - 1.month
+      )
+    end
+    let!(:container_block) { create(:container_block, containerable: project, position: 1) }
+    let!(:content_block) { create(:content_block, container_block: container_block) }
+    let!(:text_block) { content_block.contentable }
+
+    before do
+      text_block.update(text: "Sample Text FR", text_en: "Sample Text EN")
+      visit admin_project_path(project)
+    end
+
+    it "displays page header and main actions" do
+      expect(find("h1")).to have_text("#{I18n.t("edit")} #{project.name}")
+
+      view_project_link = find_link(I18n.t("view_project"), href: project_path(project))
+      expect(view_project_link).to be_visible
+      expect(view_project_link[:target]).to eq("_blank")
+
+      delete_form_selector = "form[action='#{admin_project_path(project)}'][method='post']"
+      expect(page).to have_selector(delete_form_selector)
+      within(delete_form_selector) do
+        expect(page).to have_button(I18n.t("delete"))
+        expect(page).to have_selector("input[name='_method'][value='delete']", visible: :hidden)
+      end
+    end
+
+    it "displays project details within the turbo frame" do
+      within_turbo_frame(dom_id(project)) do
+        expect(page).to have_text(project_category.name)
+
+        visibility_div_xpath = ".//div[contains(., '#{project.visible? ? I18n.t("visible") : I18n.t("hidden")}') and .//svg]"
+        expect(find(:xpath, visibility_div_xpath)).to be_visible
+
+        featured_div_xpath = ".//div[contains(., '#{project.featured? ? I18n.t("featured") : I18n.t("not_featured")}') and .//svg]"
+        expect(find(:xpath, featured_div_xpath)).to be_visible
+
+        # Assuming projects/_header partial displays these:
+        expect(page).to have_selector("img[src*='cover_photo.png']")
+        expect(page).to have_text(project.name)
+        expect(page).to have_text(project.description)
+        expect(page).to have_text(project.owner)
+        expect(page).to have_text(I18n.t("activerecord.attributes.project.statuses.#{project.status}"))
+        expect(page).to have_text(I18n.l(project.start_date, format: :long)) if project.start_date # Assuming long format
+        expect(page).to have_text(I18n.l(project.end_date, format: :long)) if project.end_date # Assuming long format
+
+        expect(page).to have_link(I18n.t("edit"), href: edit_admin_project_path(project))
+      end
+    end
+
+    it "displays container blocks and their actions" do
+      within("div##{dom_id(project, :container_blocks)}") do
+        within("section##{dom_id(container_block)}") do
+          within("div##{dom_id(container_block, :content_blocks)}") do
+            expect(page).to have_text("Sample Text FR") # Assuming FR locale for display
+          end
+
+          expect(page).to have_link(href: update_position_admin_project_container_block_path(project, container_block, direction: "down"))
+          expect(page).to have_link(href: update_position_admin_project_container_block_path(project, container_block, direction: "up"))
+
+          expect(find_button(I18n.t("edit"))).to be_visible # Edit button for this container_block
+
+          delete_container_form_selector = "form[action='#{admin_project_container_block_path(project, container_block)}'][method='post']"
+          expect(page).to have_selector(delete_container_form_selector)
+          within(delete_container_form_selector) do
+            expect(page).to have_button(I18n.t("delete"))
+            expect(page).to have_selector("input[name='_method'][value='delete']", visible: :hidden)
+          end
+        end
+      end
+    end
+
+    it "displays 'Add Container' button and modal" do
+      add_container_button = find_button(I18n.t("container"))
+      expect(add_container_button).to be_visible
+      expect(add_container_button).to have_selector("svg") # Check for plus icon
+
+      add_container_button.click
+
+      within("dialog[data-modal-target='dialog']") do # Assumes dialog becomes [open] or is findable
+        expect(page).to have_css("h3", text: I18n.t("new_container"))
+        expect(page).to have_selector("form[action='#{admin_project_container_blocks_path(project)}'][method='post']")
+        expect(page).to have_field("container_block[column_count]")
+        expect(page).to have_button(I18n.t("save"))
+      end
     end
   end
 end

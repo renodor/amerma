@@ -4,6 +4,6 @@ module LoginHelper
     fill_in "user[email]", with: user.email
     fill_in "user[password]", with: user.password
     click_on "Login"
-    sleep 0.5
+    visit root_path
   end
 end
