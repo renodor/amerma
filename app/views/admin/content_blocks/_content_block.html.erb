@@ -1,4 +1,4 @@
-<div id=<%= dom_id(content_block) %> class="flex justify-center items-center border p-3 relative">
+<div id=<%= dom_id(content_block) %> class="flex justify-center items-center border p-3 relative" data-spec="content-block-<%= content_block.id %>">
   <div class="<%= content_block.class_list.join(" ") %>">
     <% if content_block.text_block? %>
       <%= content_block.text_block.text %>
@@ -51,12 +51,18 @@
       </div>
     <% elsif content_block.image_block? %>
       <div class="flex flex-col gap-1">
-        <p class="text-lg font-bold"><%= content_block.image_block.title %></p>
-        <p><%= content_block.image_block.subtitle %></p>
+        <p class="text-lg font-bold" data-spec="image-title">
+          <%= content_block.image_block.title %>
+        </p>
+        <p data-spec="image-subtitle">
+          <%= content_block.image_block.subtitle %>
+        </p>
         <% if content_block.image_block.image.attached? %>
           <%= image_tag content_block.image_block.image.variant(:default), class: "w-full" %>
         <% end %>
-        <p class="text-sm text-gray-500"><%= content_block.image_block.caption %></p>
+        <p class="text-sm text-gray-500" data-spec="image-caption">
+          <%= content_block.image_block.caption %>
+        </p>
       </div>
       <div class="flex justify-center items-center gap-3 absolute inset-0 opacity-0 transition-opacity bg-white/80 hover:opacity-100">
         <%=
@@ -106,6 +112,7 @@
         %>
       </div>
     <% else %>
+      <!-- Modals to create new content blocks -->
       <div class="flex justify-center gap-3 items-center h-full">
         <div data-controller="modal">
           <%=

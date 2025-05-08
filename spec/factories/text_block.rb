@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :text_block do
-    text { "Rich text in FR" }
-    text_en { "Rich text in EN" }
+    text { "Text <b>FR</b>" }
+    text_en { "Text <b>EN</b>" }
   end
 end

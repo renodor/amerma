@@ -1,5 +1,9 @@
-<section id=<%= dom_id(container_block) %> class="bg-white flex flex-col gap-4 border p-3">
-  <div id=<%= dom_id(container_block, :content_blocks) %> class="<%= container_block.class_list.join(" ") %> <%= container_block.column_count_classes %>">
+<section id=<%= dom_id(container_block) %> class="bg-white flex flex-col gap-4 border p-3" data-spec="container-block-<%= container_block.id %>">
+  <div
+    id=<%= dom_id(container_block, :content_blocks) %>
+    class="<%= container_block.class_list.join(" ") %> <%= container_block.column_count_classes %>"
+    data-spec="content-blocks"
+  >
     <%=
       render container_block.content_blocks,
       container_block: container_block,

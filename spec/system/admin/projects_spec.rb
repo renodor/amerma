@@ -1,10 +1,29 @@
 require "rails_helper"
 
 RSpec.describe "Admin::Projects" do
+  let(:project_category) { create(:project_category, name: "Project category", icon: "windmill") }
+  let!(:project_category2) { create(:project_category, name: "Project Category 2") }
+  let!(:project) do
+    create(
+      :project,
+      :with_cover_photo,
+      project_category: project_category,
+      name: "Project FR",
+      name_en: "Project EN",
+      description: "Project Description FR",
+      description_en: "Project Description EN",
+      visible: true,
+      featured: true,
+      status: :completed,
+      owner: "Project Owner Name",
+      start_date: Date.today - 2.months,
+      end_date: Date.today - 1.month
+    )
+  end
+
   before { login_as_user }
 
   describe "#index" do
-    let!(:project) { create(:project, :with_cover_photo) }
     let!(:project2) { create(:project) }
 
     before { visit admin_projects_path }
@@ -94,107 +113,127 @@ RSpec.describe "Admin::Projects" do
     end
   end
 
-  describe "#show", :debug do
-    let!(:project_category) { create(:project_category, name: "Test Category Show") }
-    let!(:project) do
-      create(
-        :project,
-        :with_cover_photo,
-        project_category: project_category,
-        name: "Detailed Project FR",
-        name_en: "Detailed Project EN",
-        description: "FR Description for detailed view.",
-        description_en: "EN Description for detailed view.",
-        visible: true,
-        featured: true,
-        status: :completed,
-        owner: "Project Owner Name",
-        start_date: Date.today - 2.months,
-        end_date: Date.today - 1.month
-      )
-    end
-    let!(:container_block) { create(:container_block, containerable: project, position: 1) }
-    let!(:content_block) { create(:content_block, container_block: container_block) }
-    let!(:text_block) { content_block.contentable }
+  describe "#show" do
+    let!(:container_block) { create(:container_block, containerable: project, position: 1, column_count: 2) }
+    let!(:content_block) { create(:content_block, container_block: container_block, contentable: create(:text_block)) }
+    let!(:content_block2) { create(:content_block, container_block: container_block, contentable: create(:image_block)) }
 
-    before do
-      text_block.update(text: "Sample Text FR", text_en: "Sample Text EN")
-      visit admin_project_path(project)
-    end
+    before { visit admin_project_path(project) }
 
-    it "displays page header and main actions" do
-      expect(find("h1")).to have_text("#{I18n.t("edit")} #{project.name}")
+    it "displays page header and actions" do
+      expect(find("h2")).to have_text("#{I18n.t("edit")} #{project.name}")
 
-      view_project_link = find_link(I18n.t("view_project"), href: project_path(project))
+      view_project_link = find("[data-spec='project-link']")
       expect(view_project_link).to be_visible
+      expect(view_project_link).to have_text(I18n.t("view_project"))
+      expect(view_project_link[:href]).to match(/projects\/#{project.id}/)
       expect(view_project_link[:target]).to eq("_blank")
 
-      delete_form_selector = "form[action='#{admin_project_path(project)}'][method='post']"
-      expect(page).to have_selector(delete_form_selector)
-      within(delete_form_selector) do
-        expect(page).to have_button(I18n.t("delete"))
-        expect(page).to have_selector("input[name='_method'][value='delete']", visible: :hidden)
-      end
+      delete_button = find("[data-spec='delete-project']")
+      expect(delete_button).to be_visible
+      expect(delete_button).to have_text(I18n.t("delete"))
+
+      accept_confirm { delete_button.click }
+
+      expect(find("[data-spec='flash']")).to have_text(I18n.t("project_deleted"))
+      expect(page).to have_current_path(admin_projects_path)
+      expect(Project.exists?(project.id)).to be false
     end
 
-    it "displays project details within the turbo frame" do
-      within_turbo_frame(dom_id(project)) do
-        expect(page).to have_text(project_category.name)
-
-        visibility_div_xpath = ".//div[contains(., '#{project.visible? ? I18n.t("visible") : I18n.t("hidden")}') and .//svg]"
-        expect(find(:xpath, visibility_div_xpath)).to be_visible
-
-        featured_div_xpath = ".//div[contains(., '#{project.featured? ? I18n.t("featured") : I18n.t("not_featured")}') and .//svg]"
-        expect(find(:xpath, featured_div_xpath)).to be_visible
-
-        # Assuming projects/_header partial displays these:
-        expect(page).to have_selector("img[src*='cover_photo.png']")
-        expect(page).to have_text(project.name)
-        expect(page).to have_text(project.description)
-        expect(page).to have_text(project.owner)
-        expect(page).to have_text(I18n.t("activerecord.attributes.project.statuses.#{project.status}"))
-        expect(page).to have_text(I18n.l(project.start_date, format: :long)) if project.start_date # Assuming long format
-        expect(page).to have_text(I18n.l(project.end_date, format: :long)) if project.end_date # Assuming long format
-
+    it "displays project details" do
+      within("[data-spec='project-#{project.id}']") do
+        expect(find("[data-spec='project-category']")).to have_text(project_category.name)
+        expect(find("[data-spec='project-visibility']")).to have_text(I18n.t("visible"))
+        expect(find("[data-spec='project-featured']")).to have_text(I18n.t("featured"))
+        expect(find("header")).to have_selector("img[src*='cover_photo.png']")
+        expect(find("header [data-spec='project-name']")).to have_text(project.name)
+        expect(find("header [data-spec='project-category-icon']")[:id]).to eq("windmill")
+        expect(find("header [data-spec='project-status']")).to have_text(I18n.t(project.status))
+        expect(find("header [data-spec='project-dates']")).to have_text("#{I18n.l(project.start_date, format: :default)} - #{I18n.l(project.end_date, format: :default)}")
+        expect(find("header [data-spec='project-description']")).to have_text(project.description)
+        expect(find("header [data-spec='project-owner']")).to have_text(project.owner)
         expect(page).to have_link(I18n.t("edit"), href: edit_admin_project_path(project))
       end
     end
 
-    it "displays container blocks and their actions" do
-      within("div##{dom_id(project, :container_blocks)}") do
-        within("section##{dom_id(container_block)}") do
-          within("div##{dom_id(container_block, :content_blocks)}") do
-            expect(page).to have_text("Sample Text FR") # Assuming FR locale for display
-          end
+    it "displays container blocks and their content blocks" do
+      within("[data-spec='container-block-#{container_block.id}']") do
+        expect(find("[data-spec='content-blocks']")).to match_css(".grid.gap-6.items-center.p-4.border-none.grid-cols-1.sm\\:grid-cols-2")
 
-          expect(page).to have_link(href: update_position_admin_project_container_block_path(project, container_block, direction: "down"))
-          expect(page).to have_link(href: update_position_admin_project_container_block_path(project, container_block, direction: "up"))
+        within("[data-spec='content-block-#{content_block.id}']") do
+          expect(page).to have_text("Text FR")
+          expect(find("b")).to have_text("FR")
+        end
 
-          expect(find_button(I18n.t("edit"))).to be_visible # Edit button for this container_block
-
-          delete_container_form_selector = "form[action='#{admin_project_container_block_path(project, container_block)}'][method='post']"
-          expect(page).to have_selector(delete_container_form_selector)
-          within(delete_container_form_selector) do
-            expect(page).to have_button(I18n.t("delete"))
-            expect(page).to have_selector("input[name='_method'][value='delete']", visible: :hidden)
-          end
+        within("[data-spec='content-block-#{content_block2.id}']") do
+          expect(find("[data-spec='image-title']")).to have_text("Image title FR")
+          expect(find("[data-spec='image-subtitle']")).to have_text("Image subtitle FR")
+          expect(page).to have_selector("img[src*='image.jpg']")
+          expect(find("[data-spec='image-caption']")).to have_text("Image caption FR")
         end
       end
     end
+  end
 
-    it "displays 'Add Container' button and modal" do
-      add_container_button = find_button(I18n.t("container"))
-      expect(add_container_button).to be_visible
-      expect(add_container_button).to have_selector("svg") # Check for plus icon
-
-      add_container_button.click
-
-      within("dialog[data-modal-target='dialog']") do # Assumes dialog becomes [open] or is findable
-        expect(page).to have_css("h3", text: I18n.t("new_container"))
-        expect(page).to have_selector("form[action='#{admin_project_container_blocks_path(project)}'][method='post']")
-        expect(page).to have_field("container_block[column_count]")
-        expect(page).to have_button(I18n.t("save"))
-      end
+  describe "#edit and #update" do
+    before do
+      visit admin_project_path(project)
+      click_link I18n.t("edit"), href: edit_admin_project_path(project)
     end
+
+    it "allows to update project" do
+      new_name_fr = "Updated Project FR"
+      new_name_en = "Updated Project EN"
+      new_desc_fr = "Updated Description FR"
+      new_desc_en = "Updated Description EN"
+      new_owner = "Updated Owner"
+      new_start_date = Date.today - 1.month
+      new_end_date = Date.today + 2.months
+      new_cover_photo_path = Rails.root.join("spec/fixtures/images/cover_photo2.png")
+
+      select project_category2.name, from: "project[project_category_id]"
+      find("label", text: I18n.t("hidden")).click
+      find("label", text: I18n.t("not_featured")).click
+      attach_file("project[cover_photo]", new_cover_photo_path, visible: false)
+      fill_in "#{I18n.t("name")} FR", with: new_name_fr
+      fill_in "#{I18n.t("name")} EN", with: new_name_en
+      find("label", text: I18n.t("planned")).click
+      fill_in I18n.t("start_date"), with: new_start_date
+      fill_in I18n.t("end_date"), with: new_end_date
+      fill_in I18n.t("owner"), with: new_owner
+      fill_in "#{I18n.t("description")} FR", with: new_desc_fr
+      fill_in "#{I18n.t("description")} EN", with: new_desc_en
+
+      click_on I18n.t("save")
+
+      expect(find("[data-spec='flash']")).to have_text(I18n.t("project_updated"))
+
+      project.reload
+      expect(project.project_category).to eq(project_category2)
+      expect(project).not_to be_visible
+      expect(project).not_to be_featured
+      expect(project.cover_photo).to be_attached
+      expect(project.cover_photo.filename.to_s).to eq("cover_photo2.png")
+      expect(project.name).to eq(new_name_fr)
+      expect(project.name_en).to eq(new_name_en)
+      expect(project.status).to eq("planned")
+      expect(project.start_date).to eq(new_start_date)
+      expect(project.end_date).to eq(new_end_date)
+      expect(project.owner).to eq(new_owner)
+      expect(project.description).to eq(new_desc_fr)
+      expect(project.description_en).to eq(new_desc_en)
+    end
+
+    it "allows to remove project cover photo"
+  end
+
+  describe "Project content builder" do
+    it "allows to add, edit and remove container blocks"
+
+    it "displays container blocks in order and allows to reorder them"
+
+    it "allows to add, edit and remove content blocks"
+
+    it "displays content blocks in order and allows to reorder them"
   end
 end

@@ -1,11 +1,17 @@
 <div class="flex justify-between items-center mb-6">
-  <h1 class="text-2xl font-bold mb-4"><%= t("edit") %> <%= @project.name %></h1>
+  <h2 class="text-2xl font-bold mb-4"><%= t("edit") %> <%= @project.name %></h2>
   <div class="flex gap-4">
-    <%= link_to project_path(@project), target: :_blank, class: "admin-btn-secondary flex items-center gap-3" do %>
+    <%= link_to project_path(@project), target: :_blank, class: "admin-btn-secondary flex items-center gap-3", data: { spec: "project-link" } do %>
       <span><%= t("view_project") %></span>
       <%= inline_svg_tag "icons/outside.svg", class: "w-4 h-4" %>
     <% end %>
-    <%= button_to t("delete"), admin_project_path(@project), data: { turbo_confirm: "Are you sure?" }, method: :delete, class: "admin-btn-delete" %>
+    <%=
+      button_to t("delete"),
+      admin_project_path(@project),
+      data: { turbo_confirm: "Are you sure?", spec: "delete-project" },
+      method: :delete,
+      class: "admin-btn-delete"
+    %>
   </div>
 </div>
 

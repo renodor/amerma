@@ -44,6 +44,7 @@ class Admin::ProjectsController < Admin::BaseController
 
   def destroy
     Project.find(params[:id]).destroy
+    flash[:success] = t("project_deleted")
     redirect_to admin_projects_path
   end
 

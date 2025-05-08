@@ -24,6 +24,7 @@ fr:
   three_services: "Trois services"
   projects: "Projets"
   project_updated: "Projet sauvegardé"
+  project_deleted: "Projet supprimé"
   contact: "Contact"
   edit: "Modifier"
   edit_texts: "Modifier les textes"
