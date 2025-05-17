@@ -23,7 +23,8 @@ class Admin::ContainerBlocksController < Admin::BaseController
     @container_block = @project.container_blocks.find(params[:id])
 
     if params[:container_block][:column_count].to_i > @container_block.column_count
-      @container_block.content_blocks.new(Array.new(params[:container_block][:column_count].to_i - @container_block.column_count) do |index|
+      @container_block.content_blocks.new(
+        Array.new(params[:container_block][:column_count].to_i - @container_block.column_count) do |index|
           {
               position: @container_block.content_blocks.last.position + 1 + index,
               class_list: %w[flex justify-center items-center]

@@ -63,7 +63,11 @@ categories.each_with_index do |category_attrs, i|
       visible: true
     )
 
-    project.cover_photo.attach(io: URI.parse(project_cover_photos[(i * 5) + j]).open, filename: "#{project.name} - cover photo", content_type: "image/jpg")
+    project.cover_photo.attach(
+      io: URI.parse(project_cover_photos[(i * 5) + j]).open,
+      filename: "#{project.name} - cover photo",
+      content_type: "image/jpg"
+    )
     project.save!
     puts "Created project: #{project.name}"
   end
@@ -71,20 +75,79 @@ end
 
 puts "Create pages and texts"
 home = Page.create!(name: "home")
-home.container_blocks.create(location: "home_1").content_blocks.create!(contentable: TextBlock.new(is_raw_html: true, text: "<span style='font-size:40px; font-weight: bold'>AMERMA</span> est une association pour l'étude, la promotion, l'accompagnement, l'expérimentation et la mise en place de <strong>nouvelles approches industrielles</strong>, locales, raisonnées, accessibles et à <strong>moindre impact écologique.</strong>"))
-home.container_blocks.create(location: "home_2").content_blocks.create!(contentable: TextBlock.new(text: "<div>Dans cette optique, AMERMA défend le concept de techno-discernement associé à la démarche low-tech, utilisée à des échelles industrielles, notamment à travers son application aux moyens de production des biens et services essentiels au fonctionnement de notre société.</div>"))
+home.container_blocks.create(location: "home_1").content_blocks.create!(
+  contentable: TextBlock.new(
+    is_raw_html: true,
+    text: "<span style='font-size:40px; font-weight: bold'>AMERMA</span> est une association pour l'étude, la promotion, l'accompagnement, " \
+          "l'expérimentation et la mise en place de <strong>nouvelles approches industrielles</strong>, locales, raisonnées, accessibles et à " \
+          "<strong>moindre impact écologique.</strong>"
+  )
+)
+home.container_blocks.create(location: "home_2").content_blocks.create!(
+  contentable: TextBlock.new(
+    text: "<div>Dans cette optique, AMERMA défend le concept de techno-discernement associé à la démarche low-tech, utilisée à des échelles " \
+          "industrielles, notamment à travers son application aux moyens de production des biens et services essentiels au fonctionnement de notre " \
+          "société.</div>"
+  )
+)
 
 about = Page.create!(name: "about")
-about.container_blocks.create(location: "about_1").content_blocks.create!(contentable: TextBlock.new(text: "<div><strong>Qui sommes nous texte 1</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis augue ex. Fusce mollis libero vitae viverra mattis. Proin laoreet vehicula erat nec luctus. Aliquam malesuada ullamcorper aliquam.</div>"))
-about.container_blocks.create(location: "about_2").content_blocks.create!(contentable: TextBlock.new(text: "<div><strong>Qui sommes nous texte 2</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis augue ex. Fusce mollis libero vitae viverra mattis. Proin laoreet vehicula erat nec luctus. Aliquam malesuada ullamcorper aliquam. Sed quis lectus vel risus ornare pharetra. Etiam id condimentum purus. Phasellus condimentum, ipsum in sagittis ultrices, urna libero pretium tortor, non molestie tortor arcu ac ipsum. Ut ultricies justo sed elit volutpat aliquet. Proin eget ultrices ipsum. Nulla ullamcorper diam et arcu dapibus bibendum. Aliquam posuere convallis odio eu malesuada. Etiam luctus convallis purus et tempus.<br \><br \>Mauris et sapien molestie, venenatis risus at, hendrerit mi. Mauris congue quam eget libero ultricies, non scelerisque mauris iaculis. Nulla eu ornare augue. In id quam lobortis, porta massa at, auctor lectus. Suspendisse sed tincidunt ante. Aliquam sollicitudin sapien risus, in iaculis diam dapibus eu. Sed euismod dapibus enim non suscipit. Nulla sit amet vestibulum felis, sed pharetra arcu. Integer sollicitudin orci eget cursus consectetur. Pellentesque ut cursus mi, eget sodales nisl. Morbi bibendum mauris bibendum quam facilisis, non molestie massa molestie. Sed et sem convallis, pharetra justo laoreet, blandit elit.</div>"))
-about.container_blocks.create(location: "about_3").content_blocks.create!(contentable: TextBlock.new(text: "<div><strong>Qui sommes nous texte 3</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis augue ex. Fusce mollis libero vitae viverra mattis. Proin laoreet vehicula erat nec luctus. Aliquam malesuada ullamcorper aliquam.</div>"))
-about.container_blocks.create(location: "about_4").content_blocks.create!(contentable: TextBlock.new(text: "<div>Qui sommes nous texte 4 lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis augue ex. Fusce mollis libero vitae viverra mattis. Proin laoreet vehicula erat nec luctus. Aliquam malesuada ullamcorper aliquam. Sed quis lectus vel risus ornare pharetra. Etiam id condimentum purus. Phasellus condimentum, ipsum in sagittis ultrices, urna libero pretium tortor, non molestie tortor arcu ac ipsum. Ut ultricies justo sed elit volutpat aliquet. Proin eget ultrices ipsum. Nulla ullamcorper diam et arcu dapibus bibendum. Aliquam posuere convallis odio eu malesuada. Etiam luctus convallis purus et tempus.<br \><br \>Mauris et sapien molestie, venenatis risus at, hendrerit mi. Mauris congue quam eget libero ultricies, non scelerisque mauris iaculis. Nulla eu ornare augue. In id quam lobortis, porta massa at, auctor lectus. Suspendisse sed tincidunt ante. Aliquam sollicitudin sapien risus, in iaculis diam dapibus eu. Sed euismod dapibus enim non suscipit. Nulla sit amet vestibulum felis, sed pharetra arcu. Integer sollicitudin orci eget cursus consectetur. Pellentesque ut cursus mi, eget sodales nisl. Morbi bibendum mauris bibendum quam facilisis, non molestie massa molestie. Sed et sem convallis, pharetra justo laoreet, blandit elit.</div>"))
+about.container_blocks.create(location: "about_1").content_blocks.create!(
+  contentable: TextBlock.new(
+    text: "<div><strong>Qui sommes nous texte 1</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis augue ex. Fusce mollis " \
+          "libero vitae viverra mattis. Proin laoreet vehicula erat nec luctus. Aliquam malesuada ullamcorper aliquam.</div>"
+  )
+)
+about.container_blocks.create(location: "about_2").content_blocks.create!(
+  contentable: TextBlock.new(
+    text: "<div><strong>Qui sommes nous texte 2</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis augue ex. Fusce mollis " \
+          "libero vitae viverra mattis. Proin laoreet vehicula erat nec luctus. Aliquam malesuada ullamcorper aliquam. Sed quis lectus vel risus " \
+          "ornare pharetra. Etiam id condimentum purus. Phasellus condimentum, ipsum in sagittis ultrices, urna libero pretium tortor, non " \
+          "molestie tortor arcu ac ipsum. Ut ultricies justo sed elit volutpat aliquet. Proin eget ultrices ipsum. Nulla ullamcorper diam et arcu " \
+          "dapibus bibendum. Aliquam posuere convallis odio eu malesuada. Etiam luctus convallis purus et tempus.<br \><br \>Mauris et sapien " \
+          "molestie, venenatis risus at, hendrerit mi. Mauris congue quam eget libero ultricies, non scelerisque mauris iaculis. Nulla eu ornare " \
+          "augue. In id quam lobortis, porta massa at, auctor lectus. Suspendisse sed tincidunt ante. Aliquam sollicitudin sapien risus, in " \
+          "iaculis diam dapibus eu. Sed euismod dapibus enim non suscipit. Nulla sit amet vestibulum felis, sed pharetra arcu. Integer " \
+          "sollicitudin orci eget cursus consectetur. Pellentesque ut cursus mi, eget sodales nisl. Morbi bibendum mauris bibendum quam facilisis, " \
+          "non molestie massa molestie. Sed et sem convallis, pharetra justo laoreet, blandit elit.</div>"
+  )
+)
+about.container_blocks.create(location: "about_3").content_blocks.create!(
+  contentable: TextBlock.new(
+    text: "<div><strong>Qui sommes nous texte 3</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis augue ex. Fusce mollis " \
+          "libero vitae viverra mattis. Proin laoreet vehicula erat nec luctus. Aliquam malesuada ullamcorper aliquam.</div>"
+  )
+)
+about.container_blocks.create(location: "about_4").content_blocks.create!(
+  contentable: TextBlock.new(
+    text: "<div>Qui sommes nous texte 4 lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis augue ex. Fusce mollis libero vitae " \
+          "viverra mattis. Proin laoreet vehicula erat nec luctus. Aliquam malesuada ullamcorper aliquam. Sed quis lectus vel risus ornare " \
+          "pharetra. Etiam id condimentum purus. Phasellus condimentum, ipsum in sagittis ultrices, urna libero pretium tortor, non molestie " \
+          "tortor arcu ac ipsum. Ut ultricies justo sed elit volutpat aliquet. Proin eget ultrices ipsum. Nulla ullamcorper diam et arcu dapibus " \
+          "bibendum. Aliquam posuere convallis odio eu malesuada. Etiam luctus convallis purus et tempus.<br \><br \>Mauris et sapien molestie, " \
+          "venenatis risus at, hendrerit mi. Mauris congue quam eget libero ultricies, non scelerisque mauris iaculis. Nulla eu ornare augue. In " \
+          "id quam lobortis, porta massa at, auctor lectus. Suspendisse sed tincidunt ante. Aliquam sollicitudin sapien risus, in iaculis diam " \
+          "dapibus eu. Sed euismod dapibus enim non suscipit. Nulla sit amet vestibulum felis, sed pharetra arcu. Integer sollicitudin orci eget " \
+          "cursus consectetur. Pellentesque ut cursus mi, eget sodales nisl. Morbi bibendum mauris bibendum quam facilisis, non molestie massa " \
+          "molestie. Sed et sem convallis, pharetra justo laoreet, blandit elit.</div>"
+  )
+)
 
 partners = Page.create!(name: "partners")
-partners.container_blocks.create(location: "partners").content_blocks.create!(contentable: TextBlock.new(text: "<div><strong>Partners text</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis augue ex. Fusce mollis libero vitae viverra mattis. Proin laoreet vehicula erat nec luctus. Aliquam malesuada ullamcorper aliquam.</div>"))
+partners.container_blocks.create(location: "partners").content_blocks.create!(
+  contentable: TextBlock.new(
+    text: "<div><strong>Partners text</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis augue ex. Fusce mollis libero " \
+          "vitae viverra mattis. Proin laoreet vehicula erat nec luctus. Aliquam malesuada ullamcorper aliquam.</div>"
+  )
+)
 
 contact = Page.create!(name: "contact")
-contact.container_blocks.create(location: "contact").content_blocks.create!(contentable: TextBlock.new(text: "<div><strong>Contact text</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis augue ex. Fusce mollis libero vitae viverra mattis. Proin laoreet vehicula erat nec luctus. Aliquam malesuada ullamcorper aliquam.</div>"))
+contact.container_blocks.create(location: "contact").content_blocks.create!(
+  contentable: TextBlock.new(
+    text: "<div><strong>Contact text</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis augue ex. Fusce mollis libero " \
+          "vitae viverra mattis. Proin laoreet vehicula erat nec luctus. Aliquam malesuada ullamcorper aliquam.</div>"
+  )
+)
 
 
 puts "Create team members"

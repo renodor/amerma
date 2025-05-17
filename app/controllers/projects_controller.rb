@@ -5,7 +5,9 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
-    @container_blocks = @project.container_blocks.includes(content_blocks: [contentable: [:rich_text_text, :rich_text_text_en, image_attachment: :blob]])
+    @container_blocks = @project.container_blocks.includes(
+      content_blocks: [contentable: [:rich_text_text, :rich_text_text_en, image_attachment: :blob]]
+    )
 
     redirect_to projects_path unless @project.visible?
   end

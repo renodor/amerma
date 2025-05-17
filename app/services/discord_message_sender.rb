@@ -7,7 +7,7 @@ class DiscordMessageSender
                         "\n- Organisation: #{message.organisation}" \
                         "\n- Message: #{message.body}"
 
-    response = Faraday.post("https://discord.com/api/v10/channels/#{Rails.application.credentials.discord_channel_id}/messages") do |req|
+    Faraday.post("https://discord.com/api/v10/channels/#{Rails.application.credentials.discord_channel_id}/messages") do |req|
       req.headers["Authorization"] = "Bot #{Rails.application.credentials.discord_bot_token}"
       req.headers["Content-Type"] = "application/json"
       req.body = { content: formatted_message }.to_json

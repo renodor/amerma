@@ -1,7 +1,11 @@
 class MessagesController < ApplicationController
   def new
     @message = Message.new
-    @contact_text = Page.find_by(name: "contact")&.container_blocks&.find_by(location: "contact")&.content_blocks&.first&.text_block
+    @contact_text = Page.find_by(name: "contact")
+                        &.container_blocks
+                        &.find_by(location: "contact")
+                        &.content_blocks&.first
+                        &.text_block
   end
 
   def create
