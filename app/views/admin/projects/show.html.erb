@@ -1,5 +1,5 @@
 <div class="flex justify-between items-center mb-6">
-  <h2 class="text-2xl font-bold mb-4"><%= t("edit") %> <%= @project.name %></h2>
+  <h2 class="text-2xl font-bold mb-4"><%= @project.name %></h2>
   <div class="flex gap-4">
     <%= link_to project_path(@project), target: :_blank, class: "admin-btn-secondary flex items-center gap-3", data: { spec: "project-link" } do %>
       <span><%= t("view_project") %></span>
@@ -16,9 +16,7 @@
 </div>
 
 <div class="flex flex-col gap-4">
-  <%= turbo_frame_tag @project do %>
-    <%= render @project %>
-  <% end %>
+  <%= render @project %>
 
   <div id="<%= dom_id(@project, :container_blocks) %>" class="flex flex-col gap-4">
     <%= render @project.container_blocks, project: @project %>

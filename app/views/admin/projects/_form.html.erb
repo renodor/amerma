@@ -63,7 +63,7 @@
       %>
       <%= form.hidden_field :remove_cover_photo, disabled: true, data: { "image-upload-target": "removeImageInput" } %>
       <%=
-        image_tag project.cover_photo.variant(:cover).presence || "",
+        image_tag project.cover_photo_valid? && project.cover_photo.variant(:cover).presence || "",
         class: "w-full h-60 object-cover mb-3 group-[[data-has-image='false']]:hidden",
         data: {
           "image-upload-target": "imagePreview",
@@ -84,7 +84,8 @@
           type: :button,
           data: {
             id: "cover-photo",
-            action: "click->image-upload#removeImage"
+            action: "click->image-upload#removeImage",
+            spec: "remove-cover-photo"
           }
         %>
       </div>

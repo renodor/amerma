@@ -41,7 +41,7 @@ RSpec.describe "Admin::Projects" do
         expect(page.evaluate_script("arguments[0].height", cover_photo)).to eq 96
         expect(find("[data-spec='project-name']")).to have_text(project.name)
         expect(find("[data-spec='project-description']")).to have_text(project.description)
-        expect(page).to have_link(I18n.t("edit"), href: admin_project_path(project))
+        expect(page).to have_link(I18n.t("manage"), href: admin_project_path(project))
 
         delete_form = find("[data-spec='delete-project']")
         expect(delete_form).to have_button(I18n.t("delete"))
@@ -109,6 +109,8 @@ RSpec.describe "Admin::Projects" do
     it "displays error message when project creation fails" do
       fill_in "#{I18n.t("name")} FR", with: "Mon Nouveau Projet FR"
       click_on I18n.t("save")
+
+      expect(page).to have_current_path(new_admin_project_path)
       expect(find("[data-spec='flash']")).to have_text(I18n.t("project_create_error"))
     end
   end
@@ -121,7 +123,7 @@ RSpec.describe "Admin::Projects" do
     before { visit admin_project_path(project) }
 
     it "displays page header and actions" do
-      expect(find("h2")).to have_text("#{I18n.t("edit")} #{project.name}")
+      expect(find("h2")).to have_text(project.name)
 
       view_project_link = find("[data-spec='project-link']")
       expect(view_project_link).to be_visible
@@ -158,7 +160,8 @@ RSpec.describe "Admin::Projects" do
 
     it "displays container blocks and their content blocks" do
       within("[data-spec='container-block-#{container_block.id}']") do
-        expect(find("[data-spec='content-blocks']")).to match_css(".grid.gap-6.items-center.p-4.border-none.grid-cols-1.sm\\:grid-cols-2")
+        expect(find("[data-spec='content-blocks']"))
+          .to match_css(".grid.gap-6.items-center.p-4.border-none.grid-cols-1.sm\\:grid-cols-2")
 
         within("[data-spec='content-block-#{content_block.id}']") do
           expect(page).to have_text("Text FR")
@@ -224,16 +227,136 @@ RSpec.describe "Admin::Projects" do
       expect(project.description_en).to eq(new_desc_en)
     end
 
-    it "allows to remove project cover photo"
+    it "allows to remove project cover photo" do
+      find("[data-spec='remove-cover-photo']").click
+      click_on I18n.t("save")
+
+      expect(find("[data-spec='flash']")).to have_text(I18n.t("project_updated"))
+      expect(project.reload.cover_photo).not_to be_attached
+    end
+
+    it "displays error message when project update fails" do
+      attach_file("project[cover_photo]", Rails.root.join("spec/fixtures/sample.pdf"), visible: false)
+      click_on I18n.t("save")
+
+      expect(page).to have_current_path(edit_admin_project_path(project))
+      expect(find("[data-spec='flash']")).to have_text(I18n.t("project_update_error"))
+    end
   end
 
   describe "Project content builder" do
-    it "allows to add, edit and remove container blocks"
+    before { visit admin_project_path(project) }
+
+    it "allows to add container blocks to project and displays it correctly" do
+      # Container block with default values: 1 column, items centered, no border
+      click_on I18n.t("container")
+      click_on I18n.t("save")
+
+      expect(find("[data-spec='flash']")).to have_text(I18n.t("container_block_created"))
+      expect(project.reload.container_blocks.count).to eq(1)
+
+      container_block = project.container_blocks.last
+      expect(container_block.position).to eq(1)
+      expect(container_block.column_count).to eq(1)
+      expect(container_block.content_blocks.count).to eq(1)
+      expect(container_block.class_list).to contain_exactly("grid", "gap-6", "p-4", "items-center", "border-none")
+
+      content_block = container_block.content_blocks.first
+      expect(content_block.position).to eq(1)
+      expect(content_block.class_list).to contain_exactly("flex", "justify-center", "items-center")
+
+      within("[data-spec='container-block-#{container_block.id}']") do
+        expect(find("[data-spec='content-blocks']"))
+          .to match_css(".grid.gap-6.items-center.p-4.border-none.grid-cols-1")
+
+        expect(all("[data-spec^='content-block-']").count).to eq(1)
+
+        expect(page).to have_selector("[data-spec='content-block-#{container_block.content_blocks.first.id}']")
+      end
+
+      find("[data-spec='flash'] [data-spec='remove-flash']").click
+
+      # Container block with 2 columns, items top, and dashed border
+      click_on I18n.t("container")
+      find("label", text: I18n.t("two_columns")).click
+      find("label", text: I18n.t("items_top")).click
+      find("label", text: I18n.t("dashed_border")).click
+      click_on I18n.t("save")
+
+      expect(find("[data-spec='flash']")).to have_text(I18n.t("container_block_created"))
+      expect(project.reload.container_blocks.count).to eq(2)
+
+      container_block = project.container_blocks.last
+      expect(container_block.position).to eq(2)
+      expect(container_block.column_count).to eq(2)
+      expect(container_block.content_blocks.count).to eq(2)
+      expect(container_block.class_list)
+        .to contain_exactly("grid", "gap-6", "p-4", "items-start", "dashed-border")
+
+      container_block.content_blocks.each_with_index do |content_block, index|
+        expect(content_block.position).to eq(index + 1)
+        expect(content_block.class_list).to contain_exactly("flex", "justify-center", "items-center")
+      end
+
+      within("[data-spec='container-block-#{container_block.id}']") do
+        expect(find("[data-spec='content-blocks']"))
+          .to match_css(".grid.gap-6.items-start.p-4.dashed-border.grid-cols-1.sm\\:grid-cols-2")
+
+        expect(all("[data-spec^='content-block-']").count).to eq(2)
+
+        container_block.content_blocks.each do |content_block|
+          expect(page).to have_selector("[data-spec='content-block-#{content_block.id}']")
+        end
+      end
+
+      find("[data-spec='flash'] [data-spec='remove-flash']").click
+
+      # Container block with 4 columns, shadow border
+      click_on I18n.t("container")
+      find("label", text: I18n.t("four_columns")).click
+      find("label", text: I18n.t("centered_items")).click
+      find("label", text: I18n.t("shadow_border")).click
+      click_on I18n.t("save")
+
+      expect(find("[data-spec='flash']")).to have_text(I18n.t("container_block_created"))
+      expect(project.reload.container_blocks.count).to eq(3)
+
+      container_block = project.container_blocks.last
+      expect(container_block.position).to eq(3)
+      expect(container_block.column_count).to eq(4)
+      expect(container_block.content_blocks.count).to eq(4)
+      expect(container_block.class_list)
+        .to contain_exactly("grid", "gap-6", "p-4", "items-center", "shadow-border")
+
+      container_block.content_blocks.each_with_index do |content_block, index|
+        expect(content_block.position).to eq(index + 1)
+        expect(content_block.class_list).to contain_exactly("flex", "justify-center", "items-center")
+      end
+
+      within("[data-spec='container-block-#{container_block.id}']") do
+        expect(find("[data-spec='content-blocks']"))
+          .to match_css(".grid.gap-6.items-center.p-4.shadow-border.grid-cols-1.sm\\:grid-cols-2.md\\:grid-cols-3.lg\\:grid-cols-4")
+
+        expect(all("[data-spec^='content-block-']").count).to eq(4)
+
+        container_block.content_blocks.each do |content_block|
+          expect(page).to have_selector("[data-spec='content-block-#{content_block.id}']")
+        end
+      end
+    end
+
+    it "allow to edit container blocks"
+
+    it "allows to remove container blocks"
 
     it "displays container blocks in order and allows to reorder them"
 
     it "allows to add, edit and remove content blocks"
 
     it "displays content blocks in order and allows to reorder them"
+
+    context "container block form"
+
+    context "content block form"
   end
 end
