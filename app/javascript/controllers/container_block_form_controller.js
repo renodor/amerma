@@ -34,9 +34,9 @@ export default class extends Controller {
     this.element.dataset.columnCount = currentTarget.value
 
     if (this.element.dataset.persisted === "true" && currentTarget.value < this.persistedColumnCountValue) {
-      this.columnDeleteWarningTarget.classList.remove("hidden")
+      this.columnDeleteWarningTarget.dataset.show = true
     } else {
-      this.columnDeleteWarningTarget.classList.add("hidden")
+      this.columnDeleteWarningTarget.dataset.show = false
     }
   }
 }

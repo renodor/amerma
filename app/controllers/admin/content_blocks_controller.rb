@@ -15,5 +15,7 @@ class Admin::ContentBlocksController < Admin::BaseController
       content_block.update(position: other_content_block.position)
       other_content_block.update(position: saved_position)
     end
+
+    flash.now[:success] = t("#{content_block.text_block? ? 'text' : 'image'}_block_position_updated")
   end
 end

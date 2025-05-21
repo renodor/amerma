@@ -16,20 +16,29 @@
       <%=
         link_to inline_svg_tag("icons/chevron-up.svg", class: "w-5"),
         update_position_admin_project_container_block_path(project, container_block, direction: "down"),
-        data: { turbo_stream: true },
-        class: "admin-btn-secondary text-sm px-2 py-1"
+        class: "admin-btn-secondary text-sm px-2 py-1",
+        data: {
+          turbo_stream: true,
+          spec: "position-down"
+        }
       %>
       <%=
         link_to inline_svg_tag("icons/chevron-up.svg", class: "w-5 rotate-180"),
         update_position_admin_project_container_block_path(project, container_block, direction: "up"),
-        data: { turbo_stream: true },
-        class: "admin-btn-secondary text-sm px-2 py-1"
+        class: "admin-btn-secondary text-sm px-2 py-1",
+        data: {
+          turbo_stream: true,
+          spec: "position-up"
+        }
       %>
       <div data-controller="modal">
         <%=
           button_tag type: :button,
           class: "admin-btn-secondary text-sm px-3 py-1",
-          data: { action: "click->modal#showModal" } do
+          data: {
+            action: "click->modal#showModal",
+            spec: "edit-container-block"
+          } do
         %>
           <span><%= t("edit") %></span>
         <% end %>
@@ -56,7 +65,12 @@
         admin_project_container_block_path(project, container_block),
         method: :delete,
         class: "admin-btn-delete text-sm px-3 py-1",
-        form: { data: { turbo_confirm: t("are_you_sure?") } }
+        form: {
+          data: {
+            turbo_confirm: t("are_you_sure?"),
+            spec: "remove-container-block"
+          }
+        }
       %>
     </div>
   </div>

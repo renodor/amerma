@@ -36,7 +36,8 @@ class Admin::ProjectsController < Admin::BaseController
     @project = Project.find(params[:id])
     if @project.update(project_params)
       @project.cover_photo.purge if params[:project][:remove_cover_photo]
-      flash.now[:success] = t("project_updated")
+      flash[:success] = t("project_updated")
+      redirect_to admin_project_path(@project)
     else
       @project_categories = ProjectCategory.all
       flash.now[:error] = t("project_update_error")

@@ -18,7 +18,7 @@
 <div class="flex flex-col gap-4">
   <%= render @project %>
 
-  <div id="<%= dom_id(@project, :container_blocks) %>" class="flex flex-col gap-4">
+  <div id="<%= dom_id(@project, :container_blocks) %>" class="flex flex-col gap-4" data-spec="container-blocks">
     <%= render @project.container_blocks, project: @project %>
   </div>
 

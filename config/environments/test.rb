@@ -51,8 +51,6 @@ Rails.application.configure do
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
 
-  config.logger = ActiveSupport::TaggedLogging.logger(STDOUT)
-
-  # Change to "debug" to log everything (including potentially personally-identifiable information!)
-  config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
+  # config.logger = ActiveSupport::TaggedLogging.logger(STDOUT)
+  # config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
 end

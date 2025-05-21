@@ -1,9 +1,9 @@
 <%= form_with model: [:admin, project, container_block, content_block, content_block.text_block], class: "flex flex-col gap-6" do |form| %>
-  <div>
+  <div data-spec="text-fr">
     <%= form.label :text, "#{t('text')} FR" %>
     <%= form.rich_textarea :text, id: form.object.object_id %>
   </div>
-  <div>
+  <div data-spec="text-en">
     <%= form.label :text_en, "#{t('text')} EN" %>
     <%= form.rich_textarea :text_en, id: "#{form.object.object_id}-en" %>
   </div>

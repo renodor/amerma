@@ -33,7 +33,7 @@ RSpec.describe "Admin::Projects" do
       expect(find("header")).to have_link(I18n.t("new_project"), href: new_admin_project_path)
     end
 
-    it "displays projects" do
+    it "displays projects and actions" do
       within("[data-spec='project-#{project.id}']") do
         cover_photo = find("img[src*='cover_photo.png']")
         expect(cover_photo).to be_visible
@@ -43,12 +43,11 @@ RSpec.describe "Admin::Projects" do
         expect(find("[data-spec='project-description']")).to have_text(project.description)
         expect(page).to have_link(I18n.t("manage"), href: admin_project_path(project))
 
-        delete_form = find("[data-spec='delete-project']")
-        expect(delete_form).to have_button(I18n.t("delete"))
-        expect(delete_form[:action]).to match(/#{admin_project_path(project)}/)
-        expect(delete_form[:method]).to eq("post")
-        expect(delete_form).to have_selector("input[name='_method'][value='delete']", visible: :hidden)
+        accept_confirm { find("[data-spec='delete-project']").click }
       end
+
+      expect(find("[data-spec='flash']")).to have_text(I18n.t("project_deleted"))
+      expect(Project.exists?(project.id)).to be false
 
       within("[data-spec='project-#{project2.id}']") do
         expect(page).not_to have_selector("img")
@@ -211,6 +210,7 @@ RSpec.describe "Admin::Projects" do
       click_on I18n.t("save")
 
       expect(find("[data-spec='flash']")).to have_text(I18n.t("project_updated"))
+      expect(page).to have_current_path(admin_project_path(project))
 
       project.reload
       expect(project.project_category).to eq(project_category2)
@@ -226,6 +226,19 @@ RSpec.describe "Admin::Projects" do
       expect(project.owner).to eq(new_owner)
       expect(project.description).to eq(new_desc_fr)
       expect(project.description_en).to eq(new_desc_en)
+
+      within("[data-spec='project-#{project.id}']") do
+        expect(find("[data-spec='project-category']")).to have_text(project_category2.name)
+        expect(find("[data-spec='project-visibility']")).to have_text(I18n.t("hidden"))
+        expect(find("[data-spec='project-featured']")).to have_text(I18n.t("not_featured"))
+        expect(find("header")).to have_selector("img[src*='cover_photo2.png']")
+        expect(find("header [data-spec='project-name']")).to have_text(new_name_fr)
+        expect(find("header [data-spec='project-status']")).to have_text(I18n.t("planned"))
+        expect(find("header [data-spec='project-dates']"))
+          .to have_text("#{I18n.l(project.start_date, format: :default)} - #{I18n.l(project.end_date, format: :default)}")
+        expect(find("header [data-spec='project-description']")).to have_text(new_desc_fr)
+        expect(find("header [data-spec='project-owner']")).to have_text(new_owner)
+      end
     end
 
     it "allows to remove project cover photo" do
@@ -246,18 +259,28 @@ RSpec.describe "Admin::Projects" do
   end
 
   describe "Project content builder" do
+    let!(:container_block) { create(:container_block, containerable: project, column_count: 1, position: 1) }
+    let!(:content_block) { create(:content_block, container_block: container_block, position: 1) }
+    let!(:container_block2) { create(:container_block, containerable: project, column_count: 2, position: 2) }
+    let!(:content_block2) { create(:content_block, :with_text_block, container_block: container_block2, position: 1) }
+    let!(:content_block3) { create(:content_block, :with_image_block, container_block: container_block2, position: 2) }
+    let!(:container_block3) { create(:container_block, containerable: project, column_count: 3, position: 3) }
+    let!(:content_block4) { create(:content_block, :with_text_block, container_block: container_block3, position: 1) }
+    let!(:content_block5) { create(:content_block, :with_image_block, container_block: container_block3, position: 2) }
+    let!(:content_block6) { create(:content_block, :with_text_block, container_block: container_block3, position: 3) }
+
     before { visit admin_project_path(project) }
 
-    it "allows to add container blocks to project and displays it correctly" do
+    it "allows to create container blocks to project and displays it correctly" do
       # Container block with default values: 1 column, items centered, no border
       click_on I18n.t("container")
       click_on I18n.t("save")
 
       expect(find("[data-spec='flash']")).to have_text(I18n.t("container_block_created"))
-      expect(project.reload.container_blocks.count).to eq(1)
+      expect(project.reload.container_blocks.count).to eq(4)
 
       container_block = project.container_blocks.last
-      expect(container_block.position).to eq(1)
+      expect(container_block.position).to eq(4)
       expect(container_block.column_count).to eq(1)
       expect(container_block.content_blocks.count).to eq(1)
       expect(container_block.class_list).to contain_exactly("grid", "gap-6", "p-4", "items-center", "border-none")
@@ -285,10 +308,10 @@ RSpec.describe "Admin::Projects" do
       click_on I18n.t("save")
 
       expect(find("[data-spec='flash']")).to have_text(I18n.t("container_block_created"))
-      expect(project.reload.container_blocks.count).to eq(2)
+      expect(project.reload.container_blocks.count).to eq(5)
 
       container_block = project.container_blocks.last
-      expect(container_block.position).to eq(2)
+      expect(container_block.position).to eq(5)
       expect(container_block.column_count).to eq(2)
       expect(container_block.content_blocks.count).to eq(2)
       expect(container_block.class_list)
@@ -320,10 +343,10 @@ RSpec.describe "Admin::Projects" do
       click_on I18n.t("save")
 
       expect(find("[data-spec='flash']")).to have_text(I18n.t("container_block_created"))
-      expect(project.reload.container_blocks.count).to eq(3)
+      expect(project.reload.container_blocks.count).to eq(6)
 
       container_block = project.container_blocks.last
-      expect(container_block.position).to eq(3)
+      expect(container_block.position).to eq(6)
       expect(container_block.column_count).to eq(4)
       expect(container_block.content_blocks.count).to eq(4)
       expect(container_block.class_list)
@@ -346,18 +369,284 @@ RSpec.describe "Admin::Projects" do
       end
     end
 
-    it "allow to edit container blocks"
+    it "allow to update container blocks and associated content blocks" do
+      expect(container_block.content_blocks.count).to eq(1)
 
-    it "allows to remove container blocks"
+      find("[data-spec='container-block-#{container_block.id}'] [data-spec='edit-container-block']").click
+      find("label", text: I18n.t("four_columns")).click
+      find("label", text: I18n.t("items_top")).click
+      find("label", text: I18n.t("dashed_border")).click
+      click_on I18n.t("save")
 
-    it "displays container blocks in order and allows to reorder them"
+      expect(find("[data-spec='flash']")).to have_text(I18n.t("container_block_updated"))
 
-    it "allows to add, edit and remove content blocks"
+      expect(container_block.reload.content_blocks.count).to eq(4)
+      expect(container_block.column_count).to eq(4)
+      expect(container_block.class_list)
+        .to contain_exactly("grid", "gap-6", "p-4", "items-start", "dashed-border")
 
-    it "displays content blocks in order and allows to reorder them"
+      container_block.content_blocks.each_with_index do |content_block, index|
+        expect(content_block.position).to eq(index + 1)
+        expect(content_block.class_list).to contain_exactly("flex", "justify-center", "items-center")
+      end
 
-    context "container block form"
+      within("[data-spec='container-block-#{container_block.id}']") do
+        expect(find("[data-spec='content-blocks']"))
+          .to match_css(".grid.gap-6.items-start.p-4.dashed-border.grid-cols-1.sm\\:grid-cols-2.md\\:grid-cols-3.lg\\:grid-cols-4")
 
-    context "content block form"
+        expect(all("[data-spec^='content-block-']").count).to eq(4)
+
+        container_block.content_blocks.each do |content_block|
+          expect(page).to have_selector("[data-spec='content-block-#{content_block.id}']")
+        end
+      end
+
+      find("[data-spec='container-block-#{container_block.id}'] [data-spec='edit-container-block']").click
+      find("label", text: I18n.t("one_column")).click
+      click_on I18n.t("save")
+      find("[data-spec='flash']")
+
+      expect(container_block.reload.content_blocks.count).to eq(1)
+      expect(container_block.column_count).to eq(1)
+      expect(container_block.content_blocks.count).to eq(1)
+      expect(container_block.content_blocks.first.position).to eq(1)
+
+      within("[data-spec='container-block-#{container_block.id}']") do
+        expect(find("[data-spec='content-blocks']"))
+          .to match_css(".grid.gap-6.items-start.p-4.dashed-border.grid-cols-1")
+
+        expect(all("[data-spec^='content-block-']").count).to eq(1)
+
+        container_block.content_blocks.each do |content_block|
+          expect(page).to have_selector("[data-spec='content-block-#{content_block.id}']")
+        end
+      end
+    end
+
+    it "allows to delete container blocks" do
+      accept_confirm { find("[data-spec='container-block-#{container_block.id}'] [data-spec='remove-container-block']").click }
+
+      expect(find("[data-spec='flash']")).to have_text(I18n.t("container_block_deleted"))
+      expect(ContainerBlock.exists?(container_block.id)).to be false
+    end
+
+    it "displays container blocks in order and allows to reorder them" do
+      expect(find("[data-spec='container-blocks'] section:first-child")["data-spec"]).to eq("container-block-#{container_block.id}")
+      expect(find("[data-spec='container-blocks'] section:nth-child(2)")["data-spec"]).to eq("container-block-#{container_block2.id}")
+      expect(find("[data-spec='container-blocks'] section:nth-child(3)")["data-spec"]).to eq("container-block-#{container_block3.id}")
+
+      find("[data-spec='container-block-#{container_block.id}'] [data-spec='position-up']").click
+
+      expect(find("[data-spec='flash']")).to have_text(I18n.t("container_block_position_updated"))
+      expect(container_block2.reload.position).to eq(1)
+      expect(container_block.reload.position).to eq(2)
+      expect(container_block3.reload.position).to eq(3)
+      expect(find("[data-spec='container-blocks'] section:first-child")["data-spec"]).to eq("container-block-#{container_block2.id}")
+      expect(find("[data-spec='container-blocks'] section:nth-child(2)")["data-spec"]).to eq("container-block-#{container_block.id}")
+      expect(find("[data-spec='container-blocks'] section:nth-child(3)")["data-spec"]).to eq("container-block-#{container_block3.id}")
+
+      find("[data-spec='container-block-#{container_block3.id}'] [data-spec='position-down']").click
+
+      expect(find("[data-spec='flash']")).to have_text(I18n.t("container_block_position_updated"))
+      expect(container_block2.reload.position).to eq(1)
+      expect(container_block3.reload.position).to eq(2)
+      expect(container_block.reload.position).to eq(3)
+      sleep(0.5)
+      expect(find("[data-spec='container-blocks'] section:first-child")["data-spec"]).to eq("container-block-#{container_block2.id}")
+      expect(find("[data-spec='container-blocks'] section:nth-child(2)")["data-spec"]).to eq("container-block-#{container_block3.id}")
+      expect(find("[data-spec='container-blocks'] section:nth-child(3)")["data-spec"]).to eq("container-block-#{container_block.id}")
+    end
+
+    context "content blocks" do
+      it "allows to create text blocks to container block and displays it correctly" do
+        within("[data-spec='container-block-#{container_block.id}']") do
+          click_on I18n.t("text")
+          within("[data-spec='text-fr']") do
+            click_on "Bold"
+            find("trix-editor").set("Text FR")
+          end
+
+          find("[data-spec='text-en'] trix-editor").set("Text EN")
+
+          click_on I18n.t("save")
+        end
+
+        expect(find("[data-spec='flash']")).to have_text(I18n.t("text_block_created"))
+
+        content_block = container_block.content_blocks.last
+        expect(content_block.text_block?).to be true
+        expect(content_block.text_block.text.body.to_html).to eq("<div><strong>Text FR</strong></div>")
+        expect(content_block.text_block.text_en.body.to_html).to eq("<div>Text EN</div>")
+
+        expect(find("[data-spec='content-block-#{content_block.id}'] strong")).to have_text("Text FR")
+      end
+
+      it "allows to update text blocks" do
+        expect(content_block2.text_block.text.body.to_html).to eq("<div>Text <b>FR</b></div>")
+
+        within("[data-spec='content-block-#{content_block2.id}']") do
+          find("[data-spec='edit-text-block']", visible: false).click
+          find("[data-spec='text-fr'] trix-editor").set("New text FR")
+          click_on I18n.t("save")
+        end
+
+        expect(find("[data-spec='flash']")).to have_text(I18n.t("text_block_updated"))
+
+        expect(content_block2.reload.text_block.text.body.to_html).to eq("<div>New text FR</div>")
+        expect(find("[data-spec='content-block-#{content_block2.id}']")).to have_text("New text FR")
+      end
+
+      it "allows to delete text blocks" do
+        accept_confirm { find("[data-spec='content-block-#{content_block2.id}'] [data-spec='remove-text-block']", visible: false).click }
+
+        expect(find("[data-spec='flash']")).to have_text(I18n.t("text_block_deleted"))
+        expect(content_block2.reload.contentable).to be nil
+      end
+
+      it "allows to create image blocks to container block and displays it correctly" do
+        within("[data-spec='container-block-#{container_block.id}']") do
+          click_on I18n.t("image")
+          fill_in "#{I18n.t("title")} FR (#{I18n.t("optional")})", with: "Image title FR"
+          fill_in "#{I18n.t("title")} EN (#{I18n.t("optional")})", with: "Image title EN"
+          fill_in "#{I18n.t("subtitle")} FR (#{I18n.t("optional")})", with: "Image subtitle FR"
+          fill_in "#{I18n.t("subtitle")} EN (#{I18n.t("optional")})", with: "Image subtitle EN"
+          attach_file("image_block[image]", Rails.root.join("spec", "fixtures", "images", "image.jpg"), visible: false)
+          fill_in "#{I18n.t("caption")} FR (#{I18n.t("optional")})", with: "Image caption FR"
+          fill_in "#{I18n.t("caption")} EN (#{I18n.t("optional")})", with: "Image caption EN"
+          click_on I18n.t("save")
+        end
+
+        expect(find("[data-spec='flash']")).to have_text(I18n.t("image_block_created"))
+
+        content_block = container_block.content_blocks.last
+        expect(content_block.image_block?).to be true
+        expect(content_block.image_block.title).to eq("Image title FR")
+        expect(content_block.image_block.title_en).to eq("Image title EN")
+        expect(content_block.image_block.subtitle).to eq("Image subtitle FR")
+        expect(content_block.image_block.subtitle_en).to eq("Image subtitle EN")
+        expect(content_block.image_block.image.attached?).to be true
+        expect(content_block.image_block.image.filename).to eq("image.jpg")
+        expect(content_block.image_block.caption).to eq("Image caption FR")
+        expect(content_block.image_block.caption_en).to eq("Image caption EN")
+
+        within("[data-spec='content-block-#{content_block.id}']") do
+          expect(find("[data-spec='image-title']")).to have_text("Image title FR")
+          expect(find("[data-spec='image-subtitle']")).to have_text("Image subtitle FR")
+          expect(page).to have_selector("img[src*='image.jpg']")
+          expect(find("[data-spec='image-caption']")).to have_text("Image caption FR")
+        end
+      end
+
+      it "allows to update image blocks" do
+        within("[data-spec='content-block-#{content_block3.id}']") do
+          find("[data-spec='edit-image-block']", visible: false).click
+          fill_in "#{I18n.t("title")} FR (#{I18n.t("optional")})", with: "New image title FR"
+          fill_in "#{I18n.t("title")} EN (#{I18n.t("optional")})", with: "New image title EN"
+          fill_in "#{I18n.t("subtitle")} FR (#{I18n.t("optional")})", with: "New image subtitle FR"
+          fill_in "#{I18n.t("subtitle")} EN (#{I18n.t("optional")})", with: "New image subtitle EN"
+          attach_file("image_block[image]", Rails.root.join("spec", "fixtures", "images", "image2.jpg"), visible: false)
+          fill_in "#{I18n.t("caption")} FR (#{I18n.t("optional")})", with: "New image caption FR"
+          fill_in "#{I18n.t("caption")} EN (#{I18n.t("optional")})", with: "New image caption EN"
+          click_on I18n.t("save")
+        end
+
+        expect(find("[data-spec='flash']")).to have_text(I18n.t("image_block_updated"))
+
+        expect(content_block3.reload.image_block.title).to eq("New image title FR")
+        expect(content_block3.image_block.title_en).to eq("New image title EN")
+        expect(content_block3.image_block.subtitle).to eq("New image subtitle FR")
+        expect(content_block3.image_block.subtitle_en).to eq("New image subtitle EN")
+        expect(content_block3.image_block.image.attached?).to be true
+        expect(content_block3.image_block.image.filename).to eq("image2.jpg")
+        expect(content_block3.image_block.caption).to eq("New image caption FR")
+        expect(content_block3.image_block.caption_en).to eq("New image caption EN")
+
+        within("[data-spec='content-block-#{content_block3.id}']") do
+          expect(find("[data-spec='image-title']")).to have_text("New image title FR")
+          expect(find("[data-spec='image-subtitle']")).to have_text("New image subtitle FR")
+          expect(page).to have_selector("img[src*='image2.jpg']")
+          expect(find("[data-spec='image-caption']")).to have_text("New image caption FR")
+        end
+      end
+
+      it "allows to delete image blocks" do
+        accept_confirm { find("[data-spec='content-block-#{content_block3.id}'] [data-spec='remove-image-block']", visible: false).click }
+
+        expect(find("[data-spec='flash']")).to have_text(I18n.t("image_block_deleted"))
+        expect(content_block3.reload.contentable).to be nil
+      end
+
+      it "displays content blocks in order and allows to reorder them" do
+        within("[data-spec='container-block-#{container_block3.id}']") do
+          expect(find("[data-spec='content-blocks'] > div:first-child")["data-spec"]).to eq("content-block-#{content_block4.id}")
+          expect(find("[data-spec='content-blocks'] > div:nth-child(2)")["data-spec"]).to eq("content-block-#{content_block5.id}")
+          expect(find("[data-spec='content-blocks'] > div:nth-child(3)")["data-spec"]).to eq("content-block-#{content_block6.id}")
+        end
+
+        find("[data-spec='content-block-#{content_block4.id}'] [data-spec='position-up']", visible: false).click
+
+        expect(find("[data-spec='flash']")).to have_text(I18n.t("text_block_position_updated"))
+        expect(content_block5.reload.position).to eq(1)
+        expect(content_block4.reload.position).to eq(2)
+        expect(content_block6.reload.position).to eq(3)
+        within("[data-spec='container-block-#{container_block3.id}']") do
+          expect(find("[data-spec='content-blocks'] > div:first-child")["data-spec"]).to eq("content-block-#{content_block5.id}")
+          expect(find("[data-spec='content-blocks'] > div:nth-child(2)")["data-spec"]).to eq("content-block-#{content_block4.id}")
+          expect(find("[data-spec='content-blocks'] > div:nth-child(3)")["data-spec"]).to eq("content-block-#{content_block6.id}")
+        end
+
+        find("[data-spec='content-block-#{content_block6.id}'] [data-spec='position-down']", visible: false).click
+
+        expect(find("[data-spec='flash']")).to have_text(I18n.t("text_block_position_updated"))
+        expect(content_block5.reload.position).to eq(1)
+        expect(content_block6.reload.position).to eq(2)
+        expect(content_block4.reload.position).to eq(3)
+        sleep(0.5)
+        within("[data-spec='container-block-#{container_block3.id}']") do
+          expect(find("[data-spec='content-blocks'] > div:first-child")["data-spec"]).to eq("content-block-#{content_block5.id}")
+          expect(find("[data-spec='content-blocks'] > div:nth-child(2)")["data-spec"]).to eq("content-block-#{content_block6.id}")
+          expect(find("[data-spec='content-blocks'] > div:nth-child(3)")["data-spec"]).to eq("content-block-#{content_block4.id}")
+        end
+      end
+    end
+
+    context "container block form" do
+      it "updates preview when changing settings" do
+        find("[data-spec='container-block-#{container_block.id}'] [data-spec='edit-container-block']").click
+
+        expect(all("[data-spec='container-block-preview'] div").count).to eq(1)
+
+        find("label", text: I18n.t("two_columns")).click
+        expect(all("[data-spec='container-block-preview'] div").count).to eq(2)
+
+        find("label", text: I18n.t("three_columns")).click
+        expect(all("[data-spec='container-block-preview'] div").count).to eq(3)
+
+        find("label", text: I18n.t("four_columns")).click
+        expect(all("[data-spec='container-block-preview'] div").count).to eq(4)
+
+        expect(find("[data-spec='container-block-preview']")).to match_css(".items-center")
+
+        find("label", text: I18n.t("items_top")).click
+        expect(find("[data-spec='container-block-preview']")).to match_css(".items-start")
+
+        expect(find("[data-spec='container-block-preview']")).to match_css(".border-none")
+
+        find("label", text: I18n.t("dashed_border")).click
+        expect(find("[data-spec='container-block-preview']")).to match_css(".dashed-border")
+
+        find("label", text: I18n.t("shadow_border")).click
+        expect(find("[data-spec='container-block-preview']")).to match_css(".shadow-border")
+      end
+
+      it "displays a warning message when reducing container block columns" do
+        find("[data-spec='container-block-#{container_block2.id}'] [data-spec='edit-container-block']").click
+
+        expect(page).not_to have_selector("[data-spec='column-delete-warning']")
+
+        find("label", text: I18n.t("one_column")).click
+        expect(find("[data-spec='column-delete-warning']")).to have_text(I18n.t("container_column_delete_warning"))
+      end
+    end
   end
 end

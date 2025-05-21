@@ -64,6 +64,8 @@ class Admin::ContainerBlocksController < Admin::BaseController
       container_block.update(position: other_container_block.position)
       other_container_block.update(position: saved_position)
     end
+
+    flash.now[:success] = t("container_block_position_updated")
   end
 
   private

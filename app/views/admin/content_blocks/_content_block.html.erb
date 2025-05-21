@@ -6,20 +6,29 @@
         <%=
           link_to inline_svg_tag("icons/chevron-up.svg", class: "w-5 -rotate-90"),
           update_position_admin_project_container_block_content_block_path(project, container_block, content_block, direction: "down"),
-          data: { turbo_stream: true },
-          class: "admin-btn-secondary text-sm px-2 py-1"
+          class: "admin-btn-secondary text-sm px-2 py-1",
+          data: {
+            turbo_stream: true,
+            spec: "position-down"
+          }
         %>
         <%=
           link_to inline_svg_tag("icons/chevron-up.svg", class: "w-5 rotate-90"),
           update_position_admin_project_container_block_content_block_path(project, container_block, content_block, direction: "up"),
-          data: { turbo_stream: true },
-          class: "admin-btn-secondary text-sm px-2 py-1"
+          class: "admin-btn-secondary text-sm px-2 py-1",
+          data: {
+            turbo_stream: true,
+            spec: "position-up"
+          }
         %>
         <div data-controller="modal">
           <%=
             button_tag type: :button,
             class: "admin-btn-secondary bg-white text-sm px-3 py-1",
-            data: { action: "click->modal#showModal" } do
+            data: {
+              action: "click->modal#showModal",
+              spec: "edit-text-block"
+            } do
           %>
             <span><%= t("edit") %></span>
           <% end %>
@@ -46,7 +55,12 @@
           admin_project_container_block_content_block_text_block_path(project, container_block, content_block, content_block.text_block),
           method: :delete,
           class: "admin-btn-delete bg-white text-sm px-3 py-1",
-          form: { data: { turbo_confirm: t("are_you_sure?") } }
+          form: {
+            data: {
+              turbo_confirm: t("are_you_sure?"),
+              spec: "remove-text-block"
+            }
+          }
         %>
       </div>
     <% elsif content_block.image_block? %>
@@ -68,20 +82,29 @@
         <%=
           link_to inline_svg_tag("icons/chevron-up.svg", class: "w-5 -rotate-90"),
           update_position_admin_project_container_block_content_block_path(project, container_block, content_block, direction: "down"),
-          data: { turbo_stream: true },
-          class: "admin-btn-secondary text-sm px-2 py-1"
+          class: "admin-btn-secondary text-sm px-2 py-1",
+          data: {
+            turbo_stream: true,
+            spec: "position-down"
+          }
         %>
         <%=
           link_to inline_svg_tag("icons/chevron-up.svg", class: "w-5 rotate-90"),
           update_position_admin_project_container_block_content_block_path(project, container_block, content_block, direction: "up"),
-          data: { turbo_stream: true },
-          class: "admin-btn-secondary text-sm px-2 py-1"
+          class: "admin-btn-secondary text-sm px-2 py-1",
+          data: {
+            turbo_stream: true,
+            spec: "position-up"
+          }
         %>
         <div data-controller="modal">
           <%=
             button_tag type: :button,
             class: "admin-btn-secondary bg-white text-sm px-3 py-1",
-            data: { action: "click->modal#showModal" } do
+            data: {
+              action: "click->modal#showModal",
+              spec: "edit-image-block"
+            } do
           %>
             <span><%= t("edit") %></span>
           <% end %>
@@ -108,7 +131,12 @@
           admin_project_container_block_content_block_image_block_path(project, container_block, content_block, content_block.image_block),
           method: :delete,
           class: "admin-btn-delete bg-white text-sm px-3 py-1",
-          form: { data: { turbo_confirm: t("are_you_sure?") } }
+          form: {
+            data: {
+              turbo_confirm: t("are_you_sure?"),
+              spec: "remove-image-block"
+            }
+          }
         %>
       </div>
     <% else %>
