@@ -72,7 +72,7 @@
           <%= content_block.image_block.subtitle %>
         </p>
         <% if content_block.image_block.image.attached? %>
-          <%= image_tag content_block.image_block.image.variant(:default), class: "w-full" %>
+          <%= image_tag content_block.image_block.image.variant(:default), class: "w-full", data: { spec: "image" } %>
         <% end %>
         <p class="text-sm text-gray-500" data-spec="image-caption">
           <%= content_block.image_block.caption %>

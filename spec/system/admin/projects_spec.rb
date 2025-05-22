@@ -35,7 +35,7 @@ RSpec.describe "Admin::Projects" do
 
     it "displays projects and actions" do
       within("[data-spec='project-#{project.id}']") do
-        cover_photo = find("img[src*='cover_photo.png']")
+        cover_photo = find("[data-spec='project-cover-photo']")
         expect(cover_photo).to be_visible
         expect(page.evaluate_script("arguments[0].width", cover_photo)).to eq 96
         expect(page.evaluate_script("arguments[0].height", cover_photo)).to eq 96
@@ -146,7 +146,7 @@ RSpec.describe "Admin::Projects" do
         expect(find("[data-spec='project-category']")).to have_text(project_category.name)
         expect(find("[data-spec='project-visibility']")).to have_text(I18n.t("visible"))
         expect(find("[data-spec='project-featured']")).to have_text(I18n.t("featured"))
-        expect(find("header")).to have_selector("img[src*='cover_photo.png']")
+        expect(find("header [data-spec='project-cover-photo']")["src"]).to match(/cover_photo.png/)
         expect(find("header [data-spec='project-name']")).to have_text(project.name)
         expect(find("header [data-spec='project-category-icon']")[:id]).to eq("windmill")
         expect(find("header [data-spec='project-status']")).to have_text(I18n.t(project.status))
@@ -171,7 +171,7 @@ RSpec.describe "Admin::Projects" do
         within("[data-spec='content-block-#{content_block2.id}']") do
           expect(find("[data-spec='image-title']")).to have_text("Image title FR")
           expect(find("[data-spec='image-subtitle']")).to have_text("Image subtitle FR")
-          expect(page).to have_selector("img[src*='image.jpg']")
+          expect(find("[data-spec='image']")["src"]).to match(/image.jpg/)
           expect(find("[data-spec='image-caption']")).to have_text("Image caption FR")
         end
       end
@@ -231,7 +231,7 @@ RSpec.describe "Admin::Projects" do
         expect(find("[data-spec='project-category']")).to have_text(project_category2.name)
         expect(find("[data-spec='project-visibility']")).to have_text(I18n.t("hidden"))
         expect(find("[data-spec='project-featured']")).to have_text(I18n.t("not_featured"))
-        expect(find("header")).to have_selector("img[src*='cover_photo2.png']")
+        expect(find("header [data-spec='project-cover-photo']")["src"]).to match(/cover_photo2.png/)
         expect(find("header [data-spec='project-name']")).to have_text(new_name_fr)
         expect(find("header [data-spec='project-status']")).to have_text(I18n.t("planned"))
         expect(find("header [data-spec='project-dates']"))
@@ -532,7 +532,7 @@ RSpec.describe "Admin::Projects" do
         within("[data-spec='content-block-#{content_block.id}']") do
           expect(find("[data-spec='image-title']")).to have_text("Image title FR")
           expect(find("[data-spec='image-subtitle']")).to have_text("Image subtitle FR")
-          expect(page).to have_selector("img[src*='image.jpg']")
+          expect(find("[data-spec='image']")["src"]).to match(/image.jpg/)
           expect(find("[data-spec='image-caption']")).to have_text("Image caption FR")
         end
       end
@@ -564,7 +564,7 @@ RSpec.describe "Admin::Projects" do
         within("[data-spec='content-block-#{content_block3.id}']") do
           expect(find("[data-spec='image-title']")).to have_text("New image title FR")
           expect(find("[data-spec='image-subtitle']")).to have_text("New image subtitle FR")
-          expect(page).to have_selector("img[src*='image2.jpg']")
+          expect(find("[data-spec='image']")["src"]).to match(/image2.jpg/)
           expect(find("[data-spec='image-caption']")).to have_text("New image caption FR")
         end
       end
@@ -646,6 +646,50 @@ RSpec.describe "Admin::Projects" do
 
         find("label", text: I18n.t("one_column")).click
         expect(find("[data-spec='column-delete-warning']")).to have_text(I18n.t("container_column_delete_warning"))
+      end
+    end
+
+    context "image block form" do
+      it "doesn't display image preview and shows 'choose image' on the button when there is no image yet" do
+        within("[data-spec='container-block-#{container_block.id}'] [data-spec='content-block-#{content_block.id}']") do
+          click_on(I18n.t("image"))
+
+          expect(page).not_to have_selector("[data-spec='image-preview']")
+          expect(page).to have_text(I18n.t("choose_image"))
+        end
+      end
+
+      it "displays image preview and shows 'change image' on the button when there is no image yet" do
+        within("[data-spec='container-block-#{container_block2.id}'] [data-spec='content-block-#{content_block3.id}']") do
+          find("[data-spec='edit-image-block']", visible: false).click
+
+          expect(find("[data-spec='image-preview']")["src"]).to match(/image.jpg/)
+          expect(page).to have_text(I18n.t("change_image"))
+        end
+      end
+
+      it "updates image preview when uploading a new image" do
+        within("[data-spec='container-block-#{container_block2.id}'] [data-spec='content-block-#{content_block3.id}']") do
+          find("[data-spec='edit-image-block']", visible: false).click
+
+          expect(find("[data-spec='image-preview']")["src"]).to match(/image.jpg/)
+
+          attach_file("image_block[image]", Rails.root.join("spec", "fixtures", "images", "image2.jpg"), visible: false)
+
+          expect(find("[data-spec='image-preview']")["src"]).to match(/blob/)
+        end
+      end
+
+      it "displays a warning message when image is not valid" do
+        within("[data-spec='container-block-#{container_block2.id}'] [data-spec='content-block-#{content_block3.id}']") do
+          find("[data-spec='edit-image-block']", visible: false).click
+
+          expect(page).not_to have_text(I18n.t("invalid_image_uploaded_message"))
+
+          attach_file("image_block[image]", Rails.root.join("spec", "fixtures", "sample.pdf"), visible: false)
+
+          expect(page).to have_text(I18n.t("invalid_image_uploaded_message"))
+        end
       end
     end
   end

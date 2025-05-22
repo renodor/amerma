@@ -32,11 +32,6 @@ export default class extends Controller {
 
   updateColumnCount({ currentTarget }) {
     this.element.dataset.columnCount = currentTarget.value
-
-    if (this.element.dataset.persisted === "true" && currentTarget.value < this.persistedColumnCountValue) {
-      this.columnDeleteWarningTarget.dataset.show = true
-    } else {
-      this.columnDeleteWarningTarget.dataset.show = false
-    }
+    this.columnDeleteWarningTarget.dataset.show = (this.element.dataset.persisted === "true" && currentTarget.value < this.persistedColumnCountValue)
   }
 }

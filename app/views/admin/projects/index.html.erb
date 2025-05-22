@@ -7,7 +7,7 @@
     <div class="flex gap-4 items-center justify-between bg-white p-4 border" data-spec="project-<%= project.id %>">
       <div class="flex gap-4 items-center">
         <% if project.cover_photo.attached? %>
-          <%= image_tag project.cover_photo.variant(:square), class: "object-cover shrink-0" %>
+          <%= image_tag project.cover_photo.variant(:square), class: "object-cover shrink-0", data: { spec: "project-cover-photo" } %>
         <% end %>
         <div>
           <h2 class="text-xl font-bold" data-spec="project-name"><%= project.name %></h2>

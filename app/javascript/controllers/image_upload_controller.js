@@ -15,15 +15,8 @@ export default class extends Controller {
       this.removeImageInputTarget.disabled = true
       this.element.dataset.hasImage = true
       this.imagePreviewTarget.src = URL.createObjectURL(files[0]);
+      this.imageInvalidMessageTarget.dataset.show = !(this.imageInputTarget.accept.split(",").includes(files[0].type))
     }
-  }
-
-  imageInvalid() {
-    this.imageInvalidMessageTarget.classList.remove("hidden")
-  }
-
-  imageValid() {
-    this.imageInvalidMessageTarget.classList.add("hidden")
   }
 
   removeImage() {
