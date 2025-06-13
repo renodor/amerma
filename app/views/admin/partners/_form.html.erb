@@ -1,12 +1,4 @@
-<%=
-  form_with model: [:admin, partner],
-  class: "flex flex-col gap-4 group",
-  data: {
-    controller: "image-upload",
-    action: "sunmit->modal#closeModal",
-    "has-image": partner.logo.attached?
-  } do |form|
-%>
+<%= form_with model: [:admin, partner], class: "flex flex-col gap-4", multipart: true do |form| %>
   <%=
     form.text_field :name,
     placeholder: "#{t("name")}*",
@@ -36,30 +28,10 @@
     placeholder: t("website_url"),
     class: "w-full border p-3"
   %>
-  <div class="flex flex-col gap-4">
-    <%= form.hidden_field :remove_image, disabled: true, data: { "image-upload-target": "removeImageInput" } %>
-    <%=
-      image_tag partner.logo.variant(:default).presence || "",
-      class: "w-fit group-[[data-has-image='false']]:hidden",
-      data: { "image-upload-target": "imagePreview" }
-    %>
-    <%=
-      label_tag dom_id(partner),
-      class: "admin-btn-secondary w-fit" do
-    %>
-      <span class="group-[[data-has-image='true']]:hidden"><%= t("choose_logo") %></span>
-      <span class="group-[[data-has-image='false']]:hidden"><%= t("change_logo") %></span>
-      <%=
-        form.file_field :logo,
-        class: "hidden",
-        accept: "image/png,image/gif,image/jpeg,image/webp",
-        id: dom_id(partner),
-        data: {
-          "image-upload-target": "imageInput",
-          action: "change->image-upload#imageUploaded"
-        }
-      %>
-    <% end %>
-  </div>
+  <%=
+    render "admin/shared/image_upload",
+    image: partner.logo,
+    input_id: dom_id(partner)
+  %>
   <%= form.submit t("save"), class: "admin-btn-primary cursor-pointer" %>
 <% end %>

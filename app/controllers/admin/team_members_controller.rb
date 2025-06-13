@@ -20,17 +20,18 @@ class Admin::TeamMembersController < Admin::BaseController
       redirect_to edit_admin_team_member_path(@team_member)
     else
       flash[:error] = t("team_member_create_error")
-      redirect_to new_admin_team_member_path(@project)
+      render :new, status: :unprocessable_entity
     end
   end
 
   def update
     @team_member = TeamMember.find(params[:id])
     if @team_member.update(team_member_params)
-      flash.now[:success] = t("team_member_updated")
+      flash[:success] = t("team_member_updated")
+      redirect_to edit_admin_team_member_path(@team_member)
     else
       flash[:error] = t("team_member_update_error")
-      redirect_to edit_admin_team_member_path(@team_member)
+      render :edit, status: :unprocessable_entity
     end
   end
 

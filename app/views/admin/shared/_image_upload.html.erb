@@ -1,0 +1,61 @@
+<%# locals: (image:, input_id:, variant_name: :default, show_remove_button: false) -%>
+
+<% record_name = image.record.class.name.underscore %>
+
+<div class="flex flex-col gap-4 group" data-controller="image-upload" data-has-image="<%= image.present? %>">
+  <%=
+    image_tag safe_image_variant_url(image, variant_name: variant_name),
+    class: "w-fit group-[[data-has-image='false']]:hidden",
+    data: {
+      "image-upload-target": "imagePreview",
+      spec: "image-preview"
+    }
+  %>
+  <div class="flex gap-3">
+    <%=
+      label_tag input_id,
+      class: "admin-btn-secondary w-fit" do
+    %>
+      <span class="group-[[data-has-image='true']]:hidden"><%= t("choose_#{image.name}") %></span>
+      <span class="group-[[data-has-image='false']]:hidden"><%= t("change_#{image.name}") %></span>
+      <%=
+        file_field_tag "#{record_name}[#{image.name}]",
+        class: "hidden",
+        accept: "image/png,image/gif,image/jpeg,image/webp",
+        id: input_id,
+        data: {
+          "image-upload-target": "imageInput",
+          action: "change->image-upload#imageUploaded"
+        }
+      %>
+    <% end %>
+
+    <% if show_remove_button %>
+      <%=
+        hidden_field_tag "#{record_name}[remove_#{image.name}]",
+        true,
+        id: "#{record_name}_remove_#{image.name}",
+        disabled: true,
+        data: { "image-upload-target": "removeImageInput" }
+      %>
+      <%=
+        button_tag t("delete"),
+        class: "admin-btn-delete text-sm px-3 py-1 group-[[data-has-image='false']]:hidden",
+        type: :button,
+        data: {
+          id: "cover-photo",
+          action: "click->image-upload#removeImage",
+          spec: "remove-cover-photo"
+        }
+      %>
+    <% end %>
+  </div>
+  <p
+    class="mt-3 gap-3 items-center justify-center text-red-400 data-[show='true']:flex data-[show='false']:hidden"
+    data-image-upload-target="imageInvalidMessage"
+    data-show="false"
+  >
+    <%= inline_svg_tag "icons/warning.svg", class: "w-7 h-7 fill-red-400" %>
+    <span class="text-xs"><%= t("invalid_image_uploaded_message") %></span>
+  </p>
+</div>

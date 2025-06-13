@@ -1,11 +1,5 @@
 <section class="bg-white p-4 border">
-  <%=
-    form_with model: [:admin, project],
-    class: "flex flex-col gap-4 group",
-    data: {
-      controller: "image-upload",
-      "has-image": project.cover_photo.attached?
-    } do |form| %>
+  <%= form_with model: [:admin, project], class: "flex flex-col gap-4", multipart: true do |form| %>
     <div>
       <%=
         form.collection_select :project_category_id,
@@ -50,45 +44,15 @@
         </div>
       </div>
     </div>
+
     <div class="border p-3 relative">
       <%=
-        form.file_field :cover_photo,
-        class: "hidden",
-        accept: "image/png,image/gif,image/jpeg,image/webp",
-        data: {
-          id: "cover-photo",
-          "image-upload-target": "imageInput",
-          action: "change->image-upload#imageUploaded"
-        }
+        render "admin/shared/image_upload",
+        image: project.cover_photo,
+        input_id: dom_id(project),
+        variant_name: :cover,
+        show_remove_button: true
       %>
-      <%= form.hidden_field :remove_cover_photo, disabled: true, data: { "image-upload-target": "removeImageInput" } %>
-      <%=
-        image_tag project.cover_photo_valid? && project.cover_photo.variant(:cover).presence || "",
-        class: "w-full h-60 object-cover mb-3 group-[[data-has-image='false']]:hidden",
-        data: {
-          "image-upload-target": "imagePreview",
-          id: "cover-photo"
-        }
-      %>
-      <div class="flex gap-3 justify-end right-5">
-        <%=
-          form.label :cover_photo,
-          class: "admin-btn-secondary text-sm px-2 py-1" do
-        %>
-          <span class="group-[[data-has-image='false']]:hidden"><%= t("change_cover_photo") %></span>
-          <span class="group-[[data-has-image='true']]:hidden"><%= t("add_cover_photo") %></span>
-        <% end %>
-        <%=
-          button_tag t("delete"),
-          class: "admin-btn-delete text-sm px-3 py-1 group-[[data-has-image='false']]:hidden",
-          type: :button,
-          data: {
-            id: "cover-photo",
-            action: "click->image-upload#removeImage",
-            spec: "remove-cover-photo"
-          }
-        %>
-      </div>
     </div>
     <div class="flex gap-3">
       <div class="w-full">

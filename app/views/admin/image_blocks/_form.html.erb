@@ -1,11 +1,7 @@
 <%=
   form_with model: [:admin, project, container_block, content_block, content_block.image_block],
-  class: "flex flex-col gap-4 group",
-  data: {
-    controller: "image-upload",
-    action: "sunmit->modal#closeModal",
-    "has-image": content_block.image_block.image.attached?
-  } do |form|
+  class: "flex flex-col gap-4",
+  multipart: true do |form|
 %>
   <div class="flex gap-3">
     <div class="w-full">
@@ -30,43 +26,11 @@
   </div>
 
   <div class="border p-3 relative">
-    <%= form.hidden_field :remove_image, disabled: true, data: { "image-upload-target": "removeImageInput" } %>
     <%=
-      image_tag content_block.image_block.image.variant(:default).presence || "",
-      class: "w-full h-60 object-cover mb-3 group-[[data-has-image='false']]:hidden",
-      data: {
-        "image-upload-target": "imagePreview",
-        spec: "image-preview"
-      }
+      render "admin/shared/image_upload",
+      image: content_block.image_block.image,
+      input_id: dom_id(container_block, content_block.id)
     %>
-    <div class="flex gap-3 justify-end right-5">
-      <%=
-        label_tag dom_id(container_block, content_block.persisted? ? content_block.id : :new_content_block),
-        class: "admin-btn-secondary text-sm px-2 py-1" do
-      %>
-        <span class="group-[[data-has-image='true']]:hidden"><%= t("choose_image") %></span>
-        <span class="group-[[data-has-image='false']]:hidden"><%= t("change_image") %></span>
-        <%=
-          form.file_field :image,
-          class: "hidden",
-          id: dom_id(container_block, content_block.persisted? ? content_block.id : :new_content_block),
-          required: !content_block.image_block.image.attached?,
-          accept: "image/png,image/gif,image/jpeg,image/webp",
-          data: {
-            "image-upload-target": "imageInput",
-            action: "change->image-upload#imageUploaded",
-          }
-        %>
-      <% end %>
-    </div>
-    <p
-      class="mt-3 gap-3 items-center justify-center text-red-400 data-[show='true']:flex data-[show='false']:hidden"
-      data-image-upload-target="imageInvalidMessage"
-      data-show="false"
-    >
-      <%= inline_svg_tag "icons/warning.svg", class: "w-7 h-7 fill-red-400" %>
-      <span class="text-xs"><%= t("invalid_image_uploaded_message") %></span>
-    </p>
   </div>
 
   <div class="flex gap-3">

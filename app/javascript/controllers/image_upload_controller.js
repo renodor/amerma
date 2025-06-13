@@ -12,7 +12,9 @@ export default class extends Controller {
     const files = currentTarget.files
 
     if (files.length > 0) {
-      this.removeImageInputTarget.disabled = true
+      if (this.hasRemoveImageInputTarget) {
+        this.removeImageInputTarget.disabled = true
+      }
       this.element.dataset.hasImage = true
       this.imagePreviewTarget.src = URL.createObjectURL(files[0]);
       this.imageInvalidMessageTarget.dataset.show = !(this.imageInputTarget.accept.split(",").includes(files[0].type))

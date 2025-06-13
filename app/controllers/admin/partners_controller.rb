@@ -20,7 +20,7 @@ class Admin::PartnersController < Admin::BaseController
       redirect_to edit_admin_partner_path(@partner)
     else
       flash[:error] = t("partner_create_error")
-      redirect_to new_admin_partner_path
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -30,7 +30,7 @@ class Admin::PartnersController < Admin::BaseController
       flash.now[:success] = t("partner_updated")
     else
       flash[:error] = t("partner_update_error")
-      redirect_to edit_admin_partner_path(@partner)
+      render :edit, status: :unprocessable_entity
     end
   end
 

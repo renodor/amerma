@@ -8,4 +8,12 @@ module AdminHelper
       data: { active: path[1..] == params[:controller] }
       )
   end
+
+  def safe_image_variant_url(image, variant_name:)
+    return "" if image.blank?
+
+    image.variant(variant_name)
+  rescue ActiveStorage::InvariableError
+    ""
+  end
 end
