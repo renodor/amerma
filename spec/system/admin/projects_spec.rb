@@ -242,7 +242,7 @@ RSpec.describe "Admin::Projects" do
     end
 
     it "allows to remove project cover photo" do
-      find("[data-spec='remove-cover-photo']").click
+      find("[data-spec='remove-image-button']").click
       click_on I18n.t("save")
 
       expect(find("[data-spec='flash']")).to have_text(I18n.t("project_updated"))
