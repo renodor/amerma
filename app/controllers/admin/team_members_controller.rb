@@ -35,6 +35,23 @@ class Admin::TeamMembersController < Admin::BaseController
     end
   end
 
+  def update_position
+    @team_members = TeamMember.all
+    team_member = @team_members.find(params[:id])
+
+    if params[:direction] == "up"
+      other_team_member = @team_members.where("position > ?", team_member.position).ordered.first
+    else
+      other_team_member = @team_members.where("position < ?", team_member.position).ordered.last
+    end
+
+    if other_team_member
+      saved_position = team_member.position
+      team_member.update(position: other_team_member.position)
+      other_team_member.update(position: saved_position)
+    end
+  end
+
   def destroy
     TeamMember.find(params[:id]).destroy
     flash[:success] = t("team_member_deleted")

@@ -1,0 +1,27 @@
+<div class="flex gap-4 items-center justify-between bg-white p-4 border">
+  <div class="flex gap-4 items-center">
+    <% if team_member.photo.attached? %>
+      <%= image_tag team_member.photo.variant(:default), class: "object-cover shrink-0" %>
+    <% end %>
+    <div>
+      <h2 class="text-xl font-bold"><%= team_member.name %></h2>
+      <p class="text-gray-500"><%= team_member.description %></p>
+    </div>
+  </div>
+  <div class="flex gap-4">
+    <%=
+      link_to inline_svg_tag("icons/chevron-up.svg", class: "w-5"),
+      update_position_admin_team_member_path(team_member, direction: "down"),
+      data: { turbo_stream: true },
+      class: "admin-btn-secondary text-sm px-2 py-1"
+    %>
+    <%=
+      link_to inline_svg_tag("icons/chevron-up.svg", class: "w-5 rotate-180"),
+      update_position_admin_team_member_path(team_member, direction: "up"),
+      data: { turbo_stream: true },
+      class: "admin-btn-secondary text-sm px-2 py-1"
+    %>
+    <%= link_to t("edit"), edit_admin_team_member_path(team_member), class: "admin-btn-secondary" %>
+    <%= button_to t("delete"), admin_team_member_path(team_member), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "admin-btn-delete" %>
+  </div>
+</div>

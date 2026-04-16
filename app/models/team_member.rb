@@ -10,8 +10,12 @@ class TeamMember < ApplicationRecord
       saver: { strip: true }
   end
 
-  validates :name, presence: true
+  scope :ordered, -> { order(:position) }
+
+  validates :name, :position, presence: true
   validate :photo_type
+
+  before_create :set_position
 
   private
 
@@ -19,5 +23,9 @@ class TeamMember < ApplicationRecord
     return if photo.blank? || %w[image/png image/jpeg image/webp image/gif].include?(photo.content_type)
 
     errors.add :photo, I18n.t("image_format_invalid")
+  end
+
+  def set_position
+    self.position = (TeamMember.maximum(:position) || 0) + 1
   end
 end

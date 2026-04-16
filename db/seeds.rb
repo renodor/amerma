@@ -155,7 +155,8 @@ puts "Create team members"
   team_member = TeamMember.new(
     name: "Team member #{i + 1}",
     description: "Description for team member #{i + 1}",
-    linked_in_url: "https://www.linkedin.com/in/team_member_#{i + 1}/"
+    linked_in_url: "https://www.linkedin.com/in/team_member_#{i + 1}/",
+    position: i + 1
   )
 
   team_member.photo.attach(io: URI.parse("https://picsum.photos/200").open, filename: "#{team_member.name} - profile", content_type: "image/jpg")
