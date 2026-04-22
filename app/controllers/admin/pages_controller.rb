@@ -11,8 +11,8 @@ class Admin::PagesController < Admin::BaseController
 
   def update_text_block
     @page = Page.find(params[:page_id])
-    text_block = TextBlock.find(params[:id])
-    if text_block.update(text_block_params)
+    @text_block = TextBlock.find(params[:id])
+    if @text_block.update(text_block_params)
       flash.now[:success] = t("text_block_updated")
     else
       flash[:error] = t("text_block_update_error")
@@ -23,6 +23,6 @@ class Admin::PagesController < Admin::BaseController
   private
 
   def text_block_params
-    params.require(:text_block).permit(:text, :text_en)
+    params.require(:text_block).permit(:text, :text_en, :is_raw_html)
   end
 end

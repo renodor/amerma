@@ -1,1 +1,4 @@
+<%= turbo_stream.update "text-block-form-#{@text_block.id}" do %>
+  <%= render "form", page: @page, text_block: @text_block, location: @text_block.content_block.container_block.location&.humanize %>
+<% end %>
 <%= turbo_stream.update "flash", partial: "admin/shared/flash" %>
