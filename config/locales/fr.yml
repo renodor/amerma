@@ -18,10 +18,9 @@ fr:
     - Nov
     - Déc
   home: "Accueil"
-  who_are_we?: "Qui sommes-nous?"
+  about: "À propos"
   know_more: "En savoir plus"
-  the_association_developed_an_offer: "L’association développe une offre s’articulant autour de"
-  three_services: "Trois services"
+  our_missions: "Nos missions"
   projects: "Projets"
   project_updated: "Projet sauvegardé"
   project_deleted: "Projet supprimé"
