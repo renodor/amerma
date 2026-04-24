@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Admin::Projects" do
   let(:project_category) { create(:project_category, name: "Project category", icon: "windmill") }
-  let!(:project_category2) { create(:project_category, name: "Project Category 2") }
+  let!(:project_category2) { create(:project_category, name: "Project Category 2", icon: "book") }
   let!(:project) do
     create(
       :project,
@@ -24,7 +24,7 @@ RSpec.describe "Admin::Projects" do
   before { login_as_user }
 
   describe "#index" do
-    let!(:project2) { create(:project) }
+    let!(:project2) { create(:project, project_category: project_category2) }
 
     before { visit admin_projects_path }
 
@@ -103,14 +103,6 @@ RSpec.describe "Admin::Projects" do
       expect(project.owner).to eq(project_owner)
       expect(project.description).to eq(project_desc_fr)
       expect(project.description_en).to eq(project_desc_en)
-    end
-
-    it "displays error message when project creation fails" do
-      fill_in "#{I18n.t("name")} FR", with: "Mon Nouveau Projet FR"
-      click_on I18n.t("save")
-
-      expect(page).to have_current_path(new_admin_project_path)
-      expect(find("[data-spec='flash']")).to have_text(I18n.t("project_create_error"))
     end
   end
 

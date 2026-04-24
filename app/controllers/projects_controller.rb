@@ -1,6 +1,9 @@
 class ProjectsController < ApplicationController
   def index
-    @project_categories = ProjectCategory.ordered.includes(projects: [cover_photo_attachment: :blob])
+    @project_categories = ProjectCategory
+      .ordered
+      .where(projects: { visible: true })
+      .includes(projects: [cover_photo_attachment: :blob])
   end
 
   def show

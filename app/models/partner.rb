@@ -1,5 +1,5 @@
 class Partner < ApplicationRecord
-  belongs_to :partner_category, optional: true
+  belongs_to :partner_category
 
   has_one_attached :logo do |attachable|
     attachable.variant :default,

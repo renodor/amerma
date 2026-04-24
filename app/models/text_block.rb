@@ -13,7 +13,10 @@ class TextBlock < ApplicationRecord
       next if rich_text.body.blank?
 
       doc = Nokogiri::HTML::DocumentFragment.parse(rich_text.body.to_html)
-      doc.css("a[href]").each do |a|
+      links = doc.css("a[href]")
+      next if links.empty?
+
+      links.each do |a|
         a["target"] = "_blank"
         a["rel"] = "noopener noreferrer"
       end

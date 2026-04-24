@@ -2,7 +2,7 @@ class Admin::ProjectsController < Admin::BaseController
   layout "admin"
 
   def index
-    @projects = Project.all.order(created_at: :desc)
+    @project_categories = ProjectCategory.ordered.includes(projects: [cover_photo_attachment: :blob])
   end
 
   def new
