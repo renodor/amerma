@@ -1,20 +1,22 @@
 <div class="flex gap-4 items-center justify-between bg-white p-4 border">
-  <%= inline_svg project_category.icon_path, class: "w-10 h-10 shrink-0" %>
+  <div>
+    <%= inline_svg partner_category.icon_path, class: "w-10 h-10 shrink-0" %>
+  </div>
   <div class="flex flex-col gap-4 grow">
-    <h2 class="text-xl font-bold"><%= project_category.name %></h2>
-    <p class="text-gray-500"><%= project_category.description %></p>
+    <h2 class="text-xl font-bold"><%= partner_category.name %></h2>
+    <p class="text-gray-500"><%= partner_category.description %></p>
   </div>
   <div class="flex gap-4">
-    <%= link_to t("edit"), edit_admin_project_category_path(project_category), class: "admin-btn-secondary" %>
+    <%= link_to t("edit"), edit_admin_partner_category_path(partner_category), class: "admin-btn-secondary" %>
     <%=
       link_to inline_svg_tag("icons/chevron-up.svg", class: "w-5"),
-      update_position_admin_project_category_path(project_category, direction: "down"),
+      update_position_admin_partner_category_path(partner_category, direction: "down"),
       data: { turbo_stream: true },
       class: "admin-btn-secondary text-sm px-2 py-1"
     %>
     <%=
       link_to inline_svg_tag("icons/chevron-up.svg", class: "w-5 rotate-180"),
-      update_position_admin_project_category_path(project_category, direction: "up"),
+      update_position_admin_partner_category_path(partner_category, direction: "up"),
       data: { turbo_stream: true },
       class: "admin-btn-secondary text-sm px-2 py-1"
     %>

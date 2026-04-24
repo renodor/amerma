@@ -10,6 +10,7 @@ class Admin::PartnersController < Admin::BaseController
   end
 
   def edit
+    @partner_categories = PartnerCategory.all
     @partner = Partner.find(params[:id])
   end
 

@@ -5,7 +5,5 @@ class ProjectCategory < ApplicationRecord
 
   scope :ordered, -> { order(:position) }
 
-  def icon_path
-    "icons/#{icon}.svg"
-  end
+  def icon_path = "icons/#{icon}.svg"
 end

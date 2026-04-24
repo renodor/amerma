@@ -51,6 +51,11 @@ Rails.application.routes.draw do
       end
     end
     resources :partners, only: %i[index new create edit update destroy]
+    resources :partner_categories, only: %i[index edit update] do
+      member do
+        get :update_position
+      end
+    end
     resources :messages, only: %i[index show destroy]
     resources :users, only: %i[index edit update]
   end
