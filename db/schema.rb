@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_04_16_161419) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_23_164216) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -103,6 +103,17 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_16_161419) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "partner_categories", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "name_en"
+    t.text "description"
+    t.text "description_en"
+    t.string "icon"
+    t.integer "position", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "partners", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
@@ -110,6 +121,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_16_161419) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "description_en"
+    t.bigint "partner_category_id"
+    t.index ["partner_category_id"], name: "index_partners_on_partner_category_id"
   end
 
   create_table "project_categories", force: :cascade do |t|
@@ -171,5 +184,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_16_161419) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "content_blocks", "container_blocks"
+  add_foreign_key "partners", "partner_categories"
   add_foreign_key "projects", "project_categories"
 end

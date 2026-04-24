@@ -26,7 +26,7 @@ TeamMember.delete_all
 Partner.delete_all
 
 puts "Creating project categories..."
-categories = [
+project_categories = [
   {
       name: "Etudes",
       description: "Visant à développer les connaissances autour des nouvelles approches industrielles.",
@@ -47,7 +47,7 @@ categories = [
   }
 ]
 
-categories.each_with_index do |category_attrs, i|
+project_categories.each_with_index do |category_attrs, i|
   category = ProjectCategory.create!(category_attrs)
   puts "Created project category: #{category.name}"
 
@@ -164,16 +164,35 @@ puts "Create team members"
   puts "Created team member: #{team_member.name}"
 end
 
-puts "Create partners"
-5.times do |i|
-  partner = Partner.new(
-    name: "Partner #{i + 1}",
-    description: "Description for Partner #{i + 1}"
-  )
+partner_categories = [
+  {
+      name: "On a travaillé avec eux",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis augue ex.",
+      position: 1,
+      icon: "deal"
+  },
+  {
+    name: "Structures partenaires",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis augue ex.",
+    position: 2,
+    icon: "hand-heart"
+  }
+]
 
-  partner.logo.attach(io: URI.parse("https://picsum.photos/200").open, filename: "#{partner.name} - logo", content_type: "image/jpg")
-  partner.save!
-  puts "Created partner: #{partner.name}"
+partner_categories.each_with_index do |category_attrs, i|
+  category = PartnerCategory.create!(category_attrs)
+  puts "Created partner category: #{category.name}"
+
+  5.times do |i|
+    partner = category.partners.new(
+      name: "Partner #{i + 1}",
+      description: "Description for Partner #{i + 1}",
+    )
+
+    partner.logo.attach(io: URI.parse("https://picsum.photos/200").open, filename: "#{partner.name} - logo", content_type: "image/jpg")
+    partner.save!
+    puts "Created partner: #{partner.name}"
+  end
 end
 
 puts "Seeding completed."

@@ -1,4 +1,6 @@
 class Partner < ApplicationRecord
+  belongs_to :partner_category, optional: true
+
   has_one_attached :logo do |attachable|
     attachable.variant :default,
       preprocessed: true, # TODO: as variant are preprocessed we could remove the original image to save space
