@@ -2,7 +2,7 @@ en:
   time:
     formats:
       default: "%b %d, %Y"
-  about?: "About"
+  about: "About"
   projects: "Projects"
   partners: "Partners"
   contact: "Contact"
@@ -11,7 +11,6 @@ en:
   three_services: "THREE SERVICES"
   view_projects: "View projects"
   our_last_projects: "Our last projects"
-  message: "Message"
   message: "Message"
   name: "Name"
   email: "Email"
