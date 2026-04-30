@@ -1,12 +1,51 @@
-<div class="flex justify-between items-center mb-6">
-  <div class="flex gap-4 items-center mb-4">
-    <%= inline_svg @project_category.icon_path, class: "w-10 h-10 shrink-0" %>
-    <h1 class="text-2xl font-bold">
-      <%= t("edit") %> <span id="<%= dom_id(@project_category, :name) %>">"<%= @project_category.name %>"</span>
-    </h1>
+<h1 class="text-2xl font-bold mb-8">
+  <%= t("edit") %> <span id="<%= dom_id(@project_category, :name) %>">"<%= @project_category.name %>"</span>
+</h1>
+<%= form_with model: [:admin, @project_category], class: "flex flex-col gap-4", data: { controller: "icon-selector" } do |form| %>
+  <div>
+    <p><%= t("icon") %></p>
+    <%= form.hidden_field :icon, value: @project_category.icon, data: { "icon-selector-target": "iconInput" } %>
+    <div data-controller="modal">
+      <%= button_tag type: :button, data: { action: "click->modal#showModal" } do %>
+        <%= inline_svg @project_category.icon_path, class: "w-10 h-10 shrink-0", data: { "icon-selector-target": "icon" } %>
+      <% end %>
+
+      <dialog class="backdrop:bg-black/60 p-4" data-modal-target="dialog">
+        <div class="flex flex-col gap-4">
+          <div class="flex items-center">
+            <h3 class="grow font-bold"><%= t("edit_icon") %></h3>
+            <button data-action="click->modal#closeModal" type="button">
+              <%= inline_svg_tag("icons/x-mark.svg", class: "w-6 text-black hover:opacity-70") %>
+            </button>
+          </div>
+          <div class="grid grid-cols-7 gap-4">
+            <% @icons.each_with_index do |icon, index| %>
+              <label class="cursor-pointer p-4 opacity-80 rounded border border-transparent hover:border-black hover:opacity-100 has-[:checked]:border-black has-[:checked]:opacity-100 has-[:checked]:bg-gray-100">
+                <%=
+                  form.radio_button :icon,
+                  icon,
+                  class: "hidden",
+                  checked: @project_category.icon == icon,
+                  data: {
+                    action: "change->icon-selector#changeIcon change->modal#closeModal",
+                    "icon-selector-index-param": index
+                  }
+                %>
+                <%=
+                  inline_svg_tag "icons/pixel-pack/#{icon}.svg",
+                  class: "w-8 h-8 shrink-0",
+                  data: {
+                    "icon-selector-target": "selectableIcon",
+                    icon: icon
+                  }
+                %>
+              </label>
+            <% end %>
+          </div>
+        </div>
+      </dialog>
+    </div>
   </div>
-</div>
-<%= form_with model: [:admin, @project_category], class: "flex flex-col gap-4" do |form| %>
   <div class="flex gap-3">
     <div class="w-full">
       <%= form.label :name, "#{t("name")} FR" %>

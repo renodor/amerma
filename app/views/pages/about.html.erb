@@ -6,12 +6,12 @@
 
 <div class="flex flex-col gap-20">
   <section class="mt-3 flex flex-col gap-5">
-    <h2 class="text-3xl font-bold flex gap-3 items-center"><%= inline_svg_tag "icons/time.svg", class: "w-10 h-10" %><%= t("history") %></h2>
+    <h2 class="text-3xl font-bold flex gap-3 items-center"><%= inline_svg_tag "icons/pixel-pack/compass.svg", class: "w-10 h-10" %><%= t("history") %></h2>
     <%= render_translated_action_text(@about_text_2, :text) %>
   </section>
 
   <section class="mt-3 flex flex-col gap-5">
-    <h2 class="text-3xl font-bold flex gap-3 items-center"><%= inline_svg_tag "icons/team.svg", class: "w-10 h-10" %><%= t("team") %></h2>
+    <h2 class="text-3xl font-bold flex gap-3 items-center"><%= inline_svg_tag "icons/pixel-pack/team.svg", class: "w-10 h-10" %><%= t("team") %></h2>
     <%= render_translated_action_text(@about_text_3, :text) %>
     <div class="flex gap-6 justify-evenly flex-wrap">
       <% @team_members.ordered.each do |team_member| %>
@@ -24,7 +24,7 @@
           <% if team_member.linked_in_url.present? %>
               <%= link_to team_member.linked_in_url, target: :_blank, class: "btn-old-school self-end flex items-center gap-2 text-xs" do %>
                 <span>linkedIn</span>
-                <%= inline_svg_tag "icons/linked-in.svg", class: "w-5 h-5 fill-amerma-blue" %>
+                <%= inline_svg_tag "icons/pixel-pack/linked-in.svg", class: "w-5 h-5 fill-amerma-blue" %>
               <% end %>
           <% end %>
         </div>
@@ -33,7 +33,7 @@
   </section>
 
   <section class="mt-3 flex flex-col gap-5">
-    <h2 class="text-3xl font-bold flex gap-3 items-center"><%= inline_svg_tag "icons/diamond.svg", class: "w-10 h-10" %><%= t("vision_and_mission") %></h2>
+    <h2 class="text-3xl font-bold flex gap-3 items-center"><%= inline_svg_tag "icons/pixel-pack/diamond.svg", class: "w-10 h-10" %><%= t("vision_and_mission") %></h2>
     <%= render_translated_action_text(@about_text_4, :text) %>
   </section>
 </div>

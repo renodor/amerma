@@ -7,6 +7,7 @@ class Admin::PartnerCategoriesController < Admin::BaseController
 
   def edit
     @partner_category = PartnerCategory.find(params[:id])
+    @icons = Rails.root.glob("app/assets/images/icons/pixel-pack/*.svg").map { File.basename(it, ".svg") }.sort
   end
 
   def update
@@ -39,6 +40,6 @@ class Admin::PartnerCategoriesController < Admin::BaseController
   private
 
   def partner_category_params
-    params.require(:partner_category).permit(:name, :name_en, :description, :description_en)
+    params.require(:partner_category).permit(:name, :name_en, :description, :description_en, :icon)
   end
 end

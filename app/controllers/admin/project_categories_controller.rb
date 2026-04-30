@@ -7,6 +7,7 @@ class Admin::ProjectCategoriesController < Admin::BaseController
 
   def edit
     @project_category = ProjectCategory.find(params[:id])
+    @icons = Rails.root.glob("app/assets/images/icons/pixel-pack/*.svg").map { File.basename(it, ".svg") }.sort
   end
 
   def update
@@ -39,6 +40,6 @@ class Admin::ProjectCategoriesController < Admin::BaseController
   private
 
   def project_category_params
-    params.require(:project_category).permit(:name, :name_en, :description, :description_en, :long_description, :long_description_en)
+    params.require(:project_category).permit(:name, :name_en, :icon, :description, :description_en, :long_description, :long_description_en)
   end
 end
