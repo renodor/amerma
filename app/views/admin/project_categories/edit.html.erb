@@ -45,5 +45,10 @@
     </div>
   </div>
 
+  <%= form.label :long_description, "#{t('long_description')} EN" %>
+  <div>
+    <%= form.rich_textarea :long_description %>
+  </div>
+
   <%= form.submit t("save"), class: "admin-btn-primary cursor-pointer" %>
 <% end %>

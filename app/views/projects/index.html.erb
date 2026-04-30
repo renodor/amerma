@@ -8,7 +8,30 @@
         <h2 class="font-bold text-2xl grow"><%= translates(project_category, :name) %></h2>
         <%= inline_svg_tag(project_category.icon_path, class: "shrink-0 w-8 h-8") %>
       </div>
-      <p><%= translates(project_category, :description) %></p>
+      <div class="flex flex-col gap-4 group" data-controller="show-more" data-show-more="false">
+        <p>
+          <%= translates(project_category, :description) %>
+          <% if project_category.long_description.present? %>
+            <%=
+              button_tag t("know_more"),
+              type: :button,
+              data: { action: "click->show-more#showMore" },
+              class: "btn-old-school inline-block ml-3 group-[[data-show-more='true']]:hidden"
+            %>
+          <% end %>
+        </p>
+        <div class="bg-white border-2 border-black border-dashed p-4 flex-col gap-2 group-[[data-show-more='false']]:hidden group-[[data-show-more='true']]:flex">
+          <%= render_translated_action_text(project_category, :long_description) %>
+          <p class="text-right">
+            <%=
+              button_tag t("close"),
+              type: :button,
+              data: { action: "click->show-more#showLess" },
+              class: "btn-old-school inline-block mt-2"
+            %>
+          </p>
+        </div>
+      </div>
       <div class="grid grid-cols-1 gap-4">
         <% project_category.projects.each do |project| %>
           <%= link_to project_path(project), class: "shrink-0 flex flex-col-reverse gap-3 p-4 border border-black bg-white transition-all hover:shadow-flat hover:-translate-y-1 hover:-translate-x-1 sm:flex-row sm:items-center" do %>

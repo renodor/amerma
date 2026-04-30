@@ -31,6 +31,7 @@ fr:
   delete: "Supprimer"
   save: "Sauvegarder"
   read: "Lire"
+  close: "Fermer"
   are_you_sure?: "Attention! Es-tu sûr de vouloir supprimer cet élement?"
   container: "Conteneur"
   new_container: "Nouveau conteneur"

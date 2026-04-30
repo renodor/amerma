@@ -4,6 +4,7 @@ en:
       default: "%b %d, %Y"
   about: "About"
   projects: "Projects"
+  close: "Close"
   partners: "Partners"
   contact: "Contact"
   know_more: "Know more"
