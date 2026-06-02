@@ -19,12 +19,16 @@ class Project < ApplicationRecord
       dither: "FloydSteinberg",
       colors: "6",
       saver: { strip: true }
-
-    # attachable.variant :cover,
-    #   resize_to_fill: [1088, 176],
-    #   colorspace: :gray,
-    #   format: "png",
-    #   ordered_dither: "o8x8"
+  end
+  has_one_attached :thumbnail do |attachable|
+    attachable.variant :square,
+      preprocessed: true,  # TODO: as variant are preprocessed we could remove the original image to save space
+      resize_to_fill: [96, 96],
+      colorspace: :gray,
+      format: "png",
+      dither: "FloydSteinberg",
+      colors: "6",
+      saver: { strip: true }
   end
 
   scope :visible, -> { where(visible: true) }

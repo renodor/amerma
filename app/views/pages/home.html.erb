@@ -44,9 +44,7 @@
               <li><%= project_status(project.status) %></li>
             </ul>
           </div>
-          <% if project.cover_photo.attached? %>
-            <%= image_tag project.cover_photo.variant(:square), class: "w-24 h-24 object-cover grayscale" %>
-          <% end %>
+          <%= display_thumbnail(project) %>
         <% end %>
       <% end %>
     </div>

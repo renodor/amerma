@@ -49,8 +49,17 @@
       <%=
         render "admin/shared/image_upload",
         image: project.cover_photo,
-        input_id: dom_id(project),
+        input_id: dom_id(project, :cover_photo),
         variant_name: :cover,
+        show_remove_button: true
+      %>
+    </div>
+    <div class="border p-3 relative">
+      <%=
+        render "admin/shared/image_upload",
+        image: project.thumbnail,
+        input_id: dom_id(project, :thumbnail),
+        variant_name: :square,
         show_remove_button: true
       %>
     </div>

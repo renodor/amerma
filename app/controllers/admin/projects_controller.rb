@@ -36,6 +36,7 @@ class Admin::ProjectsController < Admin::BaseController
     @project = Project.find(params[:id])
     if @project.update(project_params)
       @project.cover_photo.purge if params[:project][:remove_cover_photo]
+      @project.thumbnail.purge if params[:project][:remove_thumbnail]
       flash[:success] = t("project_updated")
       redirect_to admin_project_path(@project)
     else
@@ -56,7 +57,7 @@ class Admin::ProjectsController < Admin::BaseController
   def project_params
     params.require(:project).permit(
       :name, :name_en, :description, :description_en, :start_date, :end_date, :status, :project_category_id, :visible,
-      :featured, :cover_photo, :owner
+      :featured, :cover_photo, :thumbnail, :owner
     )
   end
 end

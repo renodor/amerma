@@ -21,4 +21,15 @@ module ApplicationHelper
 
     content_tag(:span, t(status), class: "px-3 py-1 rounded-full #{colors}")
   end
+
+  def display_thumbnail(project)
+    photo =
+      if project.thumbnail.attached?
+        project.thumbnail.variant(:square)
+      elsif project.cover_photo.attached?
+        project.cover_photo.variant(:square)
+      end
+
+    image_tag(photo, class: "w-24 h-24 object-cover grayscale") if photo
+  end
 end
