@@ -29,7 +29,7 @@
             <h2 class="text-xl font-bold grow"><%= translates(project_category, :name) %></h2>
             <%= inline_svg_tag(project_category.icon_path, class: "w-8 h-8 shrink-0") %>
           </div>
-          <p class="grow"><%= translates(project_category, :description) %></p>
+          <p class="grow"><%= translates(project_category, :summary) %></p>
           <%#= link_to t("view_projects"), projects_path(anchor: dom_id(project_category)), class: "btn-old-school" %>
         <% end %>
       <% end %>
