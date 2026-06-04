@@ -1,11 +1,8 @@
-<%=
-  form_with model: [:update_text_block_admin, page, text_block],
-  class: "flex flex-col gap-4",
-  data: { controller: "text-block-form"} do |form|
-%>
+<% text_block = form.object %>
+<div class="flex flex-col gap-4">
   <div class="flex justify-between items-center">
     <h2 class="text-xl font-bold mb-4"><%= location %></h2>
-    <%= form.checkbox :is_raw_html, id: "is-raw-html-#{text_block.id}", class: "hidden peer", data: { action: "change->text-block-form#isRawHtmlChanged"} %>
+    <%= form.checkbox :is_raw_html, id: "is-raw-html-#{text_block.id}", class: "hidden peer", data: { action: "change->text-block-form#isRawHtmlChanged" } %>
     <%= form.label :is_raw_html, "HTML", for: "is-raw-html-#{text_block.id}", class: "px-3 py-2 text-gray-500 cursor-pointer transition-colors hover:text-black peer-checked:bg-black peer-checked:text-white" %>
   </div>
   <div>
@@ -13,7 +10,6 @@
     <div class="has-[trix-editor:disabled]:hidden">
       <%=
         form.rich_textarea :text,
-        id: form.object.object_id,
         disabled: text_block.is_raw_html?,
         data: { "text-block-form-target": "richTextEditor" }
       %>
@@ -32,7 +28,6 @@
     <div class="has-[trix-editor:disabled]:hidden">
       <%=
         form.rich_textarea :text_en,
-        id: "#{form.object.object_id}-en",
         disabled: text_block.is_raw_html?,
         data: { "text-block-form-target": "richTextEditor" }
       %>
@@ -46,5 +41,4 @@
       data: { "text-block-form-target": "rawTextInput" }
     %>
   </div>
-  <%= form.submit t("save"), class: "admin-btn-primary cursor-pointer", data: { action: "click->modal#closeModal" } %>
-<% end %>
+</div>

@@ -1,11 +1,27 @@
 <header class="flex justify-between items-center mb-6">
-  <h1 class="text-3xl font-bold mb-4"><%= t("edit_texts") %> | <%= t(@page.name.downcase) %></h1>
+  <h1 class="text-3xl font-bold mb-4"><%= t("edit") %> | <%= t(@page.name.downcase) %></h1>
 </header>
-<div class="flex flex-col gap-10">
-  <% @page.container_blocks.each do |container_block| %>
-    <% text_block = container_block.content_blocks.first.text_block %>
-    <section class="bg-white p-4" id="text-block-form-<%= text_block.id %>">
-     <%= render "form", page: @page, text_block: text_block, location: container_block.location&.humanize %>
+<%= form_with model: [:admin, @page], class: "flex flex-col gap-10", multipart: true do |form| %>
+  <% if @page.name == "home" %>
+    <section class="bg-white p-4">
+      <%=
+        render "admin/shared/image_upload",
+        image: @page.banner,
+        input_id: dom_id(@page)
+      %>
+      <p class="text-xs mt-2"><%= t("banner_dimensions") %></p>
     </section>
   <% end %>
-</div>
+
+  <%= form.fields_for :container_blocks do |container_form| %>
+    <%= container_form.fields_for :content_blocks do |content_form| %>
+      <%= content_form.fields_for :contentable do |text_form| %>
+        <section class="bg-white p-4" data-controller="text-block-form">
+          <%= render "block_fields", form: text_form, location: container_form.object.location&.humanize %>
+        </section>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= form.submit t("save"), class: "admin-btn-primary cursor-pointer" %>
+<% end %>

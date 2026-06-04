@@ -1,6 +1,8 @@
 <aside class="w-60 px-6 py-8 min-h-screen bg-black flex flex-col gap-10">
-  <%= link_to root_path, class: "flex justify-center" do %>
-    <%= image_tag "logo.png", class: "w-24" %>
+  <% if @site_setting.logo.attached? %>
+    <%= link_to admin_root_path, class: "flex justify-center" do %>
+      <%= image_tag @site_setting.logo, class: "w-32" %>
+    <% end %>
   <% end %>
   <%=
     link_to root_path,
@@ -14,6 +16,7 @@
     <span class="text-xs"><%= root_url %></span>
   <% end %>
   <div class="flex flex-col gap-1">
+    <%= sidebar_link(t("settings"), edit_admin_site_setting_path(@site_setting)) %>
     <%= sidebar_link(t("pages"), admin_pages_path) %>
     <%= sidebar_link(t("projects"), admin_projects_path) %>
     <%= sidebar_link(t("project_categories"), admin_project_categories_path) %>

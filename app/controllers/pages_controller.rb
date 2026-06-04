@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
   def home
-    container_blocks = Page.find_by(name: "home")&.container_blocks
+    @page = Page.find_by(name: "home")
+    container_blocks = @page&.container_blocks
     @home_text_1 = container_blocks&.find_by(location: "home_1")&.content_blocks&.first&.text_block
     @home_text_2 = container_blocks&.find_by(location: "home_2")&.content_blocks&.first&.text_block
     @project_categories = ProjectCategory.ordered

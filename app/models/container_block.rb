@@ -2,6 +2,8 @@ class ContainerBlock < ApplicationRecord
   belongs_to :containerable, polymorphic: true
   has_many :content_blocks, -> { order(:position) }, dependent: :destroy
 
+  accepts_nested_attributes_for :content_blocks
+
   def column_count_classes
     case column_count
     when 1

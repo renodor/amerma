@@ -1,7 +1,9 @@
 <nav class="h-[56px] w-full text-white fixed top-0 z-10 group" data-controller="navbar" data-open="false">
   <div class="relative z-20 container px-6 py-2 mx-auto bg-black flex flex-nowrap justify-between items-center sm:px-10 lg:px-24 xl:max-w-[1280px]">
-    <%= link_to root_path, class: "shrink-0" do %>
-      <%= image_tag "logo.png", class: "w-32" %>
+    <% if @site_setting.logo.attached? %>
+      <%= link_to root_path, class: "shrink-0" do %>
+        <%= image_tag @site_setting.logo, class: "w-32" %>
+      <% end %>
     <% end %>
     <div class="relative flex flex-col p-4 gap-1 cursor-pointer lg:hidden" data-action="click->navbar#toggleMobileNav">
       <div class="h-2 w-6"></div>

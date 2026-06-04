@@ -2,27 +2,36 @@ class Admin::PagesController < Admin::BaseController
   layout "admin"
 
   def index
-    @pages = Page.all
+    @pages = Page.all.order(:created_at)
   end
 
   def edit
     @page = Page.find(params[:id])
   end
 
-  def update_text_block
-    @page = Page.find(params[:page_id])
-    @text_block = TextBlock.find(params[:id])
-    if @text_block.update(text_block_params)
-      flash.now[:success] = t("text_block_updated")
-    else
-      flash[:error] = t("text_block_update_error")
+  def update
+    @page = Page.find(params[:id])
+    if @page.update(page_params)
+      flash[:success] = t("page_updated")
       redirect_to edit_admin_page_path(@page)
+    else
+      flash.now[:error] = t("page_update_error")
+      render :edit, status: :unprocessable_entity
     end
   end
 
   private
 
-  def text_block_params
-    params.require(:text_block).permit(:text, :text_en, :is_raw_html)
+  def page_params
+    params.require(:page).permit(
+      :banner,
+      container_blocks_attributes: [
+        :id,
+        content_blocks_attributes: [
+          :id,
+          contentable_attributes: [:id, :text, :text_en, :is_raw_html]
+        ]
+      ]
+    )
   end
 end
