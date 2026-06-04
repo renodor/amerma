@@ -141,7 +141,7 @@ fr:
   icon: "Icône"
   edit_icon: "Modifier l'icône"
   description: "Description"
-  long_description: "Description longue"
+  summary: "Résumé"
   linked_in_url: "URL LinkedIn"
   website_url: "URL du site web"
   messages: "Messages"

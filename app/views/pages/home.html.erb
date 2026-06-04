@@ -1,6 +1,6 @@
 <div class="flex flex-col gap-10">
   <section class="mt-3">
-    <% if @page.banner.attached? %>
+    <% if @page&.banner&.attached? %>
       <%= image_tag @page.banner.variant(:default), class: "h-52 w-full object-cover" %>
     <% end %>
   </section>

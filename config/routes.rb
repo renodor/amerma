@@ -52,6 +52,6 @@ Rails.application.routes.draw do
     end
     resources :messages, only: %i[index show destroy]
     resources :users, only: %i[index edit update]
-    resources :site_settings, only: %i[edit update]
+    resource :site_setting, only: %i[edit update]
   end
 end

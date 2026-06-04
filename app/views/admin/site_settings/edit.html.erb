@@ -1,5 +1,5 @@
 <h1 class="text-2xl font-bold mb-8"><%= t("settings") %></h1>
-<%= form_with model: [:admin, @site_setting], class: "flex flex-col gap-4 p-4 h-fit", multipart: true do |form| %>
+<%= form_with model: @site_setting, url: admin_site_setting_path, class: "flex flex-col gap-4 p-4 h-fit", multipart: true do |form| %>
   <div class="bg-black p-4">
     <%=
       render "admin/shared/image_upload",

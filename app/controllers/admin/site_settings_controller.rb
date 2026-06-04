@@ -8,7 +8,7 @@ class Admin::SiteSettingsController < Admin::BaseController
       flash.now[:success] = t("settings_updated")
     else
       flash[:error] = t("settings_update_error")
-      redirect_to edit_admin_site_setting_path(@site_setting)
+      redirect_to edit_admin_site_setting_path
     end
   end
 

@@ -2,7 +2,7 @@
   <div class="relative z-20 container px-6 py-2 mx-auto bg-black flex flex-nowrap justify-between items-center sm:px-10 lg:px-24 xl:max-w-[1280px]">
     <% if @site_setting.logo.attached? %>
       <%= link_to root_path, class: "shrink-0" do %>
-        <%= image_tag @site_setting.logo, class: "w-32" %>
+        <%= image_tag @site_setting.logo.variant(:default), class: "w-32" %>
       <% end %>
     <% end %>
     <div class="relative flex flex-col p-4 gap-1 cursor-pointer lg:hidden" data-action="click->navbar#toggleMobileNav">

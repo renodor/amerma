@@ -124,6 +124,22 @@
       class: "border p-3"
     %>
     <div>
+      <%= form.label :summary, "#{t("summary")} FR" %>
+      <%=
+        form.text_field :summary,
+        placeholder: t("summary"),
+        class: "w-full border p-3"
+      %>
+    </div>
+    <div>
+      <%= form.label :summary_en, "#{t("summary")} EN" %>
+      <%=
+        form.text_field :summary_en,
+        placeholder: "#{t("summary")} EN",
+        class: "w-full border p-3"
+      %>
+    </div>
+    <div>
       <%= form.label :description, "#{t("description")} FR" %>
       <%=
         form.textarea :description,

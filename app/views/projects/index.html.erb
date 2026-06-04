@@ -10,8 +10,8 @@
       </div>
       <div class="group" data-controller="show-more" data-show-more="false">
         <p>
-          <%= translates(project_category, :description) %>
-          <% if project_category.long_description.present? %>
+          <%= translates(project_category, :summary) %>
+          <% if project_category.description.present? %>
             <%=
               button_tag t("know_more"),
               type: :button,
@@ -23,7 +23,7 @@
         <div class="grid transition-[grid-template-rows] duration-300 group-[[data-show-more='false']]:grid-rows-[0fr] group-[[data-show-more='true']]:grid-rows-[1fr]">
           <div class="overflow-hidden">
             <div class="bg-white border-2 border-black border-dashed flex-col gap-2 p-4 mt-4">
-              <%= render_translated_action_text(project_category, :long_description) %>
+              <%= render_translated_action_text(project_category, :description) %>
               <p class="text-right">
                 <%=
                   button_tag t("close"),
