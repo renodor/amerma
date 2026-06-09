@@ -46,6 +46,24 @@ class Admin::ProjectsController < Admin::BaseController
     end
   end
 
+  # TODO: DRY
+  def update_position
+    project = Project.find(params[:id])
+    @projects = Project.where(project_category: project.project_category)
+
+    if params[:direction] == "up"
+      other_project = @projects.where("position < ?", project.position).ordered.last
+    else
+      other_project = @projects.where("position > ?", project.position).ordered.first
+    end
+
+    if other_project
+      saved_position = project.position
+      project.update!(position: other_project.position)
+      other_project.update!(position: saved_position)
+    end
+  end
+
   def destroy
     Project.find(params[:id]).destroy
     flash[:success] = t("project_deleted")

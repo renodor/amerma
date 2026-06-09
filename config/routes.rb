@@ -26,6 +26,9 @@ Rails.application.routes.draw do
       end
     end
     resources :projects, only: %i[index new create show edit update destroy] do
+      member do
+        get :update_position
+      end
       resources :container_blocks, only: %i[create update destroy] do
         member do
           get :update_position
@@ -44,7 +47,11 @@ Rails.application.routes.draw do
         get :update_position
       end
     end
-    resources :partners, only: %i[index new create edit update destroy]
+    resources :partners, only: %i[index new create edit update destroy] do
+      member do
+        get :update_position
+      end
+    end
     resources :partner_categories, only: %i[index edit update] do
       member do
         get :update_position

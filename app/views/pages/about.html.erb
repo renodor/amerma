@@ -14,7 +14,7 @@
     <h2 class="text-3xl font-bold flex gap-3 items-center"><%= inline_svg_tag "icons/pixel-pack/team.svg", class: "w-10 h-10" %><%= t("team") %></h2>
     <%= render_translated_action_text(@about_text_3, :text) %>
     <div class="flex gap-6 justify-evenly flex-wrap">
-      <% @team_members.ordered.each do |team_member| %>
+      <% @team_members.each do |team_member| %>
         <div class="flex flex-col gap-3 items-center shadow-border p-4 w-80">
           <% if team_member.photo.attached? %>
             <%= image_tag team_member.photo.variant(:default) %>

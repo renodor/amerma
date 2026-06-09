@@ -1,5 +1,5 @@
 class PartnerCategory < ApplicationRecord
-  has_many :partners, -> { order(:created_at) }, dependent: :nullify
+  has_many :partners, -> { order(:position) }, dependent: :nullify
 
   validates :name, :position, presence: true
 

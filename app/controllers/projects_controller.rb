@@ -4,6 +4,7 @@ class ProjectsController < ApplicationController
       .ordered
       .where(projects: { visible: true })
       .includes(projects: [cover_photo_attachment: :blob])
+      .order("projects.position")
   end
 
   def show

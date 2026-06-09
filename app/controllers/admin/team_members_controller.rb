@@ -2,7 +2,7 @@ class Admin::TeamMembersController < Admin::BaseController
   layout "admin"
 
   def index
-    @team_members = TeamMember.all
+    @team_members = TeamMember.ordered
   end
 
   def new
@@ -35,14 +35,15 @@ class Admin::TeamMembersController < Admin::BaseController
     end
   end
 
+  # TODO: DRY
   def update_position
     @team_members = TeamMember.all
     team_member = @team_members.find(params[:id])
 
     if params[:direction] == "up"
-      other_team_member = @team_members.where("position > ?", team_member.position).ordered.first
-    else
       other_team_member = @team_members.where("position < ?", team_member.position).ordered.last
+    else
+      other_team_member = @team_members.where("position > ?", team_member.position).ordered.first
     end
 
     if other_team_member

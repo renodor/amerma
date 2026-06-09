@@ -1,0 +1,16 @@
+<div class="flex gap-4 items-center justify-between bg-white p-4 border">
+  <div class="flex gap-4 items-center">
+    <% if partner.logo.attached? %>
+      <%= image_tag partner.logo.variant(:default), class: "object-cover shrink-0" %>
+    <% end %>
+    <div>
+      <h2 class="text-xl font-bold"><%= partner.name %></h2>
+      <p class="text-gray-500"><%= partner.description %></p>
+    </div>
+  </div>
+  <div class="flex gap-4">
+    <%= render "admin/shared/change_position_buttons", record: partner %>
+    <%= link_to t("edit"), edit_admin_partner_path(partner), class: "admin-btn-secondary" %>
+    <%= button_to t("delete"), admin_partner_path(partner), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "admin-btn-delete" %>
+  </div>
+</div>

@@ -38,6 +38,24 @@ class Admin::PartnersController < Admin::BaseController
     end
   end
 
+  # TODO: DRY
+  def update_position
+    partner = Partner.find(params[:id])
+    @partners = Partner.where(partner_category: partner.partner_category)
+
+    if params[:direction] == "up"
+      other_partner = @partners.where("position < ?", partner.position).ordered.last
+    else
+      other_partner = @partners.where("position > ?", partner.position).ordered.first
+    end
+
+    if other_partner
+      saved_position = partner.position
+      partner.update!(position: other_partner.position)
+      other_partner.update!(position: saved_position)
+    end
+  end
+
   def destroy
     Partner.find(params[:id]).destroy
     flash[:success] = t("partner_deleted")

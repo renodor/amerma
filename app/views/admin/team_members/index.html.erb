@@ -3,5 +3,5 @@
   <%= link_to t("new_team_member"), new_admin_team_member_path, class: "admin-btn-primary" %>
 </header>
 <div class="flex flex-col gap-4" id="team-members">
-  <%= render @team_members.ordered %>
+  <%= render @team_members %>
 </div>

@@ -52,15 +52,17 @@ project_categories.each_with_index do |category_attrs, i|
   puts "Created project category: #{category.name}"
 
   5.times do |j|
+    number = j + 1
     project = category.projects.new(
-      name: "Project #{j + 1} - #{category.name}",
-      description: "Description for project #{j + 1} in #{category.name}",
+      name: "Project #{number} - #{category.name}",
+      description: "Description for project #{number} in #{category.name}",
       status: ["planned", "in_progress", "completed"].sample,
       start_date: Date.today - rand(100).days,
       end_date: Date.today + rand(100).days,
       owner: ["Dewid", "Lucas", "Marie", "John", "Paul", "Django", "Georges"].sample,
       featured: true,
-      visible: true
+      visible: true,
+      position: number
     )
 
     project.cover_photo.attach(
@@ -133,8 +135,8 @@ about.container_blocks.create(location: "about_4").content_blocks.create!(
   )
 )
 
-partners = Page.create!(name: "partners")
-partners.container_blocks.create(location: "partners").content_blocks.create!(
+partners_page = Page.create!(name: "partners")
+partners_page.container_blocks.create(location: "partners").content_blocks.create!(
   contentable: TextBlock.new(
     text: "<div><strong>Partners text</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis augue ex. Fusce mollis libero " \
           "vitae viverra mattis. Proin laoreet vehicula erat nec luctus. Aliquam malesuada ullamcorper aliquam.</div>"
@@ -152,11 +154,12 @@ contact.container_blocks.create(location: "contact").content_blocks.create!(
 
 puts "Create team members"
 3.times do |i|
+  number = i + 1
   team_member = TeamMember.new(
-    name: "Team member #{i + 1}",
-    description: "Description for team member #{i + 1}",
-    linked_in_url: "https://www.linkedin.com/in/team_member_#{i + 1}/",
-    position: i + 1
+    name: "Team member #{number}",
+    description: "Description for team member #{number}",
+    linked_in_url: "https://www.linkedin.com/in/team_member_#{number}/",
+    position: number
   )
 
   team_member.photo.attach(io: URI.parse("https://picsum.photos/200").open, filename: "#{team_member.name} - profile", content_type: "image/jpg")
@@ -184,9 +187,11 @@ partner_categories.each_with_index do |category_attrs, i|
   puts "Created partner category: #{category.name}"
 
   5.times do |i|
+    number = i + 1
     partner = category.partners.new(
-      name: "Partner #{i + 1}",
-      description: "Description for Partner #{i + 1}",
+      name: "Partner #{number}",
+      description: "Description for Partner #{number}",
+      position: number
     )
 
     partner.logo.attach(io: URI.parse("https://picsum.photos/200").open, filename: "#{partner.name} - logo", content_type: "image/jpg")

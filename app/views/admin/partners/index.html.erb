@@ -9,24 +9,8 @@
         <%= inline_svg_tag(partner_category.icon_path, class: "shrink-0 w-8 h-8") %>
         <span><%= translates(partner_category, :name) %></span>
       </h2>
-      <div class="flex flex-col gap-4">
-        <% partner_category.partners.order(:created_at).each do |partner| %>
-          <div class="flex gap-4 items-center justify-between bg-white p-4 border">
-            <div class="flex gap-4 items-center">
-              <% if partner.logo.attached? %>
-                <%= image_tag partner.logo.variant(:default), class: "object-cover shrink-0" %>
-              <% end %>
-              <div>
-                <h2 class="text-xl font-bold"><%= partner.name %></h2>
-                <p class="text-gray-500"><%= partner.description %></p>
-              </div>
-            </div>
-            <div class="flex flex-col gap-4">
-              <%= link_to t("edit"), edit_admin_partner_path(partner), class: "admin-btn-secondary" %>
-              <%= button_to t("delete"), admin_partner_path(partner), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "admin-btn-delete" %>
-            </div>
-          </div>
-        <% end %>
+      <div class="flex flex-col gap-4" id="<%= dom_id(partner_category) %>">
+        <%= render partner_category.partners %>
       </div>
     </section>
   <% end %>

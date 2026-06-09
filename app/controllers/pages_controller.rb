@@ -9,7 +9,7 @@ class PagesController < ApplicationController
   end
 
   def about
-    @team_members = TeamMember.all.includes(photo_attachment: :blob)
+    @team_members = TeamMember.all.includes(photo_attachment: :blob).ordered
     container_blocks = Page.find_by(name: "about").container_blocks
     # TODO: avoid N+1 here?
     @about_text_1 = container_blocks&.find_by(location: "about_1")&.content_blocks&.first&.text_block

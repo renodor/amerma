@@ -1,0 +1,5 @@
+<%= turbo_stream.update dom_id(@projects.first.project_category) do %>
+  <% @projects.ordered.each do |project| %>
+    <%= render "admin/projects/card", project: project %>
+  <% end %>
+<% end %>

@@ -1,0 +1,12 @@
+<%=
+  link_to inline_svg_tag("icons/chevron-up.svg", class: "w-5"),
+  [:update_position_admin, record, direction: "up"],
+  data: { turbo_stream: true },
+  class: "admin-btn-secondary text-sm px-2 py-1"
+%>
+<%=
+  link_to inline_svg_tag("icons/chevron-up.svg", class: "w-5 rotate-180"),
+  [:update_position_admin, record, direction: "down"],
+  data: { turbo_stream: true },
+  class: "admin-btn-secondary text-sm px-2 py-1"
+%>

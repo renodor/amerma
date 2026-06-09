@@ -1,5 +1,5 @@
 class ProjectCategory < ApplicationRecord
-  has_many :projects, -> { order(created_at: :desc) }, dependent: :nullify
+  has_many :projects, -> { order(:position) }, dependent: :nullify
 
   has_rich_text :description
   has_rich_text :description_en

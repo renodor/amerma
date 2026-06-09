@@ -1,0 +1,3 @@
+<%= turbo_stream.update dom_id(@partners.first.partner_category) do %>
+  <%= render @partners.ordered %>
+<% end %>

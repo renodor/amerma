@@ -33,6 +33,7 @@ class Project < ApplicationRecord
 
   scope :visible, -> { where(visible: true) }
   scope :featured, -> { where(featured: true) }
+  scope :ordered, -> { order(:project_category_id, :position) }
 
   validates :name, presence: true
   validate :cover_photo_type
