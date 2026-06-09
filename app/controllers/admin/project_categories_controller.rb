@@ -25,9 +25,9 @@ class Admin::ProjectCategoriesController < Admin::BaseController
     project_category = @project_categories.find(params[:id])
 
     if params[:direction] == "up"
-      other_project_category = @project_categories.where("position > ?", project_category.position).ordered.first
-    else
       other_project_category = @project_categories.where("position < ?", project_category.position).ordered.last
+    else
+      other_project_category = @project_categories.where("position > ?", project_category.position).ordered.first
     end
 
     if other_project_category

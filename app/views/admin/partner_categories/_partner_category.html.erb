@@ -9,18 +9,7 @@
     <% end %>
   </div>
   <div class="flex gap-4">
+    <%= render "admin/shared/change_position_buttons", record: partner_category %>
     <%= link_to t("edit"), edit_admin_partner_category_path(partner_category), class: "admin-btn-secondary" %>
-    <%=
-      link_to inline_svg_tag("icons/chevron-up.svg", class: "w-5"),
-      update_position_admin_partner_category_path(partner_category, direction: "down"),
-      data: { turbo_stream: true },
-      class: "admin-btn-secondary text-sm px-2 py-1"
-    %>
-    <%=
-      link_to inline_svg_tag("icons/chevron-up.svg", class: "w-5 rotate-180"),
-      update_position_admin_partner_category_path(partner_category, direction: "up"),
-      data: { turbo_stream: true },
-      class: "admin-btn-secondary text-sm px-2 py-1"
-    %>
   </div>
 </div>

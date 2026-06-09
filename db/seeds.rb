@@ -23,6 +23,7 @@ Project.delete_all
 ProjectCategory.delete_all
 Page.delete_all
 TeamMember.delete_all
+PartnerCategory.delete_all
 Partner.delete_all
 
 puts "Creating project categories..."

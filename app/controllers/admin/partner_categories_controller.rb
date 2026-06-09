@@ -25,9 +25,9 @@ class Admin::PartnerCategoriesController < Admin::BaseController
     partner_category = @partner_categories.find(params[:id])
 
     if params[:direction] == "up"
-      other_partner_category = @partner_categories.where("position > ?", partner_category.position).ordered.first
-    else
       other_partner_category = @partner_categories.where("position < ?", partner_category.position).ordered.last
+    else
+      other_partner_category = @partner_categories.where("position > ?", partner_category.position).ordered.first
     end
 
     if other_partner_category
