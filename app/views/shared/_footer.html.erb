@@ -22,11 +22,11 @@
               <%= inline_svg_tag("icons/x-mark.svg", class: "w-6 text-black hover:opacity-70") %>
             </button>
           </div>
-          <div class="pb-10 px-16 flex flex-col gap-6 text-left">
+          <div class="pb-10 px-6 md:px-16 flex flex-col gap-6 text-left">
             <div class="flex justify-center"><%= inline_svg_tag("icons/pixel-pack/plant.svg", class: "w-8 h-8 fill-black") %></div>
             <p><%= t("footer.modal_design_html") %></p>
             <p><%= t("footer.modal_content") %></p>
-            <p><%= t("footer.modal_hosting") %> <%= link_to "https://www.infomaniak.com/fr/ecologie", "https://www.infomaniak.com/fr/ecologie", target: :_blank, class: "underline hover:no-underline" %>.</p>
+            <p><%= t("footer.modal_hosting") %> <%= link_to "https://www.infomaniak.com/fr/ecologie", "https://www.infomaniak.com/fr/ecologie", target: :_blank, class: "underline hover:no-underline break-all" %>.</p>
             <p><%= t("footer.modal_rating_html") %></p>
             <p><%= link_to t("footer.modal_view_analysis"), "https://www.websitecarbon.com/website/amerma-org/", target: :_blank, class: "underline hover:no-underline" %></p>
         </div>

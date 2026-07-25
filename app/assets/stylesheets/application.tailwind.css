@@ -7,6 +7,10 @@
     scrollbar-gutter: stable;
   }
 
+  body {
+    @apply text-sm sm:text-base;
+  }
+
   body:has(dialog[open]) {
     @apply overflow-hidden;
   }
