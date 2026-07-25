@@ -10,7 +10,7 @@
         <%= inline_svg @partner_category.icon_path, class: "w-10 h-10 shrink-0", data: { "icon-selector-target": "icon" } %>
       <% end %>
 
-      <dialog class="backdrop:bg-black/60 p-4" data-modal-target="dialog">
+      <dialog class="backdrop:bg-black/60 p-4" data-modal-target="dialog" data-action="click->modal#closeOnClickOutside">
         <div class="flex flex-col gap-4">
           <div class="flex items-center">
             <h3 class="grow font-bold"><%= t("edit_icon") %></h3>

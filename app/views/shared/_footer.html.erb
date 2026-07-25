@@ -1,21 +1,57 @@
-<footer class="container mx-auto py-10 px-6 sm:px-10 lg:px-24 xl:max-w-[1280px] h-full flex justify-between items-center bg-black text-white">
-  <p>
-    <% I18n.available_locales.sort { |a, b| b <=> a }.each do |locale| %>
-        <% if locale.to_s == params[:locale] || (params[:locale].blank? && locale == I18n.default_locale)  %>
-          <span class="bg-white text-black p-2"><%= locale.upcase %></span>
-        <% else %>
-          <%=
-            link_to locale.upcase,
-            params[:action] == "home" ? root_path(locale: locale) : url_for(locale: locale),
-            class: "p-2 underline hover:no-underline"
-          %>
-        <% end %>
-    <% end %>
-  </p>
-  <p class="flex gap-2 items-end">
-    <span>
-      <%= t("crafted_by") %> <%= link_to "renodor", "https://www.renodor.co", target: :_blank, class: "underline hover:no-underline" %>
-    </span>
-    <%= inline_svg_tag("icons/pixel-pack/happy-computer.svg", class: "w-8 h-8 fill-white") %>
-  </p>
+<footer class="container mx-auto py-10 px-6 sm:px-10 lg:px-24 xl:max-w-[1280px] h-full bg-black text-white flex flex-col">
+  <div class="flex flex-col gap-2 mb-7">
+    <div class="flex justify-center">
+      <%= inline_svg_tag("icons/pixel-pack/plant.svg", class: "w-8 h-8 fill-white") %>
+    </div>
+    <p class="text-center"><%= t("footer.low_tech") %></p>
+    <div id="wcb" class="carbonbadge"></div>
+    <script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>
+    <div data-controller="modal" class="text-center">
+      <%=
+        button_tag type: :button,
+        class: "underline hover:no-underline",
+        data: { action: "click->modal#showModal" } do
+      %>
+        <span><%= t("footer.know_more") %></span>
+      <% end %>
+
+      <dialog class="backdrop:bg-black/60 sm:mx-10 md:mx-20 lg:mx-64 xl:mx-72" data-modal-target="dialog" data-action="click->modal#closeOnClickOutside">
+        <div class="flex flex-col gap-4 p-4">
+          <div class="flex items-center justify-end">
+            <button data-action="click->modal#closeModal">
+              <%= inline_svg_tag("icons/x-mark.svg", class: "w-6 text-black hover:opacity-70") %>
+            </button>
+          </div>
+          <div class="pb-10 px-16 flex flex-col gap-6 text-left">
+            <div class="flex justify-center"><%= inline_svg_tag("icons/pixel-pack/plant.svg", class: "w-8 h-8 fill-black") %></div>
+            <p><%= t("footer.modal_design_html") %></p>
+            <p><%= t("footer.modal_content") %></p>
+            <p><%= t("footer.modal_hosting") %> <%= link_to "https://www.infomaniak.com/fr/ecologie", "https://www.infomaniak.com/fr/ecologie", target: :_blank, class: "underline hover:no-underline" %>.</p>
+            <p><%= t("footer.modal_rating_html") %></p>
+            <p><%= link_to t("footer.modal_view_analysis"), "https://www.websitecarbon.com/website/amerma-org/", target: :_blank, class: "underline hover:no-underline" %></p>
+        </div>
+      </dialog>
+    </div>
+  </div>
+  <div class="flex justify-between items-end border-t border-dashed border-white/60 pt-7">
+    <p>
+      <% I18n.available_locales.sort { |a, b| b <=> a }.each do |locale| %>
+          <% if locale.to_s == params[:locale] || (params[:locale].blank? && locale == I18n.default_locale)  %>
+            <span class="bg-white text-black p-2"><%= locale.upcase %></span>
+          <% else %>
+            <%=
+              link_to locale.upcase,
+              params[:action] == "home" ? root_path(locale: locale) : url_for(locale: locale),
+              class: "p-2 underline hover:no-underline"
+            %>
+          <% end %>
+      <% end %>
+    </p>
+    <p class="flex gap-2 items-end">
+      <span>
+        <%= t("crafted_by") %> <%= link_to "renodor", "https://www.renodor.co", target: :_blank, class: "underline hover:no-underline" %>
+      </span>
+      <%= inline_svg_tag("icons/pixel-pack/happy-computer.svg", class: "w-8 h-8 fill-white") %>
+    </p>
+  </div>
 </footer>

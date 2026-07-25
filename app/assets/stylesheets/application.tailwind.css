@@ -3,20 +3,28 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scrollbar-gutter: stable;
+  }
+
+  body:has(dialog[open]) {
+    @apply overflow-hidden;
+  }
+
   ul {
-    @apply list-disc ml-4
+    @apply list-disc ml-4;
   }
 
   .dashed-border {
-    @apply border-dashed border-2 border-black
+    @apply border-dashed border-2 border-black;
   }
 
   .shadow-border {
-    @apply border-2 border-black shadow-flat
+    @apply border-2 border-black shadow-flat;
   }
 
   .inset-shadow-border {
-    @apply border-2 border-black shadow-inset-flat
+    @apply border-2 border-black shadow-inset-flat;
   }
 }
 
@@ -34,29 +42,29 @@
   }
 
   .btn-primary {
-    @apply px-4 py-1 border border-2 border-black bg-black text-white cursor-pointer transition-shadow hover:shadow-flat hover:shadow-gray-400
+    @apply px-4 py-1 border border-2 border-black bg-black text-white cursor-pointer transition-shadow hover:shadow-flat hover:shadow-gray-400;
   }
 
   .btn-secondary {
-    @apply px-4 py-1 border border-2 border-black cursor-pointer hover:shadow-flat
+    @apply px-4 py-1 border border-2 border-black cursor-pointer hover:shadow-flat;
   }
 
   .btn-old-school {
-    @apply underline text-amerma-blue cursor-pointer hover:no-underline
+    @apply underline text-amerma-blue cursor-pointer hover:no-underline;
   }
 
   .trix-content a {
-    @apply underline text-amerma-blue cursor-pointer hover:no-underline
+    @apply underline text-amerma-blue cursor-pointer hover:no-underline;
   }
 }
 
 @layer utilities {
   trix-editor {
-    @apply rounded-none border-gray-200
+    @apply rounded-none border-gray-200;
   }
 
   .trix-button-group--file-tools,
   .trix-button-group--history-tools {
-    display: none!important;
+    display: none !important;
   }
 }

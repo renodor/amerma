@@ -33,7 +33,7 @@
             <span><%= t("edit") %></span>
           <% end %>
 
-          <dialog class="backdrop:bg-black/60 p-4 max-w-[600px]" data-modal-target="dialog">
+          <dialog class="backdrop:bg-black/60 p-4 max-w-[600px]" data-modal-target="dialog" data-action="click->modal#closeOnClickOutside">
             <div class="flex flex-col gap-4">
               <div class="flex items-center">
                 <h3 class="grow font-bold"><%= t("edit_text") %></h3>
@@ -109,7 +109,7 @@
             <span><%= t("edit") %></span>
           <% end %>
 
-          <dialog class="backdrop:bg-black/60 p-4 max-w-[600px]" data-modal-target="dialog">
+          <dialog class="backdrop:bg-black/60 p-4 max-w-[600px]" data-modal-target="dialog" data-action="click->modal#closeOnClickOutside">
             <div class="flex flex-col gap-4">
               <div class="flex items-center">
                 <h3 class="grow font-bold"><%= t("edit_image") %></h3>
@@ -152,7 +152,7 @@
             <span><%= t("text") %></span>
           <% end %>
 
-          <dialog class="backdrop:bg-black/60 p-4 w-[600px] rounded" data-modal-target="dialog">
+          <dialog class="backdrop:bg-black/60 p-4 w-[600px] rounded" data-modal-target="dialog" data-action="click->modal#closeOnClickOutside">
             <div class="flex flex-col gap-4">
               <div class="flex items-center">
                 <h3 class="grow font-bold"><%= t("new_text") %></h3>
@@ -180,7 +180,7 @@
             <span><%= t("image") %></span>
           <% end %>
 
-          <dialog class="backdrop:bg-black/60 p-4 rounded" data-modal-target="dialog">
+          <dialog class="backdrop:bg-black/60 p-4 rounded" data-modal-target="dialog" data-action="click->modal#closeOnClickOutside">
             <div class="flex flex-col gap-4">
               <div class="flex items-center">
                 <h3 class="grow font-bold"><%= t("new_image") %></h3>

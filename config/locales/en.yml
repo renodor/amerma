@@ -28,3 +28,11 @@ en:
   we_worked_with: "We worked with:"
   website: "Site web"
   crafted_by: "Crafted by"
+  footer:
+    low_tech: "Amerma.org is a low tech website."
+    know_more: "Know more?"
+    modal_design_html: "The architecture and design of this website were created with a <b>digital sustainability approach</b>, aiming to reduce its resource consumption and carbon footprint as much as possible."
+    modal_content: "The website prioritizes text-based content. No videos are used, and the number of images is intentionally kept to a minimum. The images that are included are compressed, optimized, and displayed in black and white to reduce page size. The website is simple and fast, with optimized code that minimizes loading times and the resources required to run it."
+    modal_hosting: "The website is hosted in Europe by Infomaniak, a hosting provider committed to environmental sustainability and sustainable development:"
+    modal_rating_html: "According to Website Carbon, a tool that measures the carbon footprint of websites, this website has been awarded an <b>A+</b> rating. This assessment indicates that it is <b>cleaner than 96% of the web pages analyzed worldwide</b>."
+    modal_view_analysis: "View the Website Carbon analysis"

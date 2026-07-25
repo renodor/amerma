@@ -170,3 +170,11 @@ fr:
   update_password_error: "Erreur lors de la modification du mot de passe. Merci de vérifier les différents champs"
   admins: "Admins"
   crafted_by: "Crafted by"
+  footer:
+    low_tech: "Amerma.org est un site low tech."
+    know_more: "En savoir plus?"
+    modal_design_html: "L'architecture et le design de ce site ont été conçus dans une <b>démarche de sobriété numérique</b>, afin de réduire autant que possible sa consommation de ressources et son empreinte carbone."
+    modal_content: "Le contenu privilégie le texte. Aucune vidéo n'est utilisée et le nombre d'images est volontairement limité. Les images présentes sont compressées, optimisées et affichées en noir et blanc afin de réduire le poids des pages. Le site est simple et rapide, avec un code optimisé permettant de limiter les temps de chargement et les ressources nécessaires à son fonctionnement."
+    modal_hosting: "Le site est hébergé en Europe chez Infomaniak, hébergeur engagé en matière d'écologie et de développement durable:"
+    modal_rating_html: "Selon l'outil Website Carbon, qui mesure l'empreinte carbone des sites web, ce site obtient la note <b>A+</b>. Cette évaluation indique qu'il est <b>plus sobre que 96% des pages web analysées</b> dans le monde."
+    modal_view_analysis: "Voir l'analyse de Website Carbon"
