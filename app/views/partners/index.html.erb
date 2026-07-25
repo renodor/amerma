@@ -1,12 +1,12 @@
 <header class="my-10 flex flex-col gap-5">
-  <h1 class="text-5xl font-bold border-b border-black"><%= t("partners") %></h1>
+  <h1 class="text-3xl sm:text-5xl font-bold border-b border-black"><%= t("partners") %></h1>
 </header>
 
 <section class="mt-3 flex flex-col gap-10">
   <%= render_translated_action_text(@partners_text, :text) %>
   <% @partner_categories.each do |partner_category| %>
     <div class="flex flex-col gap-4">
-      <h2 class="text-3xl font-bold flex gap-3 items-center">
+      <h2 class="text-2xl sm:text-3xl font-bold flex gap-3 items-center">
         <%= inline_svg partner_category.icon_path, class: "w-10 h-10 shrink-0" %>
         <span><%= translates(partner_category, :name) %></span>
       </h2>

@@ -7,7 +7,7 @@
 
   <section>
     <div class="flex justify-center">
-      <div class="w-11/12 px-3 py-6 text-center leading-8 text-xl bg-white border-2 border-black border-dashed sm:w-3/4 sm:px-6">
+      <div class="w-11/12 px-3 py-6 text-center leading-7 text-lg sm:leading-8 sm:text-xl bg-white border-2 border-black border-dashed sm:w-3/4 sm:px-6">
         <%= render_translated_action_text(@home_text_1, :text) %>
       </div>
     </div>
@@ -20,7 +20,7 @@
 
   <section>
     <div class="mb-6">
-      <p class="text-3xl font-bold"><%= t("our_missions") %></p>
+      <p class="text-2xl sm:text-3xl font-bold"><%= t("our_missions") %></p>
     </div>
     <div class="grid grid-cols-1 gap-y-10 gap-x-14 lg:grid-cols-3">
       <% @project_categories.each do |project_category| %>
@@ -37,7 +37,7 @@
   </section>
 
   <section class="bg-gray-100 p-4 py-6">
-    <h2 class="text-3xl font-bold mb-6"><%= t("our_last_projects") %></h2>
+    <h2 class="text-2xl sm:text-3xl font-bold mb-6"><%= t("our_last_projects") %></h2>
     <div class="flex flex-col gap-6">
       <% @projects.each do |project| %>
         <%= render "projects/card", project: project %>
