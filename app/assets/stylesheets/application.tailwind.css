@@ -46,11 +46,11 @@
   }
 
   .btn-primary {
-    @apply px-4 py-1 border border-2 border-black bg-black text-white cursor-pointer transition-shadow hover:shadow-flat hover:shadow-gray-400;
+    @apply px-4 py-1 border-2 border-black bg-black text-white cursor-pointer transition-shadow hover:shadow-flat hover:shadow-gray-400;
   }
 
   .btn-secondary {
-    @apply px-4 py-1 border border-2 border-black cursor-pointer hover:shadow-flat;
+    @apply px-4 py-1 border-2 border-black cursor-pointer hover:shadow-flat;
   }
 
   .btn-old-school {
@@ -59,6 +59,20 @@
 
   .trix-content a {
     @apply underline text-amerma-blue cursor-pointer hover:no-underline;
+  }
+
+  .carbonbadge {
+    #wcb_g {
+      @apply !border-none !text-[#0b65b0];
+    }
+
+    #wcb_a {
+      @apply !bg-[#0b65b0] !border-none;
+    }
+
+    #wcb_2 {
+      @apply !text-white;
+    }
   }
 }
 
